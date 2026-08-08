@@ -688,13 +688,13 @@ if best is None or -r.fun > best[1]:
 
 \section{Results}
 
-Before we proceed, there were some issues when carrying out the study that were hard to prevent. For one, only $32$ people completed $\ge 2$ assessments in the study, compared to the desired $100$ completing $5$ assessments. As a result, we had to use imperfect data (e.g., the data of students who had only interacted with the system for $4$ hours). This was undesirable, but there was little that could be done as students cannot be forced to partake in the study. Moreover, we learned at the end that the AI tutoring system had some flaws. For example, it would consider students responses of bare integers (like $\texttt 3$) to be non-mathematical, leading to an inability of the system to respond to some questions. Last but not least, the AI system was also quite direct at times when aiming to adhere to it's parameters, causing frustration in students\footnote{as evident from the ``bug reports"}.
+Before we proceed, we note some issues in carrying out the study that were hard to prevent. For one, only $32$ people completed $\ge 2$ assessments, compared to the desired $100$ completing $5$ assessments. As a result, we had to use imperfect data (e.g., the data of students who had interacted with the system for only $4$ hours). This was undesirable, but there was little that could be done, as students cannot be forced to partake in the study. Moreover, we learned at the end that the AI tutoring system had some flaws. For example, it would treat student responses consisting of a bare integer (like $\texttt 3$) as non-mathematical, leaving the system unable to respond to some questions. Finally, the AI system was also quite direct at times when adhering to its parameters, causing frustration in students\footnote{as evident from the ``bug reports''}.
 
 \subsection{RSM Calculation}
-We begin by taking the raw data received from the students and turning it into usable outputs. We do this through the methods described in Section $\ref{sec3}$. Calculating transfer, performance, and metacognitive calibration are all easily computed from the data, and are thus omitted from brevity. To calculate initiation tendency and the ICAP portion of engagement, we provided clear and detailed instructions as a system prompt to the GPT 5.6-Luna API and told it to assign a numerical score to each message.\footnote{The use of an AI system was crucial here because we needed to process over 5,000 messages, which would be infeasible by hand. Moreover, the use of an LLM allowed for standard grading throughout, whereas a human would inevitably classify similar messages differently over a long period of time.} We then proceeded as described in Section $\ref{sec3}$. Moreover, calculating engagement was a slightly longer process and is detailed further in \ref{appc}. All the final $z$-scored data is available in $\ref{d}$.
+We begin by taking the raw data received from the students and turning it into usable outputs. We do this through the methods described in Section $\ref{sec3}$. Transfer, performance, and metacognitive calibration are all easily computed from the data, and their calculation is thus omitted for brevity. To calculate initiation tendency and the ICAP portion of engagement, we provided clear and detailed instructions as a system prompt to the GPT 5.6-Luna API and told it to assign a numerical score to each message.\footnote{The use of an AI system was crucial here because we needed to process over 5,000 messages, which would be infeasible by hand. Moreover, the use of an LLM allowed for consistent grading throughout, whereas a human would inevitably classify similar messages differently over a long period of time.} We then proceeded as described in Section $\ref{sec3}$. Calculating engagement was a slightly longer process and is detailed further in Appendix $\ref{appc}$. All the final $z$-scored data is available in Appendix $\ref{d}$.
 
-\section{Outcome Correlation Table}
-We can create the outcome correlation table below based on the data. In the following table, a value of $1$ represents a perfect direct correlation, whereas $0$ represents no linear correlation, and $-1$ represents inverse correlation. Note that most correlation, for example metacognitive calibration vs. transfer, is nonsignificant, demonstrating that those outcomes respond differently to the various parameters. However, there are two meaningful correlations here: transfer vs performance, and transfer vs. initiation tendency. The former was expected, and is consistent the hypothesis that transfer and performance are interlinked (and thus a lower transfer weight is representative). The latter is a surprising result, but makes sense with further analysis: someone who attacks newer problems independently first is expected to be more willing to adapt skills to new concepts. Engagement also only weakly correlated with the other outcomes, so this does not contradict the data from Khanmigo. Moreover, the general small correlations between outcomes make the accuracy of the weights especially important, because they each now affect $c (\m x)$ separately.
+\subsection{Outcome Correlation Table}
+We can create the outcome correlation table below based on the data. In the following table, a value of $1$ represents a perfect direct correlation, $0$ represents no linear correlation, and $-1$ represents perfect inverse correlation. Note that most correlations, for example metacognitive calibration vs.\ transfer, are nonsignificant, demonstrating that those outcomes respond differently to the various parameters. However, there are two meaningful correlations here: transfer vs.\ performance, and transfer vs.\ initiation tendency. The former was expected, and is consistent with the hypothesis that transfer and performance are interlinked (and thus that a lower transfer weight is appropriate). The latter is a surprising result, but makes sense on further analysis: someone who attacks unfamiliar problems independently is expected to be more willing to adapt skills to new concepts. Engagement also correlated only weakly with the other outcomes, so this does not contradict the data from Khanmigo. Moreover, the generally small correlations between outcomes make the accuracy of the weights especially important, because each outcome now affects $c (\m x)$ separately.
 
 \begin{table}[htbp]
 \centering
@@ -728,9 +728,9 @@ examined how well each of the $5$ models represented the observed data.
 Each model contained 15 coefficients and was estimated from 32 observations.
 
 \paragraph{Multicollinearity.}
-We first examine multicollinearity, which occurs when terms are not linearly independent\footnote{not being linearly independent means that they do not depend on one another, and carry information separately}. As shown in Table~\ref{tab:vif}, all
+We first examine multicollinearity, which occurs when terms are not linearly independent\footnote{terms are linearly independent when they do not depend on one another, and so carry information separately}. As shown in Table~\ref{tab:vif}, all
 non-intercept variance inflation factors (VIFs) were close to 1, and the
-condition number of the model matrix was 4.79. Values near $1$ means that there is no correlation between the variable and others; thus, these VIFs indicate that
+condition number of the model matrix was 4.79. Values near $1$ mean that there is no correlation between a variable and the others; thus, these VIFs indicate that
 the experimental design separated the model terms well and that
 multicollinearity was not a concern.
 
@@ -771,9 +771,9 @@ multicollinearity was not a concern.
 Table~\ref{tab:model-adequacy} summarizes the fit of the five response
 models. We look at two different tests for fit: checking $R^2$ and the $F$-test.
 \\\\
-The $R^2$ value represents the amount of variation in the output explained by the input values. We can notice that, on average, only about $50\%$ of the variation in the outputs can be explained by the inputs. Moreover, $R^2_{\text{adj}}$ represents how significant each of the terms are in the calculation of the output. When this value is negative, this means that simple weighted average would have had a better estimate, and the inputs have minimal to no correlation with the output\footnote{There could have been other causes of this, which we get into in the limitations section}. Last but not least, we calculate predicted $R^2$ with the PRESS method, which involves leaving out one of the data points and analyzing how well the model generalizes. Our low values for such indicate that our model overfits, and this may not easily generalize to new data points. However, this can be justified by our lack of data points --- we only had $32$ data points in comparison to the $15$ coefficients
+The $R^2$ value represents the amount of variation in the output explained by the input values. We can notice that, on average, only about $50\%$ of the variation in the outputs can be explained by the inputs. Moreover, $R^2_{\text{adj}}$ represents how significant each of the terms is in the calculation of the output. When this value is negative, it means that a simple average would have been a better estimator, and that the inputs have minimal to no correlation with the output\footnote{There could have been other causes of this, which we get into in the limitations section.}. Finally, we calculate predicted $R^2$ with the PRESS method, which involves leaving out one of the data points and analyzing how well the model generalizes. Our low values here indicate that our model overfits and may not generalize easily to new data points. However, this can be explained by our lack of data --- we had only $32$ data points for $15$ coefficients.
 \\\\
-The $F$-test reinforces this. With our degrees of freedom, a statistically significant result would require $p<.05 \implies F\gg 2$. However, except for transfer, $F$ is too low to get a statistically significant result; in the special case of transfer, $F$ is somewhat significant. Thus, we can conclude that a mean would be a better predictor for our data than the functions, as was demonstrated by the $R^2_{\text{adj}}$.
+The $F$-test reinforces this. With our degrees of freedom, a statistically significant result would require $p<.05 \implies F\gg 2$. However, $F$ is too low to reach significance for every outcome except transfer, which is only borderline. Thus, we can conclude that a mean would be a better predictor for our data than the fitted functions, as was already indicated by $R^2_{\text{adj}}$.
 
 \begin{table*}[htbp]
 \centering
@@ -782,7 +782,7 @@ The $F$-test reinforces this. With our degrees of freedom, a statistically signi
 \begin{threeparttable}
 \begin{tabular}{lrrrrrr}
 \toprule
-Outcome & $R^2$ & $R^2_{\text{adj}}$ & Predicted $R^2$ & $F$ & $df$\footnote{model, residual}& $p$ \\
+Outcome & $R^2$ & $R^2_{\text{adj}}$ & Predicted $R^2$ & $F$ & $df$\tnote{a} & $p$ \\
 \midrule
 Metacognitive calibration & .378 & $-.134$ & $-1.144$ & .739 & 14, 17 & .713 \\
 Transfer                  & .610 &  .288   & $-.629$  & 1.898 & 14, 17 & .105 \\
@@ -791,13 +791,16 @@ Achievement               & .433 & $-.034$ & $-1.513$ & .927 & 14, 17 & .552 \\
 Engagement                & .326 & $-.229$ & $-.726$  & .588 & 14, 17 & .840 \\
 \bottomrule
 \end{tabular}
+\begin{tablenotes}\footnotesize
+\item[a] Model and residual degrees of freedom, respectively.
+\end{tablenotes}
 \end{threeparttable}
 \end{table*}
 
 
 \paragraph{Lack of fit.}
 
-We then conducted a lack-of-fit test to understand how well the response surface captured the data. By over-replicating the center point, we can understand the amount of ``noise" present in the data to establish whether the model has bigger errors than this noise. Our method of replication led to $7$ pure-error degrees of freedom, $7-1$ from the center point replication and $2-1$ from replicating condition $11$ twice. We then consider the lack-of-fit degrees of freedom to be the difference betwen model degrees of freedom ($32-15=17$) and the pure-error degrees of freedom ($1+6=7$). These degrees of freedom play a role in finding the value of $F$, which then translate to $p$.
+We then conducted a lack-of-fit test to understand how well the response surface captured the data. By over-replicating the center point, we can estimate the amount of ``noise'' present in the data and establish whether the model's errors are larger than this noise. Our method of replication led to $7$ pure-error degrees of freedom: $7-1$ from the center point replication and $2-1$ from replicating condition $11$ twice. We then take the lack-of-fit degrees of freedom to be the difference between the model degrees of freedom ($32-15=17$) and the pure-error degrees of freedom ($6+1=7$). These degrees of freedom play a role in finding the value of $F$, which then translates to $p$.
 \begin{table}[htbp]
     \centering
     \caption{Lack-of-fit tests for the five response models}
@@ -818,7 +821,7 @@ We then conducted a lack-of-fit test to understand how well the response surface
 
 \end{table}
 
-Because all the $p$ values are $\gg .05$, we cannot reject the null hypothesis and thus the model adequately fits the data. Moreover, this implies that the models' errors were not
+Because all the $p$ values are $\gg .05$, we cannot reject the null hypothesis, and thus conclude that the model adequately fits the data. Moreover, this implies that the models' errors were not
 larger than the variation between participants who received identical
 parameters. 
 
@@ -826,7 +829,7 @@ parameters.
 
 From the above sections, we can conclude the following about the model fit:
 \begin{itemize}
-    \item Using the RSM model is generally worse than taking the mean of the data. This generally demonstrates that the input parameters correlate very little with the outcomes, which we discuss more in the limitations.
+    \item Using the RSM model is generally worse than taking the mean of the data. This suggests that the input parameters correlate very little with the outcomes, which we discuss further in the limitations.
     \item However, the RSM model fits the data adequately, failing to reject the null hypothesis in the lack-of-fit test.
     \item The RSM model does not generalize to new data well, and overfits significantly to the training data.
 \end{itemize}
@@ -836,14 +839,14 @@ From the above sections, we can conclude the following about the model fit:
 \label{sec:optimization}
 
 After testing the model for fit, the fitted surfaces were used to
-identify promising combinations of tutor settings. Because the fitted models
-were incapable of predicting well, the solutions
-reported here should be considered preliminary. Further tests should be completed before adopting these values into real systems.
+identify promising combinations of tutor settings. Because the models
+did not predict well, the solutions
+reported here should be considered preliminary. Further testing should be completed before these values are adopted into real systems.
 
 \subsubsection{Optimum Values}
 We used several values for $e_{th}$ to show how the recommended
-settings changed as we require a greater minimum on engagement. The
-percentile thresholds corresponded to the 25th, 50th, 75th, and 90th
+settings change as we require a greater minimum on engagement. The
+thresholds corresponded to the 25th, 50th, 75th, and 90th
 percentiles of the observed engagement distribution.
 
 \begin{table*}[htbp]
@@ -928,7 +931,7 @@ percentiles of the observed engagement distribution.
 \end{table*}
 
 \newpage
-When no constrains are placed on $e(x)$, we reach the unconstrained solution at $AS = -1.291$, $AD = 1.207$, $MCP = -.620$, and $SFR = .702$. Moreover, the solution remains the same for the $25$th percentile engagement threshold $e_{th}=-.314$ as well. After that point, increasing $e_{th}$ leads to the rapid lowering of $c(\mathbf x^*)$. Figure $\ref{fign}$ demonstrates the tradeoff curve between engagement and the composite learning index, and also shows how the values of $AS, AD, MCP$, and $SFR$ change as we increase $e_{th}$. Here, percentiles are calculated according to the observed data, as is common in literature.
+When no constraints are placed on $e(\mathbf x)$, we reach the unconstrained solution at $AS = -1.291$, $AD = 1.207$, $MCP = -.620$, and $SFR = .702$. The solution remains the same for the $25$th percentile engagement threshold $e_{th}=-.314$. After that point, increasing $e_{th}$ leads to a rapid lowering of $c(\mathbf x^*)$. Figure $\ref{fign}$ demonstrates the tradeoff curve between engagement and the composite learning index, and also shows how the values of $AS, AD, MCP$, and $SFR$ change as we increase $e_{th}$. Here, percentiles are calculated according to the observed data, as is common in literature.
 \begin{figure}
     \centering
     \includegraphics[width=1\linewidth]{fig_tradeoff.png}
@@ -936,7 +939,7 @@ When no constrains are placed on $e(x)$, we reach the unconstrained solution at 
     \label{fign}
 \end{figure}
 \\\\
-As the engagement requirement increased, we saw the expected across AS and SFR: the ``easier" the parameters were set, engagement was able to go higher. However, we see that the metacognitive prompting rate in fact went up as the engagement threshold increased. The cause for this was a system failure --- even though the rate was supposed to go up, students often didn't interact with the system long enough to receive $2$ or more metacognitive prompts in a single problem. As a result, the amount of metacognitive prompts were roughly similar across each of the prompting categories, and the curve displayed here is just noise. Moreover, access delay also goes up initially before coming back down. We believe that this is due to another limitation of the experiment; specifically, students typically were comfortable with topics before asking the tutor so they didn't need the hint feature as much (it was just used to check answers). Those who did need hints may have also chosen to wait out the delay period rather than to think during the time.
+As the engagement requirement increased, we saw the expected trend across AS and SFR: the ``easier'' the parameters were set, the higher engagement could go. However, the metacognitive prompting rate in fact went up as the engagement threshold increased. The cause for this was a system failure --- even though the rate was supposed to go up, students often did not interact with the system long enough to receive $2$ or more metacognitive prompts in a single problem. As a result, the number of metacognitive prompts was roughly similar across each of the prompting categories, and the curve displayed here is just noise. Access delay also goes up initially before coming back down. We believe that this is due to another limitation of the experiment; specifically, students were typically comfortable with topics before asking the tutor, so they did not need the hint feature as much (it was used mainly to check answers). Those who did need hints may have also chosen to wait out the delay period rather than to think during the time.
 
 
 
@@ -1028,8 +1031,8 @@ $+0.9007$ & p90          & \textbf{0.9914} & $+0.9007$ & $-0.939$ & $+1.608$ & $
 \bottomrule
 \end{tabular}%
 }
-\caption{Your caption here}
-\label{tab:your-label}
+\caption{Optimal coded settings at each engagement threshold, with the status of the engagement constraint}
+\label{tab:optima-constraint-status}
 \end{table}
 
 
@@ -1047,15 +1050,15 @@ $+0.6089$ & p75           & $+0.9794$ & $+2.3710$ & $+0.8460$ & $+0.9653$ & 1.23
 $+0.9007$ & p90           & $+0.7581$ & $+2.0739$ & $+0.6551$ & $+0.7092$ & 0.9914 \\
 \bottomrule
 \end{tabular}
-\caption{Your caption here}
-\label{tab:your-label}
+\caption{Predicted outcome components at each engagement threshold, at full precision}
+\label{tab:optima-components-full}
 \end{table}
 
 \newpage
 
 \section{Appendix B: $z$-scoring}
 
-$z$-scoring is a statistical method used in the study to normalize all the data. This method is so effective because it sets the mean of the sample to $0$, and the standard deviation to $1$. Moreover, it also does not change the overall shape of the data. To $z$-score a sample of data, we use the formula
+$z$-scoring is a statistical method used in the study to normalize all the data. It is effective here because it sets the mean of the sample to $0$ and the standard deviation to $1$, without changing the overall shape of the data. To $z$-score a sample of data, we use the formula
 \[z = \frac{x-\mu}{\sigma},\] where $\mu$ and $\sigma$ denote the mean and standard deviation of the sample. To make it concrete, consider the following data:
 
 \[
@@ -1085,7 +1088,7 @@ To check, we can verify that the mean of this data is
 \newpage
 \section{Appendix C: Ordinary Least Squares \& Engagement Calculation}\label{appc}
 
-We first $z$-score both columns. Afterward, we are left with the following data:
+We first $z$-score both the baseline and the final engagement columns. Afterward, we are left with the following data:
 \[
 \begin{array}{c|c}
 \text{\textbf{baseline}} & \text{\textbf{final}} \\
@@ -1125,7 +1128,7 @@ We first $z$-score both columns. Afterward, we are left with the following data:
 \end{array}
 \]
 To fit a line through the data with linear regression, we use the OLS technique. When doing this, our goal is to minimize the squared error:
-\[\sum \frac 12 (\hat{y} - y)^2,\] where $\hat y$ represent the predicted value of $y$ and $y$ is the actual value.
+\[\sum \frac 12 (\hat{y} - y)^2,\] where $\hat y$ represents the predicted value and $y$ is the actual value.
 \\\\
 Define $\mathbf X$ to be the design matrix consisting of a column of $1$'s appended to the baseline engagement column. It then looks like:
 \[
@@ -1153,7 +1156,7 @@ Last but not least, define the label vector as
 \end{bmatrix}\]
 Thus, minimizing the squared error becomes equivalent to minimizing
 \[\|\mathbf y - \mathbf X \mathbf w \|^2, \] which is achieved at
-\[w = (\mathbf X^\top \mathbf X)^{-1}  \mathbf X^{\top} \mathbf y.\] The proof for this is a  derivative computation, and can be found at \href{https://d2l.ai/chapter_linear-regression/linear-regression.html}{d2l.ai}. Running the \href{https://colab.research.google.com/drive/1dz1KTdW83w6i_jnsk0L2mwTmZKUxytPn#scrollTo=1IRfv-kpzz3Z}{following pytorch code}
+\[w = (\mathbf X^\top \mathbf X)^{-1}  \mathbf X^{\top} \mathbf y.\] The proof for this is a derivative computation, and can be found at \href{https://d2l.ai/chapter_linear-regression/linear-regression.html}{d2l.ai}. Running the \href{https://colab.research.google.com/drive/1dz1KTdW83w6i_jnsk0L2mwTmZKUxytPn#scrollTo=1IRfv-kpzz3Z}{following PyTorch code}
 \[\texttt{torch.linalg.inv(X.T @ X) @ X.T @ y}\] yields
 \[\texttt{tensor([2.2561e-02, -1.8626e-09])}, \] and thus the fitted line is $y=.026x$ (the y-intercept is incredibly small and can be dropped for the sake of calculation). Finally, we can compute how engaged the student became because of the tutor (the desired metric) by $\text{final} - .0236\times \text{initial}$. The final table is listed in Appendix $\ref{d}$, along with all the other output values.
 
