@@ -1,1 +1,1249 @@
+\documentclass[12pt]{article}
 
+% Page layout
+\usepackage[margin=1in]{geometry}
+\PassOptionsToPackage{table,xcdraw}{xcolor}
+
+% Math
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amsthm}
+\usepackage{siunitx}
+\usepackage{threeparttable}
+
+% Graphics and floats
+\usepackage{graphicx}
+\usepackage{subcaption}
+\usepackage{float}
+\usepackage{adjustbox}
+\usepackage{makecell}
+\usepackage{tikz}
+\usetikzlibrary{shapes.geometric, arrows.meta, positioning, fit, backgrounds}
+\usetikzlibrary{calc}
+\usepackage{chessfss}
+\usepackage[OT1]{fontenc}
+% Tables
+\usepackage{booktabs}
+\usepackage{multirow}
+\usepackage{diagbox}
+\usepackage{listings}
+\usepackage{tabularx}
+\usepackage{xcolor}
+\usepackage{booktabs}
+
+\usepackage{listings}
+\usepackage{xcolor}
+
+\lstset{
+    basicstyle=\ttfamily\small,
+    backgroundcolor=\color{yellow!3!white},
+    breakatwhitespace=true,
+    breaklines=true,
+    columns=fullflexible,
+    commentstyle=\color{red!70!black},
+    frame=single,
+    framerule=1pt,
+    identifierstyle=\color{green!40!black},
+    keywordstyle=\bfseries\color{blue!80!black},
+    numbers=left,
+    numbersep=8pt,
+    numberstyle=\scriptsize\sffamily\itshape\color{black!80},
+    rulecolor=\color{blue!70!black},
+    rulesepcolor=\color{blue!30!black},
+    showstringspaces=false,
+    stringstyle=\color{orange},
+    tabsize=4,
+    xleftmargin=15pt,
+    xrightmargin=15pt,
+    resetmargins=true,
+}
+
+% Text formatting
+\usepackage[normalem]{ulem}
+\useunder{\uline}{\ul}{}
+\usepackage{titlesec}
+\usepackage{verbatim}
+
+% Hyperlinks
+\definecolor{darkgreen}{rgb}{0.0, 0.5, 0.0}
+\usepackage[colorlinks=true, linkcolor=blue, citecolor=darkgreen]{hyperref}
+\usepackage[font=small]{caption}
+
+% Custom itemize environment
+\newenvironment{packed_item}{
+\begin{itemize}
+  \setlength{\itemsep}{1pt}
+  \setlength{\parskip}{0pt}
+  \setlength{\parsep}{0pt}
+}{\end{itemize}}
+
+% Custom float centering
+\makeatletter
+\newcommand*{\centerfloat}{%
+  \parindent \z@
+  \leftskip \z@ \@plus 1fil \@minus \textwidth
+  \rightskip\leftskip
+  \parfillskip \z@skip}
+\makeatother
+
+\newcommand{\m}[1]{\mathbf{#1}}
+% Section formatting
+\setcounter{secnumdepth}{4}
+\titleformat{\paragraph}
+{\normalfont\normalsize\bfseries}{\theparagraph}{1em}{}
+\titlespacing*{\paragraph}
+{0pt}{2ex plus 1ex minus .5ex}{2ex plus .5ex}
+
+
+\setlength{\parindent}{0.4in}
+
+\begin{document}
+\title{YOUR TITLE HERE}
+\author{Shivsai Sharda}
+\date{\today}
+\maketitle
+\tableofcontents
+\newpage
+
+\section{Introduction}
+\subsection{Key Terms}
+The following terms are often used synonymously, but they possess distinction important for this section.
+\begin{itemize}
+    \item \textbf{Testing Performance/Achievement:} The ability to perform on standardized testing. This is often a measure of a student's ability to retain and acquire information related to the topic being tested, but may be slightly influenced by factors such as test-taking ability, assessment design, and inherent motivation.
+    \item \textbf{Independent Reasoning Capacity (IRC):} The ability to independently evaluate information, generate defensible conclusions, and evaluate their own learning. This is often an aggregate of several different metrics, which will be displayed in Table $\ref{tab:zimmerman_mapping}$.
+\end{itemize}
+\subsection{Problem \& Consequences}
+Benjamin Bloom's 1984 paper introduced the 2 Sigma Problem \cite{bloom1984sigma} --- the finding that 1-on-1 tutoring could propel a student's testing performance nearly two standard deviations\footnote{This number is heavily debated in the education community, in large part due to the study referred to in Bloom's paper engaging participants with concepts they had never encountered before, leading to the large positive effect from 1:1 tutoring. However, experts maintain that 1:1 tutoring indeed has a moderate-significant positive effect in comparison to classroom instruction.} higher, but that 1:1 tutoring was not scalable. Ever since, personalized tutoring has been referred to as the gold standard, with Mark Zuckerberg investing \$45 billion USD through the Chan Zuckerberg Initiative \cite{kim2016zuckerberg}. Microsoft, Google, and other corporations made similar multi-million dollar investments in personalized learning \cite{beatty2024khanmicrosoft}\cite{googlecloud_learnlm}.
+\\\\
+While the issue of non-scalability stands, students remain at an academic level lower than what is theoretically achievable. Standardized assessments persist as key metrics for measuring academic achievement in the U.S., and under the Every Student Succeeds Act (ESSA), states are required to develop accountability systems to promote year-to-year academic improvement \cite{usdoe2015essa}. Moreover, tens of billions of dollars of federal funding are being invested yearly into improving student results in standardized testing \cite{ed2021budgethistorytable}. Yet despite the funding being funneled into this sector, average NAEP\footnote{National Assessment of Educational Progress, often referred to as the Nation's Report Card.} scores decreased from $243$ in 2012 to $241$ 2020  (Figure \ref{fig1}) \cite{naep2025math9}. Instead, had personalized learning been possible in 2012, a $2 \sigma$ increase in performance would result in the average student performing well over the 90th percentile, with average scores over $286$.  An improvement of this caliber can only be the result of personalized learning; current attempts made aren't effective and consume budget rapidly.
+\begin{figure}[!ht]
+    \centering
+    \includegraphics[width=1\linewidth]{naep.png}
+    \caption{NAEP long-term mathematics trend scores for 9-year-old students with current structure \cite{naep2025math9}}
+    \label{fig1}
+\end{figure}
+\\\\
+The effects of stunted academic performance will become apparent on the individual and community level as well. Arguably, the most detrimental consequence will be the ease to spread misinformation. A study run by Shaw and Nave demonstrated that participants trusted faulty AI responses $79.8\%$ of the time, with $11.7 \%$ more confidence than other participants answering the same questions without AI access \cite{shaw2026thinking}. Especially with only $70\%$ of 12th graders demonstrating grade-level competency ($\ge$ NAEP Basic) on the NAEP Reading portion \cite{naep2023reading12}, this leaves $30 \%$ of the population especially vulnerable to misinformation because they have lack much of the knowledge necessary to fact-check it. In the coming future, misinformation will become increasingly prevalent, with the rise of political deepfakes \cite{dale2026talarico} and hyper-targeted advertisements, designed specifically to match the viewer's identity, thoughts, and beliefs. The inability to identify this, a resultant of the lack of media literacy capabilities, could have consequences in elections and law, which depend on a verified set of facts.
+
+
+\subsubsection{Non-AI (Traditional) Approaches}\label{fail}
+
+First off, it is infeasible for school districts to scale tutoring in the traditional way. Because one human-tutor would be required per student, the cost of hiring teachers grows linearly with the number of students; clearly, it is absurd to be paying nearly \$75,000 USD per student.
+\\\\
+Moreover, designing a deterministic intelligent tutoring system (ITS) fails to provide the $2\sigma$ improvement from Bloom's paper \cite{bloom1984sigma}. There are several reasons for this:
+\begin{itemize}
+    \item An ITS cannot respond to natural language prompts, since it's interactions are limited to pre-scripted messages.
+    \item A student may not ask questions to the ITS, and it thus fails to clear confusions.
+    \item An unique solution pathway constructed by the student may not have been coded into the ITS, causing the ITS to falsely convey that the student's method is incorrect.
+\end{itemize}
+To make it concrete, the leading ITS --- \emph{Carnegie Learning's Cognitive Tutor} --- resulted in $.29 \sigma \ll 2 \sigma$ growth in performance in an RCT  \cite{jaciw2007cognitivetutor}.
+
+\subsection{Literature Review}
+From Section $\ref{fail}$, we can conclude that a tool that supports both NLP and has a reasonable cost is necessary. LLMs satisfy both constraints --- they are designed to handle natural language, and can work at negligible costs relative to human tutors.
+\\\\
+However, using LLMs to drive scalability comes with a hidden cost. Pedagogy has demonstrated the somewhat paradoxical nature of learning: the more seamless the learning process is, the less knowledge retained by the student \cite{bjork2011making}. Not only does it prevent long-term knowledge retention, but it also hinders the growth of one's independent reasoning and will be demonstrated later on. However, with common LLMs such as ChatGPT or Claude, the process is so fluid that students are able to offload the entirety of their cognitive effort to the AI system.\footnote{This is in fact a design choice. LLMs aim to enhance productivity and efficiency, as that is desirable in the \textbf{workplace}. But this efficiency comes with a cognitive cost; one that is acceptable in the workplace, but detrimental in education. For the purposes of an analogy, consider a 2nd grader learning arithmetic. Access to a calculator would allow them to circumvent the process of learning fundamental skills, such as adding two digit numbers. However, for a high schooler, using a calculator is fair game and is even encouraged.} An MIT Media Lab study demonstrated that using an LLM when completing a task causes a significant drop in brain connectivity, providing another reason behind limited recall \cite{kosmyna2025brainchatgptaccumulationcognitive}.
+
+\begin{figure}[h]
+\begin{minipage}{0.5\textwidth}
+    \centering
+    \includegraphics[width=1\linewidth]{claudesolve.png}
+    \caption{Claude Solving a Math Problem}
+    \label{fig:myimage}
+\end{minipage}
+\hfill
+\begin{minipage}{0.5\textwidth}
+    \begin{center}
+    \textbf{Pedagogical Issues with Claude's Response.}
+    \end{center}
+    \begin{itemize}
+        \item Provides the solution in seconds, requiring no analysis from the student.
+        \item Provides entire solutions, even when asked to ``help" the student with their work.
+        \item Provides assistance upon request.
+    \end{itemize}
+\end{minipage}
+\end{figure}
+
+ Bastani et al.'s RCT demonstrated this effect empirically --- unrestricted AI access in high school students caused a $17\%$ decline in exam performance relative to students without access\footnote{The tutoring system in the paper uses the GPT 4 API Key; the paper establishes that the model provides the wrong answer $51\%$ of the time. This could definitely inflate the decline amount; however, a large inflation in the decline amount would demonstrate that student's did not critically think about AI responses.}; whereas no change to exam performance when students used safeguarded AI \cite{doi:10.1073/pnas.2422633122}. So up to this point, it should be clear that plain LLM usage provides \emph{no non-trivial advantage} over standard 1-to-many instruction when measured by academic performance.
+ \\\\
+ To see the effect of LLMs on independent reasoning capacity (IRC), we divide IRC into three measurable components:
+ \begin{itemize}
+     \item \textbf{Metacognitive Calibration.} To what extent does a student's knowledge of a subject align with their perceived knowledge?
+     \item \textbf{Transfer Performance.} How well can a student apply knowledge to problems structurally different from those practiced?
+     \item \textbf{Initiation Tendency.} How readily does a student attempt problems independently before offloading cognitive work to an AI model or a secondary person?
+ \end{itemize}
+
+This construct of independent reasoning capacity aligns with Zimmerman's qualities of a self-regulating learner \cite{Zimmerman2000}.
+
+\begin{table}[H]
+\centering
+\caption{IRC to Zimmerman Mapping}
+\label{tab:zimmerman_mapping}
+\renewcommand{\arraystretch}{1.2}
+\begin{tabular}{p{0.30\linewidth} p{0.62\linewidth}}
+\toprule
+\textbf{IRC Facet} & \textbf{Zimmerman Alignment} \\
+\midrule
+Metacognitive Calibration &
+\textbf{Self-reflection:} Self-evaluation and causal attribution following an assessment \cite{Zimmerman2000}. \\
+\midrule
+Initiation Tendency &
+\textbf{Forethought:} Intrinsic interest and learning goal orientation: valuing the problem-solving \textbf{process} \cite{Zimmerman2000}. \\
+\midrule
+Transfer Performance &
+\textbf{Performance, Forethought:} Developing adaptable strategies to attempt unfamiliar problems \cite{Zimmerman2000}. \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+In no way do we claim that this division of IRC is exhaustive. However, these components were chosen because of their measurability via standard tools. Now, the key is that similar to how standard LLMs hurt long-term knowledge retention, they negatively effect IRC as well. In Bastani's RCT, students with access to LLMs during practice sessions reported feeling more confident in their knowledge of the material compared to their peers, but performed worse or at par with them on assessments \cite{doi:10.1073/pnas.2422633122}, demonstrating a drop in metacognitive calibration. Moreover, the same study shows that students using GPT Base, the standard GPT-4 API, began to ask for answers on the first message more frequently over the sessions, with $29\%$ of first messages asking for the answer in Session 1 and $36\%$ of messages asking for the answer in Session 4. Although a very faint decline, this provides the indication that LLMs downgrade a student's initiation tendency \cite{doi:10.1073/pnas.2422633122}. Moreover, depth and nuance are critical for developing transferrable knowledge, both of which AI eliminates to simplify its prose \cite{Vendrell2026Scaffolding}.
+\\\\
+As a result, it is imperative that we alter standard LLMs in order to both preserve knowledge and IRC. The parameters we change here comes from Vendrell and Johnston's 2026 framework on the $8$ principles to preserve critical thinking in the presence of AI \cite{Vendrell2026Scaffolding}. More specifically, we choose to alter:
+\begin{itemize}
+\item  \textbf{Hint Specificity:} How much of the solution do successive hints give away?
+\item \textbf{Access Delay:} forced time until AI responds, causing students to reason independently
+\item \textbf{Metacognitive Prompting Rate:} frequency of metacognitive prompting: prompts that force the student to think about their work (Example: “How confident are you in this step”)
+\item \textbf{Scaffolding Fade Rate:} at what rate does AI assistance decline as a student improves?
+\end{itemize}
+We now bring in another key factor: engagement. Notice that our prior goal had been to maximize IRC and knowledge, and thus we chose the above parameters. But trivially maximizing each of the parameters causes a maximum for IRC, but causes terrible engagement. To emprically see why, we study Khanmigo.\footnote{Khan Academy's AI Tutor} Khanmigo was developed as a socratic tutor, which means that it only questioned the learner to advance their knowledge \cite{khan2023harnessing}. Now this implies that Khanmigo did not give hints, thus having a maximum for hint specificity and also access delay. As a result, only $15\%$ of students with access to Khanmigo used it over the weekly recommended amount --- a mere 30 minutes \cite{khanacademy2026learninginopen}. However, as expected, Khanmigo had excellent results on achievement in schools that actively used Khanmigo \cite{oreopoulos2026khanacademy}.
+\\\\
+To the best of my knowledge, there have been no attempts to create AI tutoring systems in which the parameters mentioned above were not entirely maximized, or not changed at all. This presents a significant gap in the literature --- if maximization hurts engagement, and no change is detrimental to IRC --- a middle ground is crucial.
+
+\subsection{Research Approach}
+
+The research question explored in this paper is:
+
+\begin{quote}
+    At what combination of the parameters \textit{Hint Specificity, Access Delay, Metacognitive Prompting Rate}, \textit{Scaffolding Fade Rate} does an AI tutoring system provide sufficient support and engagement for the learner and improve performance, while enhancing their independent reasoning skills?
+\end{quote}
+
+\noindent Here, independent reasoning is measured by the metrics above. This question addresses the gap that other tutoring systems fail to take into account learner engagement, which is crucial if they want learners to use the tool. Without engagement, the tool will not be able to enhance a student's IRC as the student will not be using the tool altogether. An AI analytics study by UPenn Wharton describes that engagement is often the factor that drives the most improvement, rather than content \cite{wharton}. By creating this tool, we design the foundation for a system that students will actually use for learning. This will lead to increases in performance, as desired by the U.S. Department of Education \cite{usdoe2015essa}, but will also cause greater independent reasoning --- a highly employable trait \cite{wef2025futureofjobs}. 
+
+\subsubsection{Theory of Change}
+
+By finding the optimal set of parameters, we develop the foundations behind a good system, but do not develop the system itself. To elaborate, using solely the parameters to guide an AI tutoring system will lead to comparatively better engagement than alternatives (say, Khanmigo), but the engagement will not be strong enough for students to use it regularly without additional layers. One such layer consists of several cosmetic changes to make it more accessible and student-friendly, but the most important layer is one that makes the AI tool \emph{proactive}, rather than reactive \cite{wharton}.
+\\\\
+With these modifications complete, the tutoring system should function as intended and prove effective in the desired areas. The last bottleneck is deploying it into classrooms nationally. To accomplish this, it would be best to partner with a popular, renowned edtech company (eg; Khan Academy, Instructure) to facilitate the distribution. We recognize that this will be a difficult process though, but it is worth a shot! Home use would also be valuable, but the theory of change there is more complicated, since students have far more agency outside the classroom. At home they already have access to the most engaging general-purpose LLMs, such as Claude and ChatGPT, which makes switching them to a pedagogical tutor significantly more difficult. This study therefore prioritizes classroom deployment as teachers have more direct influence there, and students tend to carry classroom practices home once those practices have paid off for them. We elaborate more on the theory of change in the flowchart on the next page.
+
+\paragraph{Failure Modes / Assumptions}
+In the following flowchart, we expect the first three stages (up to Enhancement \# 2) to go pretty smoothly. Most of the design work from the enhancements have been developed, and it is just a matter of integrating them well. The primary difficulty arises from partnering with edtech companies, as the product will not have ``real-world testing" beyond this paper. Direct to school is also difficult as they prefer to collaborate with edtech companies instead. Another point of difficulty will be motivating students to use it at home. However, after the system has been released for a while and the benefits are known, this should resolve itself.
+
+
+\begin{figure}[p]
+\centering
+\resizebox{\textwidth}{!}{%
+\begin{tikzpicture}[
+    font=\sffamily\small,
+    % Styles
+    block/.style={rectangle, draw=blue!70!black, fill=blue!5, thick, rounded corners,
+                  align=center, inner sep=6pt, text width=14.02cm},
+    layer/.style={rectangle, draw=orange!80!black, fill=orange!5, thick, rounded corners,
+                  align=center, inner sep=6pt, text width=14.02cm},
+    home/.style={rectangle, draw=purple!70!black, fill=purple!5, thick, rounded corners,
+                  align=center, inner sep=6pt, text width=14.02cm},
+    pathprimary/.style={rectangle, draw=teal!80!black, fill=teal!5, thick, rounded corners,
+                  align=center, inner sep=6pt, text width=6.4cm, minimum height=3.6cm},
+    pathalt/.style={rectangle, draw=gray!70!black, fill=gray!10, thick, rounded corners,
+                  align=center, inner sep=6pt, text width=6.4cm, minimum height=3.6cm},
+    deploy/.style={rectangle, draw=blue!70!black, fill=blue!5, thick, rounded corners,
+                  align=center, inner sep=6pt, text width=5.4cm, minimum height=2.8cm},
+    outcome/.style={rectangle, draw=green!60!black, fill=green!5, thick, rounded corners,
+                  align=center, inner sep=6pt, text width=6.4cm, minimum height=2.2cm},
+    arrow/.style={-Stealth, thick, draw=gray!80},
+    dashedarrow/.style={-Stealth, thick, dashed, draw=gray!80},
+    line/.style={thick, draw=gray!80},
+    dot/.style={circle, fill=gray!80, inner sep=1.4pt}
+]
+
+    % ---------- Trunk ----------
+    \node (params) [block] {
+        \textbf{This Study: Optimal Parameter Tuning}\\
+        Optimizing design parameters for engagement and long-term IRC
+    };
+
+    \node (layer1) [layer, below=0.7cm of params] {
+        \textbf{Enhancement \#1}\\
+        Cosmetic changes for greater accessibility and user-friendliness
+    };
+
+    \node (layer2) [block, below=0.7cm of layer1] {
+        \textbf{Enhancement \#2}\\
+        Use multimodal systems such as eye-tracking to understand cognitive load, revealing times when greater support is needed \cite{mueller2026eyets}.
+    };
+
+    % ---------- Fork: adoption pathways ----------
+    \node (edtech) [pathprimary, anchor=north] at ($(layer2.south)+(-3.81,-1.0)$) {
+        \textbf{Primary Pathway:}\\
+        \textbf{EdTech Partnership}\\
+        \textit{\scriptsize (Favorable, but difficult)}\\
+        Partner with popular edtech companies (e.g., Khan Academy, Instructure) for national scale.
+    };
+
+    \node (direct) [pathalt, anchor=north] at ($(layer2.south)+(3.81,-1.0)$) {
+        \textbf{Alternative Pathway:}\\
+        \textbf{Direct to Schools}\\
+        Direct district outreach and local school deployment initiatives.
+    };
+    \coordinate (pairtop) at ($(edtech.south)+(3.81,-1.1)$);
+
+    \node (classroom) [deploy, anchor=north] at ($(pairtop)+(-4.31,0)$) { ... };
+    \node (hello)     [deploy, anchor=north] at ($(pairtop)+(4.31,0)$)  { ... };
+    % ---------- Concurrent pair ----------
+    \node (classroom) [deploy, anchor=north] at ($(edtech.south)+(-0.50,-1.1)$) {
+        \textbf{Classroom Deployment}\\
+        Teachers mandate system use in addition to classroom instruction. 
+    };
+
+    \node (hello) [deploy, anchor=north] at ($(direct.south)+(0.50,-1.1)$) {
+        \textbf{Teacher Training}\\
+        Teachers should be instructed on the best usage of the tool to scaffold independent reasoning.
+    };
+
+    % ---------- Home adoption ----------
+    \node (home) [home, anchor=north] at ($(classroom.south)+(4.31,-1.1)$) {
+        \textbf{Organic Home Adoption}\\
+        Best case scenario: students adopt classroom practices at home, using our system for long-term IRC development.
+    };
+
+    % ---------- Junctions ----------
+    \coordinate (fork)     at ($(layer2.south)+(0,-0.5)$);
+    \coordinate (jointop)  at ($(edtech.south)+(3.81,-0.55)$);
+    \coordinate (pairjoin) at ($(classroom.south)+(4.31,-0.55)$);
+    \coordinate (merge)    at ($(home.south)+(0,-0.7)$);
+    \coordinate (split)    at ($(merge)+(0,-0.4)$);
+
+    % ---------- Outcomes ----------
+    \node (irc) [outcome, anchor=north] at ($(split)+(-3.81,-0.5)$) {
+        \textbf{Enhanced Reasoning (IRC)}\\
+        \textbullet{} Metacognitive Calibration\\
+        \textbullet{} Initiation Tendency\\
+        \textbullet{} Transfer Performance
+    };
+
+    \node (perf) [outcome, anchor=north] at ($(split)+(3.81,-0.5)$) {
+        \textbf{Academic Performance}\\
+        Improved Learning Gains\\
+        (US Dept of Ed / ESSA)
+    };
+
+    % ---------- Connections ----------
+    \draw [arrow] (params) -- (layer1);
+    \draw [arrow] (layer1) -- (layer2);
+
+    % split into the two adoption pathways
+    \draw [line]  (layer2.south) -- (fork);
+    \node [dot] at (fork) {};
+    \draw [arrow] (fork) -| (edtech.north);
+    \draw [arrow] (fork) -| (direct.north);
+
+    % pathways re-converge, then feed the concurrent pair
+    \draw [line]  (edtech.south) |- (jointop);
+    \draw [line]  (direct.south) |- (jointop);
+    \node [dot] at (jointop) {};
+    \draw [arrow] (jointop) -| (classroom.north);
+    \draw [arrow] (jointop) -| (hello.north);
+
+    % concurrency link, labelled above the arrow
+    \draw [Stealth-Stealth, thick, dashed, draw=gray!80]
+          (classroom.east) -- (hello.west)
+          node [midway, above, inner sep=1pt, text width=2.4cm, align=center,
+                font=\sffamily\scriptsize]
+               {\textit{(concurrent with\\ deployment)}};
+
+    % pair -> home adoption
+    \draw [line] (classroom.south) |- (pairjoin);
+    \draw [line] (hello.south)     |- (pairjoin);
+    \node [dot] at (pairjoin) {};
+    \draw [dashedarrow] (pairjoin) -- (home.north);
+
+    % deployment bypasses home and rejoins at the outcome junction
+    \draw [line] (classroom.west) -- ++(-0.7,0) |- (merge);
+    \draw [line] (home.south) -- (merge);
+    \node [dot] at (merge) {};
+
+    \draw [line]  (merge) -- (split);
+    \draw [arrow] (split) -| (irc.north);
+    \draw [arrow] (split) -| (perf.north);
+
+    % balances the bounding box against the left-margin bypass
+    \path (7.92,0);
+
+\end{tikzpicture}%
+}
+\caption{\textbf{Theory of Change}}
+\label{fig:theory_of_change}
+\end{figure}
+
+\section{Methodology}
+
+\textit{High-Level Summary.} Say we compress the input variables (hint specificity, access delay, etc.) into a column vector $\mathbf{x}$. Using a response surface methodology (RSM) approach, we develop one function per outcome (Table \ref{oink}) that maps the input parameters to five learning outcomes. We collect data for these functions through an experiment in which each student is assigned a design point and tutored by a system configured to that point. The composite learning outcome is modeled as a weighted sum
+\[
+c(\mathbf{x})=0.3 f(\mathbf{x})+0.2 g(\mathbf{x})+0.1 h(\mathbf{x}) + 0.4 p(\mathbf{x})
+\]
+Then the resulting problem is to maximize \(c(\mathbf{x})\) subject to the engagement constraint
+\[
+e(\mathbf{x})\ge e_{th},
+\]
+where \(e_{th}\) denotes the minimum acceptable engagement level for a given student. Here, $c(\mathbf{x})$ consists of both IRC and performance, a specific design decision elaborated on in Section \ref{sec3}.
+
+\begin{table}[h]
+\centering
+\begin{tabular}{@{}llc@{}}
+\toprule
+Function & Outcome & Weight \\
+\midrule
+$f(\mathbf{x})$ & metacognitive calibration & $.3$ \\
+$g(\mathbf{x})$ & transfer performance      & $.2$ \\
+$h(\mathbf{x})$ & initiation tendency       & $.1$ \\
+$p(\mathbf{x})$ & achievement (performance) & $.4$\\
+$e(\mathbf{x})$ & engagement                & -- \\
+\bottomrule
+\end{tabular}
+\caption{Each response function maps $\mathbf{x}$ to one learning
+outcome.}
+\label{oink}
+\end{table}
+
+\paragraph{RSM Background}
+
+This study employs a quadratic (second-order) response surface methodology (RSM) approach to develop functions that map the input variables to the corresponding output variables. RSM is useful when it is not feasible to experimentally evaluate all possible combinations of input parameters. By experimenting over a set of carefully selected  points, we fit quadratic surface models that approximate the outputs as functions of the inputs within the design region. These fitted models can then be used to predict responses and to optimize the  function within the entire design region, rather than only over the specific input combinations that were directly tested. For completeness, for four factors the second-order model is
+\begin{equation}
+    y \;=\; \beta_0 \;+\; \sum_{i=1}^{4}\beta_i x_i \;+\; \sum_{i=1}^{4}\beta_{ii}x_i^2 \;+\; \sum_{i<j}\beta_{ij}x_ix_j \;+\; \varepsilon,
+    \label{eq:second_order}
+\end{equation}
+More specifically, we use a circumscribed central composite design (circumscribed CCD) as the type of model. We use a CCD as it helps with optimization and prediction \cite{jmp_ccd}. Moreover, we use the axial distance $\alpha = 2$ as it provides the desired conditions of being spherical and rotatable, thus making optimization even easier. To develop the CCD with $k=4$ variables, we need $25$ points in the following way:
+\begin{itemize}
+    \item \textbf{Center Point:} One center point $(0,0,0,0)$ that allows us to determine curvature and increase precision.
+    \item \textbf{Factorial Points:} $16 = 2^4$ points with each parameter coded as $\pm 1$, yielding points of the nature $(\pm 1, \pm1 , \pm 1, \pm 1)$. These help determine interactions between variables, which is useful when the effect of one parameter is affected by another parameter (so, basically always).
+    \item \textbf{Axial Points:} $8 = 2\cdot 4$ points where one variable takes the form $\pm 2$, and the other variables are $0$. These help determine quadratic terms.
+\end{itemize}
+
+\subsection{Study Design and Experimental Procedure}
+
+To gather the necessary data for RSM, we conducted an experiment to understand how each set of parameters correlates with each of the outputs. We collaborated with a primary school in an Indian suburb, which provided a strong baseline control\footnote{Though this did come with several downsides; students did not understand what the tool was at the beginning and spent a good chunk of time just testing it out.} as students had minimal prior exposure to AI tools. Approximately $N=100$ students were assigned a random \texttt{condition\_slot} that corresponds to a data point needed for the RSM model, and were asked to use the system for $10$ hours.
+\\\\
+During the experiment, students interacted with an AI tutoring system specifically designed to follow the input parameters. At the beginning, they also responded to a survey to help understand their prior mathematical ability and level of engagement with mathematics. Students were aware that there were constraints placed on the tutor, but did not know the exact parameters assigned to their model beyond the access delay. Students did, however, know when they were in a delay period and whether they could ask for a hint. 
+\\\\
+The AI tutoring system used the ChatGPT-4 mini LLM API key for conversation, but used model ChatGPT-o3 when internally solving problems. We chose the ChatGPT-4 mini model due to cost limitations; other frontier models cost several times more than GPT-4 mini and would have been incredibly expensive. However, due to GPT-4 mini's observed inability to solve complex\footnote{In fact, it sometimes could not solve simple math problems such as $x^2+x-10=0$. This was a large pain point.} math problems, it was necessary that we use a better model for reasoning tasks, e.g., solution generation. GPT o3's solution was then used by GPT-4 mini to guide answer validation and the hint pathway, which did not require extra reasoning. This aligned with Bastani et al.'s design for their GPT tutor, in which (human) teachers provided solutions to prevent hallucination \cite{bastaniharm}.
+\\\\
+Interactions with the student and AI system were restricted to math only. They were allowed to ask for help on problems and in learning topics; regarding the latter, the parameters (e.g., access delay) were not relevant and students could receive instruction at any time. Every $2$ hours of interaction, the student were required to take an assessment to continue with the study. Each assessment contained $10$ problems, distributed roughly as $7$ performance problems and $3$ transfer. Moreover, students were given $30$ minutes to complete assessments, as the problems were AI-generated and thus easier than normal. The assessment problems were based off problems completed during the practice. After each assessment, students had to predict their score on the assessment, as well as rate their learning and the difficulty of the test. The former helps compute metacognitive calibration, whereas the latter two help identify anomalies within the data.
+\\\\
+A major part of developing the application upon which the experiment was conducted was ensuring that the AI tutoring system adhered to the parameters. To achieve this, we had a thorough system prompt, which can be found in Appendix A. 
+
+
+\subsection{Parametrization of the Input}
+
+We established that the input parameters will be hint specificity, access delay, metacognitive prompting rate, and scaffolding fade rate. We now elaborate on what settings of these parameters we will use for our CCD model and experiment. Because the coded variable is always $x_i \in \{-2, -1, 0, 1, 2\}$, we use $\xi _i$ to represent what the variable means in reality. 
+\begin{table}[h]
+    \centering
+    \begin{tabular}{c|c|c}
+    \toprule
+        \text{Name}  & \text{Coded} & \text{Reality}  \\
+    \midrule
+        \text{Hint Specificity}   & $x_1$ & $\xi_1$ \\
+    \midrule
+        \text{Access Delay}   & $x_2$ & $\xi_2$ \\
+    \midrule
+        \text{Metacognitive Prompting Rate}   & $x_3$ & $\xi_3$ \\
+    \midrule
+        \text{Scaffolding Fade Rate}   & $x_4$ & $\xi_4$ \\
+    \bottomrule
+    \end{tabular}
+    \caption{Code vs Reality}
+    \label{tab:placeholder}
+\end{table}
+\\\\
+\textbf{Hint Specificity.}  
+Hint specificity refers to the rough percentage of the solution given away when the student is stuck or asks for a hint. Hint specificity is additive: if the previous hint gave away $p\%$ of the solution, the subsequent hint will give away $(p + \xi_1)\%$ of the solution away. Moreover, the answer to a problem is never given away, even if a hint is meant to give $\ge 100\%$ of the solution away to ensure at least minimal cognitive effort is applied. To convert from coded units to actual (so-called ``natural") units, we use the formula
+\[\xi_1 = 12x_1 +30.\] Given that the coded units are points where $x_1 \in \{-2, -1, 0, 1, 2\}$; the natural $\xi_1$ are $\xi_1 \in \{6, 18, 30, 42, 54\}$. These specific values were chosen with the assumption that practice problems take roughly $3$ steps, which is why $x_1=0 \implies \xi_1 = 30$. One key limitation of this structuring is that the latter $3$ values in the set, specifically $30, 42,$ and $54$, correspond to $2-4$ hints; whereas for $x_1 = 6$, that corresponds to $16$ hints. However, this is bound to happen with any choice of mapping from $x_1$ to $\xi_1$ because the number of hints is $100/\xi_1$, which grows rapidly. In order to enforce these parameters, the AI system was given a prompt isomorphic to
+\begin{enumerate}
+    \item Write out the solution to the problem. Break up the solution into the smallest chunks possible that still require cognitive effort and are not simple computations.
+    \item Assign a percentage to each step from above describing how much of the solution it gives away. These percentages must sum to 100.
+    \item The hint should consist of the next (adding on to the previous hint/work from the student) $n$ steps such that the sum of the percentages associated with steps is as close as possible to $\xi_1$ as possible.
+\end{enumerate}
+This reveals another limitation, specifically that the exact $\xi_1$ cannot be followed most of the time. However, we make the best  effort to follow $\xi_1$ without having to give useless hints.
+\\\\
+\textbf{Access Delay.} Access delay refers to the forced time in which the user attempts the problem without AI assistance. This occurs both at the beginning of the problem and between hints. In accordance with Kapur's productive failure framework, the period of access delay is significantly longer at the beginning of the problem, compared to delays during the problem. Here, we use the formula
+\[\xi_2 = 70 \cdot 3^{x_2/4}.\] This provides the conversion
+\[\{-2, -1, 0, 1, 2\} \longrightarrow \{40, 53, 70, 92, 121\},\] where the values in the second set have been rounded to the nearest integer. We still need to take into account the difficulty of the problem. Clearly, an easier problem for the learner should not receive the same access delay as one that is extremely hard for the learner. Letting the difficulty of the problem be a variable $d \in \{1,\dots, 5\}$, the delays are given by
+\[\text{initial access delay} = \xi_2 \cdot  3^{(d-1)/4}\]
+\[\text{mid-problem access delay} = \frac {\xi_2}{2} \cdot 3^{(d-1)/8}.\]
+These numbers seem arbitrary, but were chosen with the idea that harder problems take nearly exponentially more time, because processing new ideas is a difficult process. Moreover, the maximum delay over all $\xi_2 $ is capped at $6$ minutes, which was determined by communicating with the target students. For clarity, the delays for $d=3$ are shown below.
+\begin{table}[htbp]
+\centering
+\begin{tabular}{@{}lrrrrr@{}}
+\toprule
+& \multicolumn{5}{c}{Coded level $x_2$} \\
+\cmidrule(l){2-6}
+& \multicolumn{1}{c}{$-2$} & \multicolumn{1}{c}{$-1$}
+& \multicolumn{1}{c}{$0$}  & \multicolumn{1}{c}{$+1$}
+& \multicolumn{1}{c}{$+2$} \\
+\midrule
+Value of $\xi_2$  & $40$ & $53$ & $70$  & $92$  & $121$ \\
+Initial delay     & $70$ & $92$ & $121$ & $160$ & $210$ \\
+Mid-problem delay & $27$ & $35$ & $46$  & $61$  & $80$  \\
+\bottomrule
+\end{tabular}
+\caption{Access delays in seconds for $d=3$ across all coded levels of $x_2$.}
+\label{tab:access-delay}
+\end{table}
+
+\noindent \textbf{Metacognitive Prompting Rate.} Metacognitive prompts force the student to evaluate their thinking, and justify their steps. These are designed to occur more frequently on problems where students had repeated guesses; used AI assistance for a majority of the problem; or learned a topic they were unfamiliar with. The prompting rate refers to the amount of times a student receives a metacognitive prompt per problem. The conversion here is simple:
+\[\xi_3 = 2^{x_3}.\] Here, ratios represent \# of prompts / \# of problems. For example, if $x_3=-1$, then $\xi_3 = 1/2$ corresponds to 1 prompt every other problem. Similarly, if $x_3=1 \iff \xi_3 = 2$, then we provide two metacognitive prompts every problem. The reason for a geometric spacing is that arithmetic cannot span any useful range. The center point should remain $1$, as $1$ is a comfortable amount of metacognitive prompts per problem. Now if an arithmetic spacing were chosen, the highest prompting rate we could include would be $2$; otherwise, we would have a non-positive prompting rate on the other end. However, there is a real possibility that the optimal is greater than $2$, so we want to make sure to consider that.
+\\\\
+\textbf{Scaffolding Fade Rate.} As time goes on and the student becomes more familiar with the material, we wish to decrease the specificity of hints given, and increase the access delay. Thus we have the scaffolding fade rate parameter. The conversion between coded and natural units is given by
+\[\xi_4 = .08 \cdot 2^{x_4/2}.\] Here, we use a geometric approach because this parameter represents a rate, and will have an geometric effect with time, so it should also be geometric. We now know that
+\[\xi_4 \in \{.04, .057, .08, .113, .16\}.\] For the desired effect on hint specificity and access delay, we define the multiplier function
+\[m(h) = (1-\xi_4)^{\left \lfloor h \right \rfloor} < 1.\] We use the floor function here because we don't want a constantly changing access delay period and hint specificity amount; we want the user to get comfortable with the current settings before we make it more challenging. Then the hint specificity after $h$ hours is given by
+\[(\text{original hint spec.}) \times m(h), \] and similarly the access delay after $h$ hours is 
+\[\frac{\text{original access delay}}{m(h)}.\] With these definitions, we can see what the values of $\xi_4$ were chosen as they were. 
+\begin{figure}[htbp]
+    \centering
+    \begin{subfigure}[b]{0.48\textwidth}
+        \centering
+        \includegraphics[width=\linewidth]{sfr-access.png}
+        \caption{Access Delay Increases (Initial = $70$s)}
+        \label{fig:sfr-access}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.48\textwidth}
+        \centering
+        \includegraphics[width=\linewidth]{sfr-hint.png}
+        \caption{Hint Specificity Decreases (Initial = $30\%$)}
+        \label{fig:sfr-hint}
+    \end{subfigure}
+    \caption{How scaffolding fade rate affects other parameters}
+    \label{fig:sfr-combined}
+\end{figure}
+
+\noindent Based on the figures above, it is clear that $\xi_4=.04$ causes very minute changes to both parameters, whereas the larger $\xi=.16$ causes relatively large changes to the parameters. This range is crucial because we want the student's dependency on the AI system to shrink rapidly over time, but it's unknown at which point that would cause significant engagement issues. 
+
+\subsection{Measurement of the Output Variables}\label{sec3}
+
+We make a significant decision in this section, that is to encapsulate performance and IRC as a whole under a composite learning metric. This is not exactly ideal, but it is necessary. The primary reason for this is that we must optimize both IRC and knowledge, and there isn't necessarily one that takes precedence over the other. On one hand, we want to have students who can reason by themselves, but we also want them to perform well on benchmarks. Thus by making performance and IRC components of the composite learning outcome, we can maximize most simultaneously without giving preference to either. We now explain the process used to measure each of the outputs.
+\\\\
+\textbf{Metacognitive Calibration}. Recall that after a student completed an assessment, they would be asked to predict their score on the topic. Let us denotes their score prediction on assessment $n$ by $S_{n,P}$ in decimal. Moreover, let $S_{n,A}$ denote their a
+on assessment $n$. Then their initial calibration is given by the difference
+$MC_{\text{init}} = |S_{1,P} - S_{1,A}|$. In the experiment, students completed different amounts of assessments. This was not by design; rather, it was because we couldn't enforce that students complete all $5$ total assessments. However, we only include students who have completed $\ge 2$ assessments, as that would give us sufficient, although less-than-optimal data. For students who completed 2 assessments, the final calibration is given by:
+\[MC_{\text{final}} = |S_{2,P} - S_{2,A}|.\] For those who completed three assessments, we use
+\[MC_{\text{final}} = \frac 13|S_{2,P} - S_{2,A}| + \frac 23 |S_{3,P} - S_{3,A}|.\] For those who completed $k\ge 2$ assessments in general, we can use the formula
+\[MC_{\text{final}} = \frac{2}{k(k-1)} \sum_{i=2}^{k} (i-1)|S_{i,P} - S_{i,A}|.\]
+Note that in all cases, the weights sum up to $1$. We choose to weight later assessments more heavily because students will have had a greater amount of interaction with the AI system by then, and calibration scores will be more representative of the parameters by then. However, we consider all assessments to reduce the amount of noise; one bad test could heavily skew the data. In the end, we want to know how the metacognitive calibration has changed as a result of the AI system, and thus our desired value is \[MC_{\text{init}} - MC_{\text{final}}.\] We choose to go negative here so that a larger value correlates with less miscalibration; eg, being more calibrated.
+
+\noindent \textbf{Transfer Performance.} In the assessment, approximately $30\%$ of the questions ($3$ per assessment) judged transfer performance. These questions applied known topics to other fields, such as extending a mathematical concept to physics or in another scenario. As the generation tool used is not perfect, several of the transfer questions were simply harder versions of the concept; however, this trains a similar skill and thus is not a significant limitation. We measure transfer performance from the student's score on the transfer section of the test. However, to get an accurate idea of how much transfer changed due to interaction with the AI system, we must follow a similar weightage idea to metacognitive calibration. Let $T_n$ denote the percentage score, in decimal, on the transfer questions in assessment $n$. Then the initial transfer performance is given by $T_1$. For a student who has completed $k\ge 2$ assessments, their final transfer performance will be given by
+\[\frac{2}{k(k-1)} \sum_{i=2}^{k} (i-1)T_i.\] Our desired value is the change in transfer performance, given by
+\[-T_1 + \frac{2}{k(k-1)} \sum_{i=2}^{k} (i-1)T_i.\]
+
+\noindent \textbf{Initiation Tendency.} Initiation tendency tracks the ability of the learner to independently approach a problem without offloading cognitive work. Thus, to measure this output, we must ``score" each initial message sent by the user subsequent to sending the problem. A key design decision is made in this scoring process: we do not count problems in which the learner is able to immediately produce the answer without conversation. This is a slight limitation, as some users may seriously attempt problems and even obtain the answer. However, in most cases, immediate answers result from trivial problems (eg; arithmetic) and/or problems in which the user has previously seen the solution, giving a false impression that the student attempted the problem by themself. We score each message according to the following rubric:
+
+\begin{table}[H]
+\centering
+\renewcommand{\arraystretch}{1.3}
+\begin{tabular}{p{0.72\textwidth} p{0.18\textwidth}}
+\toprule
+\textbf{Student's first message after sending the problem} & \textbf{Score} \\
+\midrule
+Showed thorough reasoning or work & $0.75$--$1$ \\
+Asked about a specific step & $0.7$ \\
+Enters an incorrect answer & $0.3$ or $0.8$ \\
+Asked for a generic hint & $0.3$ \\
+Asked for the answer outright / any form of cheating & $0$ \\
+Gave up on the problem & $0$ \\
+\bottomrule
+\end{tabular}
+\caption{Scoring rubric for initiation tendency based on the student's first action after becoming stuck.}
+\label{tab:initiation-rubric}
+\end{table}
+\noindent We now elaborate on this scoring criteria. Demonstrating thorough reasoning shows that the student has attempted the problem seriously on their own, and thus earns high points on this system. The range factors the depth of the progress made; whether they made shallow observations or critical observations. Regarding the second entry, when the student asks about a specific step (eg; ``$\texttt{how do i simplify both sides}$"), we can discern that the student has given thought toward what potential routes can be used to solve the problem. However, this is not as concrete as pure reasoning/work, leading to the scoring of $.7$. When the student enters an incorrect answer, this leaves a lot of ambiguity in the scoring: is the student guessing? Have they made a real attempt, or is this the first number that came to their mind? Thus, we try to reason with both sides by scoring the message $.3$ if the answer is received within $d$ minutes, where $d \in \{1,2,3,4,5\}$ is the difficulty of the problem; and $.8$ otherwise. Generic hints demonstrate that the student would still like to attempt the problem on their own, but they put minimal thought by themself before offloading the work to the AI system. The penultimate entry in the table clearly demonstrates offloading all cognitive work, thus receiving a score of $0$; giving up on the problem tells us that they did not put any effort towards the problem.
+\\\\
+To compute the final score for initiation tendency, we sum up the scores across all relevant problems, and then divide by the number of problems.
+\\\\
+\textbf{Performance.} This is calculated akin to transfer performance. On each of the assessments, roughly $70\%$ of the problems use similar skills to those on common standardized tests, therefore being the perfect test for performance. Letting $P_n$ denote the score on the performance portion of assessment $n$, and $k \ge 2$ be the number of assessments taken by the student, the change in performance is given by
+\[\frac{2}{k(k-1)} \sum_{i=2}^{k} (i-1)P_i - P_1.\]
+\textbf{Engagement.} Scoring engagement is slightly more complicated. The difficulty here is two-fold: we must take into factor their initial levels of engagement with mathematics in order to understand to interpret their engagement with the system. To make this more concrete, take the example of a student who enjoys math and engages with it frequently; they will have better engagement with the AI system compared to someone who dislikes math. 
+\\\\
+We begin by scoring their engagement with the AI system. In doing this, we look at the cognitive engagement demonstrated by their messages, and analyze them with the ICAP framework \cite{Chi02102014}. In essence, the ICAP is a framework for classifying cognitive engagement, and states that
+\[\text{Interactive}>\text{Constructive} > \text{Active} > \text{Passive} \qquad \text{[Engagement]}\] The following table describes what each of the styles of engagement represent, and also how we score it for this study.
+
+\begin{table}[htbp]
+\centering
+\caption{ICAP scheme for scoring messages for engagement.}
+\label{tab:icap-rubric}
+\small
+\begin{tabularx}{\textwidth}{@{}l c X X@{}}
+\toprule
+\textbf{Mode} & \textbf{Score} & \textbf{Definition for the chat logs} & \textbf{Examples} \\
+\midrule
+Passive &
+0 &
+Involving no mathematical content; only receiving or acknowledging a response. &
+\makecell[t]{ ``no idea" \\ ``pls hint" \\ ``you tell me"  } \\
+\addlinespace
+Active &
+1 &
+Manipulates given information and hint without going beyond computation steps (eg; no reflection or reasoning). Often just restating findings.&
+ \makecell[t]{``Apply the rule flip the fraction \\ square the numerator and \\ denominator" \\ ``Set up the equation set [them] \\ equal then solve for x"} \\
+\addlinespace
+Constructive &
+2 &
+Generates content beyond what steps of the problems. Reflects at times about steps, and add the student's reasoning. &
+\makecell[t]{``I got 90$^{\circ}$ before, but 2x+28 should \\ be bigger than x+24, so that \\ can't be the largest angle"}\\ \addlinespace
+Interactive &
+3 &
+Constructive and continued conversation between the AI tutor and the student. The student continues to refine their reasoning and iterate. Questions hints made by the tutor for better understanding. &
+These are often extended conversation with both parties, and cannot be shown in their entirety here. Here's one example though: \makecell[t]{``why do we divide both sides by 98 \\ here?"} \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+We may then average the score over all messages sent by the user to determine the cognitive engagement score. This provides us with a solid measure of how productively engaged the student was with the system. Finally, we $z$-score this value for standardization.
+\\\\
+We must also look at their behavioral engagement, which is arguably a better method for determining how much likely they would be to continue interacting with the system, especially when it is not forced. We look at three facets; persistence after difficulty, problem completion, and engaged time. A point of difficulty is defined to be, for example, a wrong answer, an error in reasoning, or explicit demonstration of confusion. Then if the student perseveres by asking a clarifying question or continues to make a new attempt, this demonstrates continued effort after difficulty. Therefore, we may measure $PD = \text{persistence after difficulty}$ as:
+\[PD = \frac{\text{difficulty event followed by effort}}{\text{all difficulty events}}.\]
+Measuring problem completion is a simple ratio:
+\[PC = \frac{\text{problems completed}}{\text{problems attempted}}.\]
+Last but not least, engaged time is the amount of time a student spends interacting with the system\footnote{Some students chose to use the system for longer than the asked-for $10$ hours. This is interesting.}. To ensure that long breaks do not take up much of this time, the ``stopwatch" stops counting after $5$ minutes of inactivity. After $z$-scoring each of these values, we may simply take the average to determine the value for behavioral engagement, $BE$. We then define the final engagement to be the following weighted sum of cognitive engagement ($CE$) and $BE$:
+\[FE=\frac{2CE + 3 BE}{5}.\]
+We now take into account their so-called ``baseline" engagement, which stems from their inherent passion for math. This is computed from the survey responses, which can be found in the appendix. Only the following questions are relevant to engagement:
+\begin{itemize}
+    \item How much do you enjoy your mathematics class?
+    \item How often do you participate in your mathematics class (answering or asking questions, joining discussions)?
+    \item How often do you complete your mathematics homework?
+    \item On a typical weekday, how many hours do you spend studying or practicing mathematics outside of class?
+    \item On a typical weekend day, how many hours do you spend studying or practicing mathematics outside of class?
+\end{itemize}
+Let those questions be $E_1, E_2, E_3, E_4$, and $E_5$ respectively. We calibrate the responses over an interval from 1-5; questions in which \texttt{prefer not to say} was selected were removed from the calculation and the following formula was calculated accordingly. Then a simple average suffices; however, we have to first average $E_4$ and $E_5$ because they should not be weighted twice. Thus, the baseline engagement score is given by
+\[\frac{E_1+E_2+E_3+(E_4+E_5)/2}{4}.\]
+We now want to calibrate engagement with the system in accordance with the baseline engagement score. The overarching idea is that we want to compare a student's engagement with the system against what we would expect given their pre-existing level of engagement with mathematics. We cannot subtract directly here since baseline engagement and system engagement are not necessarily on the same scale. So instead, we use a simple linear regression model and utilize ordinary least squares (OLS) to fit the function to the data.  This lets us estimate what level of engagement with the system would be expected from a student with a given baseline engagement score, and then compare their actual engagement against that expectation. The difference between the prediction via the fitted model and the observed engagement via the ICAP framework is the final engagement score.
+
+\subsection{Data Preprocessing}
+
+As most participants were interacting with an AI system for the first time, a good portion of the questions were asked to test and understand the system. An example of such is ``\texttt{1+1}" ($30$ exact occurrences). Other such examples are ``\texttt{what is class timing}" ($2$ approximate occurrences), ``\texttt{can i call you venkatesh}" ($1$ occurrence), and more. To ensure that such initial questions were not counted negatively in engagement and initiation tendency, they were removed from result calculation. 
+\\\\
+Moreover, as students were encouraged to interact with the system for $10$ hours, students often used several tactics to get done faster. One example of such was intentionally putting incorrect answers in some assessments, then rating their learning low and the difficulty of the assessment as challenging. This was recognized by so-called ``type-errors" in the response to problems, such as \texttt{X is 3} as a response to a simple probability problem\footnote{in which there was no mention of a variable X.}. In this way, two assessments were removed from data calculation.
+\\\\
+Lastly, we remove questions in which a direct answer was received on the first reply from initiation tendency calculations. We do this as this could mean several things, namely:
+\begin{itemize}
+    \item Having previously found the answer to the problem before inputting it into the tutoring system, and using this as a method to artificially increase time and problem count.
+    \item Asking a different online tool (eg; Symbolab, WolframAlpha, or an LLM) for the answer, and using our system as a mere answer checker.
+    \item Having reasoned with the problem and coming to an answer by themselves.
+\end{itemize}
+Because of this variance, we choose to exclude it from our initiation tendency calculations.
+
+\subsection{Finding Optimal Parameters}\label{sec2.5}
+Recall that in the high level summary, our intent was to maximize a function $c(\m{x}) = .3f(\m x) + .2g(\m x) + .1h(\m x) + .4p(\m x)$ with $e(\m x) \ge e_{th}$ for several values of $e_{th}$. These specific weights were chosen for the following reasons:
+\begin{itemize}
+    \item $f(\m x)$ := metacognitive calibration was given a coefficient of $.3$ because the ability to understand to what extent one has grasped a concept helps one avoid traps such as the Dunning-Kruger effect \cite{Wikipedia_2026}, and make better knowledged decisions.
+    \item $g (\m x)$ := transfer performance has a weight of $.2$ because it is partly covered under performance, but carries a strong role in society --- the ability to adapt to new situations without requiring to learn every time.
+    \item $h(\m x)$ := initiation tendency has a smaller weight of $.1$ as it is beneficial during education, but has a less important role in the workplace.
+    \item $p(\m x)$ := performance has a large weight $.4$ as that is the overarching goal of the AI system. Recall that the other three facets make up IRC, while this is almost a separate goal of improving standardized test scores, and thus makes up nearly half the index.
+\end{itemize}
+This entire section describes in detail how we find the optimal $\m x$ for each $e_{th}$. We roughly utilize the following setup: we begin by fitting the RSM functions to the data, establish the constraints, and then use SLSQP optimization to minimize $-c(\m x)$.\footnote{This is equivalent to maximizing $c (\m x)$, but used instead because SLSQP likes minimization).}  
+
+\subsubsection{Fitting the RSM Functions}
+
+We again use the standard OLS technique to fit the RSM model with the data. We may do this because RSM is linear in the coefficients, so the formula described in Appendix $\ref{appc}$ is sufficient. However, for simplicity and statistical information, we use $\texttt{sm.ols}$ instead. After fitting a quadratic surface, we simplify the equation with matrices for later ease:
+\[
+\beta_0 + q^\top \m x + \m x^\top B \m x
+\]
+where $\m x$ is the column vector with each of the parameters; that is, $[x_1 \ x_2 \ x_3 \ x_4]^\top$.
+
+\subsubsection{The Optimization Algorithm}
+
+We only search the region bounded by $x^\top x = 4$, so the sphere centered at the origin with radius $2$, as that is the only space where the model is valid. Moreover, it makes sense to search that region, given that we predict the optimal parameters to be near $(0,0,0,0)$. This constraint, along with the constraint for satisfactory engagement, is housed in the \texttt{cons} list:
+
+
+\begin{lstlisting}[
+    language=Python]
+cons = [
+    # Engagement constraint: e(x) >= e_th
+    NonlinearConstraint(
+        lambda x: e0 + eg @ x + x @ eB @ x,
+        e_th,
+        np.inf,
+        jac=lambda x: (eg + 2 * eB @ x).reshape(1, -1),
+    ),
+    # Boundary constraint: xTx <= 2
+    NonlinearConstraint(
+        lambda x: float(x @ x),
+        0.0,
+        C.RADIUS ** 2,
+        jac=lambda x: (2 * x).reshape(1, -1),
+    ),
+]
+
+\end{lstlisting}
+To maximize $c(\m x)$, we instead minimize $-c(\m x)$ as SciPy only has a minimize library. With the Sequential Least Squares Programming (SLSQP) method, we can search the surface for optima while remaining within the constraint. Moreover, we use several starting points, 231 to be exact, as to not get caught up in a local optimum. Varying these $231$ points across the border and interior of the surface allows us to avoid this issue. The minimize function called with SLSQP completes the rest of the optimization cleanly; however, we define one more function $\texttt{ok()}$ to ensure that the outputs indeed satisfy the constraints. It is run with the following code:
+
+\begin{lstlisting}
+for s in starts:
+r = minimize(obj, s, jac=jac, method="SLSQP", constraints=cons,
+             options=dict(maxiter=400, ftol=1e-12))
+if not ok(r.x):
+    continue
+if collect:
+    local.append((-r.fun, r.x.copy()))
+if best is None or -r.fun > best[1]:
+    best = (r.x, -r.fun)
+\end{lstlisting}
+
+\section{Results}
+
+Before we proceed, there were some issues when carrying out the study that were hard to prevent. For one, only $32$ people completed $\ge 2$ assessments in the study, compared to the desired $100$ completing $5$ assessments. As a result, we had to use imperfect data (e.g., the data of students who had only interacted with the system for $4$ hours). This was undesirable, but there was little that could be done as students cannot be forced to partake in the study. Moreover, we learned at the end that the AI tutoring system had some flaws. For example, it would consider students responses of bare integers (like $\texttt 3$) to be non-mathematical, leading to an inability of the system to respond to some questions. Last but not least, the AI system was also quite direct at times when aiming to adhere to it's parameters, causing frustration in students\footnote{as evident from the ``bug reports"}.
+
+\subsection{RSM Calculation}
+We begin by taking the raw data received from the students and turning it into usable outputs. We do this through the methods described in Section $\ref{sec3}$. Calculating transfer, performance, and metacognitive calibration are all easily computed from the data, and are thus omitted from brevity. To calculate initiation tendency and the ICAP portion of engagement, we provided clear and detailed instructions as a system prompt to the GPT 5.6-Luna API and told it to assign a numerical score to each message.\footnote{The use of an AI system was crucial here because we needed to process over 5,000 messages, which would be infeasible by hand. Moreover, the use of an LLM allowed for standard grading throughout, whereas a human would inevitably classify similar messages differently over a long period of time.} We then proceeded as described in Section $\ref{sec3}$. Moreover, calculating engagement was a slightly longer process and is detailed further in \ref{appc}. All the final $z$-scored data is available in $\ref{d}$.
+
+\section{Outcome Correlation Table}
+We can create the outcome correlation table below based on the data. In the following table, a value of $1$ represents a perfect direct correlation, whereas $0$ represents no linear correlation, and $-1$ represents inverse correlation. Note that most correlation, for example metacognitive calibration vs. transfer, is nonsignificant, demonstrating that those outcomes respond differently to the various parameters. However, there are two meaningful correlations here: transfer vs performance, and transfer vs. initiation tendency. The former was expected, and is consistent the hypothesis that transfer and performance are interlinked (and thus a lower transfer weight is representative). The latter is a surprising result, but makes sense with further analysis: someone who attacks newer problems independently first is expected to be more willing to adapt skills to new concepts. Engagement also only weakly correlated with the other outcomes, so this does not contradict the data from Khanmigo. Moreover, the general small correlations between outcomes make the accuracy of the weights especially important, because they each now affect $c (\m x)$ separately.
+
+\begin{table}[htbp]
+\centering
+\caption{Pearson correlation $r$ among the five standardized responses}
+\label{tab:corr}
+\begin{threeparttable}
+\begin{tabular}{lccccc}
+\toprule
+& MC & Transfer & Perf. & Init. & Eng. \\
+\midrule
+MC          & $1.00$ & $0.18$ & $0.24$ & $0.13$ & $0.18$ \\
+Transfer    & $0.18$ & $1.00$ & $0.45^{*}$ & $0.43^{*}$ & $0.12$ \\
+Performance & $0.24$ & $0.45^{*}$ & $1.00$ & $0.24$ & $0.28$ \\
+Initiation  & $0.13$ & $0.43^{*}$ & $0.24$ & $1.00$ & $0.26$ \\
+Engagement  & $0.18$ & $0.12$ & $0.28$ & $0.26$ & $1.00$ \\
+\bottomrule
+\end{tabular}
+\begin{tablenotes}\footnotesize
+\begin{centering}
+\item $^{*}p<.05 =$ significant result.
+\end{centering}
+\end{tablenotes}
+\end{threeparttable}
+\end{table}
+
+\subsection{Model fitting and adequacy}
+\label{sec:model-adequacy}
+
+Before using the response surfaces to identify promising tutor settings, we
+examined how well each of the $5$ models represented the observed data.
+Each model contained 15 coefficients and was estimated from 32 observations.
+
+\paragraph{Multicollinearity.}
+We first examine multicollinearity, which occurs when terms are not linearly independent\footnote{not being linearly independent means that they do not depend on one another, and carry information separately}. As shown in Table~\ref{tab:vif}, all
+non-intercept variance inflation factors (VIFs) were close to 1, and the
+condition number of the model matrix was 4.79. Values near $1$ means that there is no correlation between the variable and others; thus, these VIFs indicate that
+the experimental design separated the model terms well and that
+multicollinearity was not a concern.
+
+\begin{table}[htbp]
+    \centering
+    \caption{Variance inflation factors for the quadratic model terms}
+    \label{tab:vif}
+    \begin{threeparttable}
+        \begin{tabular}{lc}
+            \toprule
+            Model term & VIF \\
+            \midrule
+            Intercept                & 4.571 \\
+            $\mathrm{AS}$            & 1.013 \\
+            $\mathrm{AD}$            & 1.013 \\
+            $\mathrm{MCP}$           & 1.013 \\
+            $\mathrm{SFR}$           & 1.013 \\
+            $\mathrm{AS}\times\mathrm{AD}$   & 1.019 \\
+            $\mathrm{AS}\times\mathrm{MCP}$  & 1.019 \\
+            $\mathrm{AS}\times\mathrm{SFR}$  & 1.019 \\
+            $\mathrm{AD}\times\mathrm{MCP}$  & 1.019 \\
+            $\mathrm{AD}\times\mathrm{SFR}$  & 1.019 \\
+            $\mathrm{MCP}\times\mathrm{SFR}$ & 1.019 \\
+            $\mathrm{AS}^{2}$        & 1.029 \\
+            $\mathrm{AD}^{2}$        & 1.029 \\
+            $\mathrm{MCP}^{2}$       & 1.029 \\
+            $\mathrm{SFR}^{2}$       & 1.029 \\
+            \bottomrule
+        \end{tabular}
+        \begin{tablenotes}[flushleft]
+            \footnotesize
+            \item \textit{Note.} We do not use the intercept when evaluating multicollinearity. Among the others, the highest VIF was $1.029$.
+        \end{tablenotes}
+    \end{threeparttable}
+\end{table}
+
+\paragraph{Overall model fit.}
+Table~\ref{tab:model-adequacy} summarizes the fit of the five response
+models. We look at two different tests for fit: checking $R^2$ and the $F$-test.
+\\\\
+The $R^2$ value represents the amount of variation in the output explained by the input values. We can notice that, on average, only about $50\%$ of the variation in the outputs can be explained by the inputs. Moreover, $R^2_{\text{adj}}$ represents how significant each of the terms are in the calculation of the output. When this value is negative, this means that simple weighted average would have had a better estimate, and the inputs have minimal to no correlation with the output\footnote{There could have been other causes of this, which we get into in the limitations section}. Last but not least, we calculate predicted $R^2$ with the PRESS method, which involves leaving out one of the data points and analyzing how well the model generalizes. Our low values for such indicate that our model overfits, and this may not easily generalize to new data points. However, this can be justified by our lack of data points --- we only had $32$ data points in comparison to the $15$ coefficients
+\\\\
+The $F$-test reinforces this. With our degrees of freedom, a statistically significant result would require $p<.05 \implies F\gg 2$. However, except for transfer, $F$ is too low to get a statistically significant result; in the special case of transfer, $F$ is somewhat significant. Thus, we can conclude that a mean would be a better predictor for our data than the functions, as was demonstrated by the $R^2_{\text{adj}}$.
+
+\begin{table*}[htbp]
+\centering
+\caption{Model fit and lack-of-fit tests for the five outcomes}
+\label{tab:model-adequacy}
+\begin{threeparttable}
+\begin{tabular}{lrrrrrr}
+\toprule
+Outcome & $R^2$ & $R^2_{\text{adj}}$ & Predicted $R^2$ & $F$ & $df$\footnote{model, residual}& $p$ \\
+\midrule
+Metacognitive calibration & .378 & $-.134$ & $-1.144$ & .739 & 14, 17 & .713 \\
+Transfer                  & .610 &  .288   & $-.629$  & 1.898 & 14, 17 & .105 \\
+Initiation tendency       & .528 &  .139   & $-.481$  & 1.356 & 14, 17 & .272 \\
+Achievement               & .433 & $-.034$ & $-1.513$ & .927 & 14, 17 & .552 \\
+Engagement                & .326 & $-.229$ & $-.726$  & .588 & 14, 17 & .840 \\
+\bottomrule
+\end{tabular}
+\end{threeparttable}
+\end{table*}
+
+
+\paragraph{Lack of fit.}
+
+We then conducted a lack-of-fit test to understand how well the response surface captured the data. By over-replicating the center point, we can understand the amount of ``noise" present in the data to establish whether the model has bigger errors than this noise. Our method of replication led to $7$ pure-error degrees of freedom, $7-1$ from the center point replication and $2-1$ from replicating condition $11$ twice. We then consider the lack-of-fit degrees of freedom to be the difference betwen model degrees of freedom ($32-15=17$) and the pure-error degrees of freedom ($1+6=7$). These degrees of freedom play a role in finding the value of $F$, which then translate to $p$.
+\begin{table}[htbp]
+    \centering
+    \caption{Lack-of-fit tests for the five response models}
+    \label{tab:lack-of-fit}
+    \begin{tabular}{lcc}
+        \toprule
+        Outcome & $F$ & $p$ \\
+        \midrule
+        Metacognitive calibration & 0.652 & .740 \\
+        Transfer                  & 1.585 & .278 \\
+        Initiation tendency       & 0.515 & .836 \\
+        Achievement               & 2.165 & .159 \\
+        Engagement                & 0.311 & .954 \\
+        \bottomrule
+    \end{tabular}
+
+    \vspace{0.5em}
+
+\end{table}
+
+Because all the $p$ values are $\gg .05$, we cannot reject the null hypothesis and thus the model adequately fits the data. Moreover, this implies that the models' errors were not
+larger than the variation between participants who received identical
+parameters. 
+
+\paragraph{Summary of Model Results}
+
+From the above sections, we can conclude the following about the model fit:
+\begin{itemize}
+    \item Using the RSM model is generally worse than taking the mean of the data. This generally demonstrates that the input parameters correlate very little with the outcomes, which we discuss more in the limitations.
+    \item However, the RSM model fits the data adequately, failing to reject the null hypothesis in the lack-of-fit test.
+    \item The RSM model does not generalize to new data well, and overfits significantly to the training data.
+\end{itemize}
+
+
+\subsection{Optimization and decision analysis}
+\label{sec:optimization}
+
+After testing the model for fit, the fitted surfaces were used to
+identify promising combinations of tutor settings. Because the fitted models
+were incapable of predicting well, the solutions
+reported here should be considered preliminary. Further tests should be completed before adopting these values into real systems.
+
+\subsubsection{Optimum Values}
+We used several values for $e_{th}$ to show how the recommended
+settings changed as we require a greater minimum on engagement. The
+percentile thresholds corresponded to the 25th, 50th, 75th, and 90th
+percentiles of the observed engagement distribution.
+
+\begin{table*}[htbp]
+    \centering
+    \caption{Optimal coded tutor settings under various engagement thresholds}
+    \label{tab:constrained-optima}
+    \begin{threeparttable}
+        \begin{tabular}{lrrrrrrrr}
+            \toprule
+            Engagement requirement
+            & $e_{\mathrm{th}}$
+            & $c(\mathbf{x}^{*})$
+            & $e(\mathbf{x}^{*})$
+            & Loss (\%)
+            & AS
+            & AD
+            & MCP
+            & SFR \\
+            \midrule
+            None
+                & ---     & 1.494 & $-.019$ & ---   & $-1.291$ & 1.207 & $-.620$ & .702 \\
+            25th percentile
+                & $-.314$ & 1.494 & $-.019$ & 0.00  & $-1.291$ & 1.207 & $-.620$ & .702 \\
+            50th percentile
+                & .283    & 1.438 & .283    & 3.70  & $-1.351$ & 1.237 & $-.155$ & .787 \\
+            75th percentile
+                & .609    & 1.239 & .609    & 17.07 & $-1.216$ & 1.437 & .406    & .538 \\
+            90th percentile
+                & .901    & .991  & .901    & 33.63 & $-.939$  & 1.608 & .720    & .115 \\
+            \bottomrule
+        \end{tabular}
+        \begin{tablenotes}[flushleft]
+            \footnotesize
+            \item \textit{Note.} All parameter values are in coded units. Loss represents the loss in $c(\textbf{x})$ from the unconstrained solution.
+        \end{tablenotes}
+    \end{threeparttable}
+\end{table*}
+\begin{table*}[htbp]
+    \centering
+    \caption{Optimal tutor settings in natural units under various
+    engagement thresholds}
+    \label{tab:constrained-optima-natural}
+    \begin{threeparttable}
+        \begin{tabular}{lrrrrrrrr}
+            \toprule
+            Engagement requirement
+            & $e_{\mathrm{th}}$
+            & $c(\mathbf{x}^{*})$
+            & $e(\mathbf{x}^{*})$
+            & Loss (\%)
+            & AS (\%)
+            & AD base
+            & MCP
+            & SFR \\
+            \midrule
+            None
+                & ---     & 1.494 & $-.019$ & ---
+                & 14.51 & 97.52 & .651 & .1020 \\
+
+            25th percentile
+                & $-.314$ & 1.494 & $-.019$ & 0.00
+                & 14.51 & 97.52 & .651 & .1020 \\
+
+            50th percentile
+                & .283 & 1.438 & .283 & 3.70
+                & 13.78 & 98.32 & .898 & .1051 \\
+
+            75th percentile
+                & .609 & 1.239 & .609 & 17.07
+                & 15.40 & 103.88 & 1.325 & .0964 \\
+
+            90th percentile
+                & .901 & .991 & .901 & 33.63
+                & 18.73 & 108.87 & 1.648 & .0832 \\
+            \bottomrule
+        \end{tabular}
+            \begin{tablenotes}[flushleft]
+            \footnotesize
+            \item \textit{Note.} All parameter values are in natural units. Loss represents the loss in $c(\textbf{x})$ from the unconstrained solution.
+        \end{tablenotes}
+    \end{threeparttable}
+\end{table*}
+
+\newpage
+When no constrains are placed on $e(x)$, we reach the unconstrained solution at $AS = -1.291$, $AD = 1.207$, $MCP = -.620$, and $SFR = .702$. Moreover, the solution remains the same for the $25$th percentile engagement threshold $e_{th}=-.314$ as well. After that point, increasing $e_{th}$ leads to the rapid lowering of $c(\mathbf x^*)$. Figure $\ref{fign}$ demonstrates the tradeoff curve between engagement and the composite learning index, and also shows how the values of $AS, AD, MCP$, and $SFR$ change as we increase $e_{th}$. Here, percentiles are calculated according to the observed data, as is common in literature.
+\begin{figure}
+    \centering
+    \includegraphics[width=1\linewidth]{fig_tradeoff.png}
+    \caption{Engagement threshold vs. composite learning, design point change with engagement threshold}
+    \label{fign}
+\end{figure}
+\\\\
+As the engagement requirement increased, we saw the expected across AS and SFR: the ``easier" the parameters were set, engagement was able to go higher. However, we see that the metacognitive prompting rate in fact went up as the engagement threshold increased. The cause for this was a system failure --- even though the rate was supposed to go up, students often didn't interact with the system long enough to receive $2$ or more metacognitive prompts in a single problem. As a result, the amount of metacognitive prompts were roughly similar across each of the prompting categories, and the curve displayed here is just noise. Moreover, access delay also goes up initially before coming back down. We believe that this is due to another limitation of the experiment; specifically, students typically were comfortable with topics before asking the tutor so they didn't need the hint feature as much (it was just used to check answers). Those who did need hints may have also chosen to wait out the delay period rather than to think during the time.
+
+
+
+\paragraph{Component-level trade-offs.}
+
+Table~\ref{tab:optimal-components} presents the predicted values for each of the outcomes. All values are expressed in standard
+deviations, with larger values being better.
+
+\begin{table*}[htbp]
+    \centering
+    \caption{Predicted outcome components at the principal optimal solutions}
+    \label{tab:optimal-components}
+    \begin{threeparttable}
+        \begin{tabular}{lrrrrrr}
+            \toprule
+            Engagement req.
+            & Calibration
+            & Transfer
+            & Initiation
+            & Achievement
+            & Engagement
+            & Composite \\
+            \midrule
+            None
+                & 1.333 & 2.193 & .376 & 1.544 & $-.019$ & 1.494 \\
+            50th percentile
+                & 1.246 & 2.321 & .703 & 1.326 & .283 & 1.438 \\
+            75th percentile
+                & .979 & 2.371 & .846 & .965 & .609 & 1.239 \\
+            90th percentile
+                & .758 & 2.074 & .655 & .709 & .901 & .991 \\
+            \bottomrule
+        \end{tabular}
+        \begin{tablenotes}[flushleft]
+            \footnotesize
+            \item \textit{Note.} The composite equals
+            $0.30(\text{calibration})+0.20(\text{transfer})
+            +0.10(\text{initiation})+0.40(\text{achievement})$.
+            Engagement is a constraint and is not included in the composite.
+        \end{tablenotes}
+    \end{threeparttable}
+\end{table*}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\linewidth]{fig_all_contours.png}
+    \caption{Contour Graphs}
+    \label{fig:placeholder}
+\end{figure}
+
+The median-engagement solution slightly increased predicted transfer and
+initiation tendency relative to the unconstrained solution, while producing
+moderate reductions in predicted calibration and achievement. At the
+75th- and 90th-percentile engagement requirements, the reductions in
+calibration and achievement became larger. The decision therefore depends on
+how much composite learning performance the study is willing to exchange for
+a stronger engagement requirement.
+
+\begin{figure*}[htbp]
+    \centering
+    \includegraphics[width=\textwidth]{results/fig_tradeoff.png}
+    \caption{Trade-off between the minimum engagement requirement and the
+    highest achievable composite outcome. The left panel shows how the
+    optimized composite decreases as the engagement floor becomes more
+    demanding. The right panel shows how the optimal coded settings change
+    across the same engagement thresholds.}
+    \label{fig:engagement-tradeoff}
+\end{figure*}
+
+Figure~\ref{fig:engagement-tradeoff} shows that the composite remained nearly
+unchanged at low engagement thresholds but began to decrease once the
+engagement requirement exceeded the unconstrained solution's predicted
+engagement. The decline was initially small but became steeper at the higher
+thresholds.
+
+
+\begin{table}[htbp]
+\centering
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{cccccccccc}
+\toprule
+$e_{th}$ & label & $c(\mathbf x)$ & $e$ at $\mathbf{x}^*$ & AS & AD & MCP & SFR  & constraint \\
+\midrule
+   & unconstrained & \textbf{1.4937} & $-0.0188$ & $-1.291$ & $+1.207$ & $-0.620$ & $+0.702$  & slack \\
+$-0.3136$ & p25          & \textbf{1.4937} & $-0.0188$ & $-1.291$ & $+1.207$ & $-0.620$ & $+0.702$ & slack \\
+$+0.2826$ & p50          & \textbf{1.4385} & $+0.2826$ & $-1.351$ & $+1.237$ & $-0.155$ & $+0.787$  & \textbf{active} \\
+$+0.6089$ & p75          & \textbf{1.2387} & $+0.6089$ & $-1.216$ & $+1.437$ & $+0.406$ & $+0.538$  & \textbf{active} \\
+$+0.9007$ & p90          & \textbf{0.9914} & $+0.9007$ & $-0.939$ & $+1.608$ & $+0.720$ & $+0.115$ & \textbf{active} \\
+\bottomrule
+\end{tabular}%
+}
+\caption{Your caption here}
+\label{tab:your-label}
+\end{table}
+
+
+
+\begin{table}[htbp]
+\centering
+\begin{tabular}{cccccccc}
+\toprule
+$e_{th}$ & label & MC & transfer & initiation & performance & weighted $c^*$ \\
+\midrule
+       & unconstrained & $+1.3332$ & $+2.1926$ & $+0.3762$ & $+1.5440$ & 1.4937 \\
+$-0.3136$ & p25           & $+1.3332$ & $+2.1926$ & $+0.3762$ & $+1.5440$ & 1.4937 \\
+$+0.2826$ & p50           & $+1.2457$ & $+2.3206$ & $+0.7030$ & $+1.3259$ & 1.4385 \\
+$+0.6089$ & p75           & $+0.9794$ & $+2.3710$ & $+0.8460$ & $+0.9653$ & 1.2387 \\
+$+0.9007$ & p90           & $+0.7581$ & $+2.0739$ & $+0.6551$ & $+0.7092$ & 0.9914 \\
+\bottomrule
+\end{tabular}
+\caption{Your caption here}
+\label{tab:your-label}
+\end{table}
+
+\newpage
+
+\section{Appendix B: $z$-scoring}
+
+$z$-scoring is a statistical method used in the study to normalize all the data. This method is so effective because it sets the mean of the sample to $0$, and the standard deviation to $1$. Moreover, it also does not change the overall shape of the data. To $z$-score a sample of data, we use the formula
+\[z = \frac{x-\mu}{\sigma},\] where $\mu$ and $\sigma$ denote the mean and standard deviation of the sample. To make it concrete, consider the following data:
+
+\[
+\begin{array}{c|c}
+   x_1 &  2  \\
+   x_2 & 0  \\
+  x_3 &  2 \\
+  x_4 &   6 \\
+\end{array}
+\]
+Then we can calculate
+\[\mu = \frac{2+0+2+6}{4} = 2.5,\] and \[\sigma = \sqrt{\frac{(2-2.5)^2 + (0-2.5)^2 + (2-2.5)^2+(6-2.5)^2}{4-1}} = \sqrt{\frac{19}{3}} \approx 2.52. \]
+Using our formula, we can compute
+\[z_1 = \frac{2 - 2.5}{2.52} \approx -.20.\] Similar calculations for the remaining values leave the $z$-scored dataset:
+\[
+\begin{array}{c|c}
+   z_1 &  -.20  \\
+   z_2 & -.99 \\
+  z_3 &  -.20 \\
+  z_4 &   1.39 \\
+\end{array}
+\]
+
+To check, we can verify that the mean of this data is
+\[\frac{(-.20) + (-.99) + (-.20) + (1.39)}{4} = 0,\] and the standard deviation is
+\[\sqrt{\frac{(-.20)^2 + (-.99)^2 + (-.20)^2 + (1.39)^2}{3}} = \sqrt{\frac{2.99}{3}} \approx 1.\]
+\newpage
+\section{Appendix C: Ordinary Least Squares \& Engagement Calculation}\label{appc}
+
+We first $z$-score both columns. Afterward, we are left with the following data:
+\[
+\begin{array}{c|c}
+\text{\textbf{baseline}} & \text{\textbf{final}} \\
+\hline
+0.6005072424 & -0.4774905082 \\
+-0.7599339439 & 0.4441382736 \\
+-1.100044241 & 0.5050670984 \\
+0.6005072424 & -0.295588679 \\
+-0.7599339439 & 0.1637879009 \\
+0.6005072424 & -1.630443827 \\
+0.940617539 & 0.105251936 \\
+-0.4198236474 & 0.3711543641 \\
+-0.2497684991 & -0.8842897039 \\
+-1.69523726 & 0.394379839 \\
+-1.780264834 & 0.1590168569 \\
+1.280727836 & -0.4935796821 \\
+-0.4198236474 & 0.3411463528 \\
+0.6005072424 & 0.9260704745 \\
+1.280727836 & 0.2905330376 \\
+0.2603969458 & 0.3296365344 \\
+-0.7599339439 & 0.3904714402 \\
+1.280727836 & 0.3634106682 \\
+0.6430210295 & 0.08163598514 \\
+1.918434642 & 0.3783636337 \\
+-0.4198236474 & -0.1240882907 \\
+1.0681589 & 0.1905589428 \\
+-0.6323925827 & -0.9781843266 \\
+0.2178831588 & 0.7243215898 \\
+0.005314223384 & 0.1862637764 \\
+-1.057530453 & -0.3805516937 \\
+-1.270099389 & -0.1123529767 \\
+1.918434642 & 0.1598178156 \\
+-0.8449615181 & -1.214238705 \\
+-0.8449615181 & 0.525133028 \\
+0.4304520941 & 0.01625873457 \\
+-0.6323925827 & -0.4556098897 \\
+\end{array}
+\]
+To fit a line through the data with linear regression, we use the OLS technique. When doing this, our goal is to minimize the squared error:
+\[\sum \frac 12 (\hat{y} - y)^2,\] where $\hat y$ represent the predicted value of $y$ and $y$ is the actual value.
+\\\\
+Define $\mathbf X$ to be the design matrix consisting of a column of $1$'s appended to the baseline engagement column. It then looks like:
+\[
+\begin{bmatrix}
+    0.600 & 1 \\
+    -0.759 & 1 \\
+    \vdots & \vdots  \\
+    0.430 & 1 \\
+    -.632 & 1.
+\end{bmatrix}
+\]
+Moreover, let the fitted line take the form $y=w_1x + w_2$, and thus define the weight vector as
+\[\mathbf w = \begin{bmatrix}
+    w_1 \\
+    w_2
+\end{bmatrix}.\]
+Last but not least, define the label vector as
+\[\mathbf y = 
+\begin{bmatrix}
+    -0.477 \\
+    0.444 \\
+    \vdots \\
+    0.016 \\
+    -0.455
+\end{bmatrix}\]
+Thus, minimizing the squared error becomes equivalent to minimizing
+\[\|\mathbf y - \mathbf X \mathbf w \|^2, \] which is achieved at
+\[w = (\mathbf X^\top \mathbf X)^{-1}  \mathbf X^{\top} \mathbf y.\] The proof for this is a  derivative computation, and can be found at \href{https://d2l.ai/chapter_linear-regression/linear-regression.html}{d2l.ai}. Running the \href{https://colab.research.google.com/drive/1dz1KTdW83w6i_jnsk0L2mwTmZKUxytPn#scrollTo=1IRfv-kpzz3Z}{following pytorch code}
+\[\texttt{torch.linalg.inv(X.T @ X) @ X.T @ y}\] yields
+\[\texttt{tensor([2.2561e-02, -1.8626e-09])}, \] and thus the fitted line is $y=.026x$ (the y-intercept is incredibly small and can be dropped for the sake of calculation). Finally, we can compute how engaged the student became because of the tutor (the desired metric) by $\text{final} - .0236\times \text{initial}$. The final table is listed in Appendix $\ref{d}$, along with all the other output values.
+
+
+\newpage
+
+\section{Appendix D: Data}\label{d}
+\begin{table}[H]
+\centering
+\begin{threeparttable}
+\caption{Coded factor levels and standardized responses for the 32 participants
+retained in analysis.}
+\label{tab:design-responses}
+\begin{tabular}{c rrrr rrrrr}
+\toprule
+ & \multicolumn{4}{c}{Coded factor levels} & \multicolumn{5}{c}{Responses} \\
+\cmidrule(lr){2-5} \cmidrule(lr){6-10}
+Condition & {HS} & {AD} & {MPR} & {SFR} & {Calib.\tnote{a}} & {Transfer} & {Perf.} & {Init.\ ten.} & {Engagement\tnote{b}} \\
+\midrule
+1 & 0 & 0 & 0 & 0 & -1.84 & 0.77 & -1.12 & -1.00 & -2.93 \\
+1 & 0 & 0 & 0 & 0 & -0.52 & 0.81 & 0.87 & 1.88 & 0.44 \\
+1 & 0 & 0 & 0 & 0 & -0.26 & -0.30 & -0.39 & -0.39 & 1.59 \\
+1 & 0 & 0 & 0 & 0 & -0.22 & -0.30 & -0.34 & 1.29 & -1.58 \\
+1 & 0 & 0 & 0 & 0 & 0.18 & -0.30 & -0.34 & 0.21 & 0.70 \\
+1 & 0 & 0 & 0 & 0 & 0.59 & 1.03 & -0.10 & 1.52 & 0.30 \\
+1 & 0 & 0 & 0 & 0 & 1.86 & -0.83 & 1.14 & -0.85 & -0.89 \\
+\addlinespace[2pt]
+2 & -1 & -1 & -1 & -1 & -1.23 & -1.18 & -1.07 & -1.09 & -0.57 \\
+\addlinespace[2pt]
+3 & -1 & -1 & -1 & 1 & 0.16 & -1.09 & -0.03 & 0.08 & 0.57 \\
+\addlinespace[2pt]
+4 & -1 & -1 & 1 & -1 & 0.08 & 0.37 & -0.83 & 1.13 & 0.91 \\
+\addlinespace[2pt]
+5 & -1 & -1 & 1 & 1 & 0.16 & -0.83 & -0.32 & 0.41 & 0.79 \\
+\addlinespace[2pt]
+6 & -1 & 1 & -1 & -1 & 0.10 & 1.30 & 0.77 & -0.82 & 0.09 \\
+\addlinespace[2pt]
+7 & -1 & 1 & -1 & 1 & 2.20 & 2.36 & 2.81 & 0.40 & 0.55 \\
+\addlinespace[2pt]
+8 & -1 & 1 & 1 & -1 & 0.77 & -0.30 & -1.27 & -1.20 & 0.65 \\
+\addlinespace[2pt]
+9 & -1 & 1 & 1 & 1 & -0.44 & 2.36 & 0.26 & 1.40 & 0.57 \\
+\addlinespace[2pt]
+10 & 1 & -1 & -1 & -1 & 0.35 & -0.30 & -0.39 & 0.11 & 0.12 \\
+\addlinespace[2pt]
+11 & 1 & -1 & -1 & 1 & -2.44 & -0.96 & 0.99 & -1.37 & 0.74 \\
+11 & 1 & -1 & -1 & 1 & -0.26 & 0.10 & -0.10 & -1.48 & 0.33 \\
+\addlinespace[2pt]
+12 & 1 & -1 & 1 & -1 & -0.72 & -0.74 & -1.56 & -0.97 & 0.60 \\
+\addlinespace[2pt]
+13 & 1 & -1 & 1 & 1 & -1.33 & -1.18 & 1.11 & 1.06 & -0.23 \\
+\addlinespace[2pt]
+14 & 1 & 1 & -1 & -1 & -0.02 & -0.16 & 0.48 & -0.29 & 0.27 \\
+\addlinespace[2pt]
+15 & 1 & 1 & -1 & 1 & -0.12 & 0.15 & -2.04 & 0.26 & -1.73 \\
+\addlinespace[2pt]
+16 & 1 & 1 & 1 & -1 & -0.02 & 0.81 & 1.36 & 0.70 & 1.25 \\
+\addlinespace[2pt]
+17 & 1 & 1 & 1 & 1 & -0.42 & -0.30 & -0.59 & 1.36 & 0.30 \\
+\addlinespace[2pt]
+18 & -2 & 0 & 0 & 0 & -0.93 & 1.03 & 1.11 & 0.38 & -0.66 \\
+\addlinespace[2pt]
+19 & 2 & 0 & 0 & 0 & -0.02 & -0.30 & -0.10 & -0.67 & -0.95 \\
+\addlinespace[2pt]
+20 & 0 & -2 & 0 & 0 & -0.20 & -0.56 & -0.25 & -0.30 & -0.17 \\
+\addlinespace[2pt]
+21 & 0 & 2 & 0 & 0 & 1.60 & 0.37 & 0.14 & 0.84 & 0.18 \\
+\addlinespace[2pt]
+22 & 0 & 0 & -2 & 0 & 0.18 & -0.74 & -0.22 & -1.76 & -2.14 \\
+\addlinespace[2pt]
+23 & 0 & 0 & 2 & 0 & 0.89 & 1.47 & 1.23 & 0.46 & 0.94 \\
+\addlinespace[2pt]
+24 & 0 & 0 & 0 & -2 & 0.04 & -1.36 & -0.83 & -1.16 & -0.01 \\
+\addlinespace[2pt]
+25 & 0 & 0 & 0 & 2 & 1.80 & -1.23 & -0.39 & -0.13 & -0.01 \\
+\bottomrule
+\end{tabular}
+\begin{tablenotes}\footnotesize
+\item[a] Metacognitive calibration.
+\item[b] Baseline-adjusted engagement, standardized.
+\end{tablenotes}
+\end{threeparttable}
+\end{table}
+
+\newpage
+
+
+\bibliographystyle{unsrt}
+\bibliography{bibli}
+
+
+
+\end{document}
