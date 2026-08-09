@@ -945,7 +945,7 @@ As the engagement requirement increased, we saw the expected trend across AS and
 \paragraph{Component-level trade-offs.}
 
 Table~\ref{tab:optimal-components} presents the predicted values for each of the outcomes. All values are expressed in standard
-deviations, with larger values being better.
+deviations.
 
 \begin{table*}[htbp]
     \centering
@@ -972,86 +972,72 @@ deviations, with larger values being better.
                 & .758 & 2.074 & .655 & .709 & .901 & .991 \\
             \bottomrule
         \end{tabular}
-        \begin{tablenotes}[flushleft]
-            \footnotesize
-            \item \textit{Note.} The composite equals
-            $0.30(\text{calibration})+0.20(\text{transfer})
-            +0.10(\text{initiation})+0.40(\text{achievement})$.
-            Engagement is a constraint and is not included in the composite.
-        \end{tablenotes}
     \end{threeparttable}
 \end{table*}
-
+All facets of IRC and achievement see large gains throughout. Most notably, transfer is predicted to improve by over $2$ standard deviations, and achievement sees, on average, a $1$ standard deviation improvement. If these numbers were accurate, they would represent an improvement far larger than that of any ITS. For concreteness, a $1$ s.d. improvement takes a $50$th percentile scorer to the $83$rd percentile.
+Some other trends are also visible in the data. Contrary to expectation, initiation tendency roughly increases as we increase $e_{th}$, most likely due to the low weight attached to it. A similar trend can be seen with transfer, which initially goes up before coming back down. Contour graphs are shown below to help visualize the effect of the engagement constraint.
 \begin{figure}[H]
     \centering
     \includegraphics[width=1\linewidth]{fig_all_contours.png}
     \caption{Contour Graphs}
     \label{fig:placeholder}
 \end{figure}
+However, due to the large amount of noise present in the data, these outcomes are unreliable.
 
-The median-engagement solution slightly increased predicted transfer and
-initiation tendency relative to the unconstrained solution, while producing
-moderate reductions in predicted calibration and achievement. At the
-75th- and 90th-percentile engagement requirements, the reductions in
-calibration and achievement became larger. The decision therefore depends on
-how much composite learning performance the study is willing to exchange for
-a stronger engagement requirement.
+\section{Discussion}
 
-\begin{figure*}[htbp]
-    \centering
-    \includegraphics[width=\textwidth]{results/fig_tradeoff.png}
-    \caption{Trade-off between the minimum engagement requirement and the
-    highest achievable composite outcome. The left panel shows how the
-    optimized composite decreases as the engagement floor becomes more
-    demanding. The right panel shows how the optimal coded settings change
-    across the same engagement thresholds.}
-    \label{fig:engagement-tradeoff}
-\end{figure*}
+Overall, the study weakly accomplishes the desired goal. For students at various levels, we are able to find an optimal value for performance and IRC, while making the system engaging for that student. However, the issues with noise in the data nearly invalidate the findings here. We now elaborate on the limitations that led to such noise.
 
-Figure~\ref{fig:engagement-tradeoff} shows that the composite remained nearly
-unchanged at low engagement thresholds but began to decrease once the
-engagement requirement exceeded the unconstrained solution's predicted
-engagement. The decline was initially small but became steeper at the higher
-thresholds.
+\subsection{Limitations}
 
+For one, the AI tutoring system was not used as intended by the students. They often used the system as a mere answer checker, inputting the correct answer on the first try $70\%$ of the time. Thus, the parameters did not have a substantial impact on the student's development, as they never came into play.
+\\\\
+Another large fault that invalidated most of the metacognitive calibration data was that the number of metacognitive prompts rarely varied per student. With students inputting an answer immediately, the system rarely had the opportunity to prompt the user. On top of that, students did not answer the prompt very often\footnote{The AI system was designed not to move forward unless the student had answered the prompt or felt uncomfortable; as a result, students who refused to answer after multiple follow-ups were often taken by the system to be ``uncomfortable'' with answering the prompt.}, and thus the prompting seldom changed the metacognitive calibration of the student.
+\\\\
+Also, something similar could be observed on the answer specificity side. When such percentages fell close to $5$--$10\%$ of the solution, the AI was unable to give away just that much; the solutions often consisted of only $3$--$4$ main steps. This was a result of faulty design; in future work, answer specificity will be redefined as the number of hints provided per problem, rather than the percentage of the solution given away.
+\\\\
+There were also a few issues with the experiment. Out of the $100$ desired participants, only $32$ actually completed $\ge 2$ assessments, making our model prone to overfitting. Furthermore, the participants interacted with the system for vastly different amounts of time, ranging from $5$ hours to $11$ hours. Also, the choice to analyze only students who completed $\ge 2$ assessments may have introduced selection bias, as those students were more motivated. This could skew the engagement percentiles.
 
-\begin{table}[htbp]
-\centering
-\resizebox{\textwidth}{!}{%
-\begin{tabular}{cccccccccc}
-\toprule
-$e_{th}$ & label & $c(\mathbf x)$ & $e$ at $\mathbf{x}^*$ & AS & AD & MCP & SFR  & constraint \\
-\midrule
-   & unconstrained & \textbf{1.4937} & $-0.0188$ & $-1.291$ & $+1.207$ & $-0.620$ & $+0.702$  & slack \\
-$-0.3136$ & p25          & \textbf{1.4937} & $-0.0188$ & $-1.291$ & $+1.207$ & $-0.620$ & $+0.702$ & slack \\
-$+0.2826$ & p50          & \textbf{1.4385} & $+0.2826$ & $-1.351$ & $+1.237$ & $-0.155$ & $+0.787$  & \textbf{active} \\
-$+0.6089$ & p75          & \textbf{1.2387} & $+0.6089$ & $-1.216$ & $+1.437$ & $+0.406$ & $+0.538$  & \textbf{active} \\
-$+0.9007$ & p90          & \textbf{0.9914} & $+0.9007$ & $-0.939$ & $+1.608$ & $+0.720$ & $+0.115$ & \textbf{active} \\
-\bottomrule
-\end{tabular}%
-}
-\caption{Optimal coded settings at each engagement threshold, with the status of the engagement constraint}
-\label{tab:optima-constraint-status}
-\end{table}
+\subsection{Implications}
 
+Recall that the lack-of-fit test demonstrated that the CCD model is likely to fit the data well. Even though the data was heavily affected by noise, the ability to fit the CCD model through it could indicate that a CCD model would adequately fit robust data as well. Thus, future work that yields strong data could utilize a similar response surface methodology approach for optimization.
+\\\\
+Moreover, the results in Table $\ref{tab:optimal-components}$ demonstrate that optimal parameters can have a tremendous predicted impact on achievement. These parameters would also enhance each of the components of IRC, no matter the bar for $e_{th}$. For these reasons, a teacher could theoretically implement a tutoring system with these parameters and see learning gains even in the weakest student. However, we do not recommend doing so on the basis of the current data; a more robust study should be conducted before making changes to instructional practice.
 
+\subsection{Cost Benefit Analysis}
 
-\begin{table}[htbp]
-\centering
-\begin{tabular}{cccccccc}
-\toprule
-$e_{th}$ & label & MC & transfer & initiation & performance & weighted $c^*$ \\
-\midrule
-       & unconstrained & $+1.3332$ & $+2.1926$ & $+0.3762$ & $+1.5440$ & 1.4937 \\
-$-0.3136$ & p25           & $+1.3332$ & $+2.1926$ & $+0.3762$ & $+1.5440$ & 1.4937 \\
-$+0.2826$ & p50           & $+1.2457$ & $+2.3206$ & $+0.7030$ & $+1.3259$ & 1.4385 \\
-$+0.6089$ & p75           & $+0.9794$ & $+2.3710$ & $+0.8460$ & $+0.9653$ & 1.2387 \\
-$+0.9007$ & p90           & $+0.7581$ & $+2.0739$ & $+0.6551$ & $+0.7092$ & 0.9914 \\
-\bottomrule
-\end{tabular}
-\caption{Predicted outcome components at each engagement threshold, at full precision}
-\label{tab:optima-components-full}
-\end{table}
+Here, we establish that personalized learning is a valuable investment given our results. First, consider the status quo. From $1978$ to $2025$, 9-year-old NAEP mathematics scores have improved by $.51$ standard deviations \cite{naep2025math9}, if we assume a normal distribution. Assuming a spend of $10$ billion USD yearly, this implies that nearly \textbf{half a trillion} dollars have been invested for a $.51$ standard deviation growth.
+\\\\
+Now if 1:1 tutoring were possible, a minimum of $.709\sigma$ growth would be visible after at most a year; in Bloom's study, a $2\sigma$ increase took only $3$ weeks \cite{bloom1984sigma}. Assuming a token spend of $\$1$ per hour, and that the tool is used $365$ hours a year, this would mean a spend of $\$365$ per student. Over the $50$ million students in the United States, this comes out to around $\$18$ billion, which is significantly less than the $\$500$ billion spent on natural growth. Moreover, 1:1 tutoring is significantly faster, and allows students to reach a higher level in their education.
+
+\subsection{Future Work}
+We believe that the research here establishes a strong proof of concept, but the outcomes and data contain too much noise to be implemented directly. Thus, we recommend that this study be completed again, with the following changes:
+
+\begin{itemize}
+    \item The tutoring system should be implemented inside a school environment, in which the teacher could supervise the students and ensure that they are using it as intended. Moreover, the AI tutoring system should provide teacher-curated problems, rather than have the student provide those of their own.
+    \item The AI tutor should be fine-tuned rather than given a system prompt, for robustness. This would also ensure that responses follow the desired framework more closely.
+    \item More participants should be included in the study.
+    \item Different parameter ranges should be chosen. For this, check the limitations section to see which ones are not suitable as is.
+\end{itemize}
+
+A future study that generates strong data could provide accurate predictions for optimized outcomes, and could then follow the initially proposed theory of change for maximum impact.
+
+\subsection{Conclusion}
+
+This study investigated whether certain parameters of an AI tutoring system --- specifically answer specificity, access delay, metacognitive prompting, and scaffolding fade --- could be adjusted to support learning and independent reasoning without sacrificing student engagement. The analysis produced promising parameter combinations and illustrated the tradeoff between deep learning and keeping students engaged. Notably, the data analysis demonstrated that there is potential for a $.7\sigma$ improvement, even for the students who require the most engagement. However, the small sample size and the minimal differences in the parameters students actually received prevent the study from identifying a true optimal configuration. The findings should therefore be viewed as a proof of concept for improving AI tutor design rather than final recommendations for classroom use.
+\\\\
+Future research should repeat the study with a larger sample, more consistent usage times across students, teacher-curated problems, and a tutoring system that implements each parameter more reliably. For all its limitations, this study does establish one key fact: that tradeoffs must be made between engagement and cognitive support. It is a strong proof of concept that a middle ground exists, and thus that one should be looked for. Although we highly recommend against using data from this paper to influence the design of AI tutoring systems, we believe that future renditions of this study could provide parameters that perfectly achieve the desired goal.
+
+\newpage
+
+\paragraph{AI Disclosure}
+
+AI was used to help polish text in this paper. Moreover, it was used to clarify and bounce ideas off when working through my project. In this case, it was used simply as a thought buddy (or Socratic duck!). All ideas presented in the paper are my own work, though they may have been refined with the help of an LLM tool. Also, LLMs were used to explain topics that I did not entirely understand. For instance, I had learned about the lack-of-fit test, but Claude explained to me how it is calculated and more theory behind it.
+Claude was also used to generate diagrams for this paper. However, all data was supplied entirely by me, and the graph design was also provided by me. Claude had no role other than to generate the diagrams asked for. Claude was also sometimes used to convert a CSV into a LaTeX table, but in these cases, all the data was provided to Claude and Claude merely reshaped the data.
+
+\section{Appendix A: Code and System Prompt}
+
+All the code used to run the experiment can be found here: \href{https://github.com/shivTHEmath/study-chat-app}{GitHub link}. I worked on this project from my parent's computer as well (as that is where I had to deploy), so you may see commits from different accounts. Notably, the system prompt can be found at: \texttt{main/src/lib/tutor/systemPrompt.js}.
 
 \newpage
 
@@ -1173,7 +1159,7 @@ retained in analysis.}
 \toprule
  & \multicolumn{4}{c}{Coded factor levels} & \multicolumn{5}{c}{Responses} \\
 \cmidrule(lr){2-5} \cmidrule(lr){6-10}
-Condition & {HS} & {AD} & {MPR} & {SFR} & {Calib.\tnote{a}} & {Transfer} & {Perf.} & {Init.\ ten.} & {Engagement\tnote{b}} \\
+Condition & {AS} & {AD} & {MPR} & {SFR} & {MC.\tnote{a}} & {Transfer} & {Perf.} & {Init.\ ten.} & {Engagement\tnote{b}} \\
 \midrule
 1 & 0 & 0 & 0 & 0 & -1.84 & 0.77 & -1.12 & -1.00 & -2.93 \\
 1 & 0 & 0 & 0 & 0 & -0.52 & 0.81 & 0.87 & 1.88 & 0.44 \\
@@ -1242,6 +1228,175 @@ Condition & {HS} & {AD} & {MPR} & {SFR} & {Calib.\tnote{a}} & {Transfer} & {Perf
 
 \newpage
 
+\section{Appendix E: Coefficient Tables}
+
+% Significance notation used in all tables:
+% \dagger p < .10, * p < .05, ** p < .01
+
+\begin{table}[htbp]
+\centering
+\small
+\caption{Coefficient tests for metacognitive calibration}
+\label{tab:coef-mc}
+\begin{tabular}{lrrrr}
+\toprule
+Term & Coefficient & Std.\ error & $t$ & $p$ \\
+\midrule
+Intercept                         & $-0.0292$ & $0.4024$ & $-0.0726$ & $0.9430$ \\
+$\mathrm{AS}$                     & $-0.1727$ & $0.2145$ & $-0.8054$ & $0.4317$ \\
+$\mathrm{AD}$                     & $ 0.4185$ & $0.2145$ & $ 1.9513$ & $0.0677^{\dagger}$ \\
+$\mathrm{MCP}$                    & $-0.0041$ & $0.2145$ & $-0.0189$ & $0.9851$ \\
+$\mathrm{SFR}$                    & $ 0.1068$ & $0.2145$ & $ 0.4978$ & $0.6250$ \\
+$\mathrm{AS}\times\mathrm{AD}$    & $-0.0288$ & $0.2609$ & $-0.1104$ & $0.9134$ \\
+$\mathrm{AS}\times\mathrm{MCP}$   & $-0.0111$ & $0.2609$ & $-0.0427$ & $0.9664$ \\
+$\mathrm{AS}\times\mathrm{SFR}$   & $-0.3550$ & $0.2609$ & $-1.3608$ & $0.1914$ \\
+$\mathrm{AD}\times\mathrm{MCP}$   & $-0.1909$ & $0.2609$ & $-0.7317$ & $0.4743$ \\
+$\mathrm{AD}\times\mathrm{SFR}$   & $ 0.1076$ & $0.2609$ & $ 0.4123$ & $0.6853$ \\
+$\mathrm{MCP}\times\mathrm{SFR}$  & $-0.2081$ & $0.2609$ & $-0.7977$ & $0.4361$ \\
+$\mathrm{AS}^{2}$                 & $-0.2053$ & $0.1989$ & $-1.0319$ & $0.3166$ \\
+$\mathrm{AD}^{2}$                 & $ 0.0876$ & $0.1989$ & $ 0.4406$ & $0.6651$ \\
+$\mathrm{MCP}^{2}$                & $ 0.0472$ & $0.1989$ & $ 0.2375$ & $0.8151$ \\
+$\mathrm{SFR}^{2}$                & $ 0.1432$ & $0.1989$ & $ 0.7199$ & $0.4814$ \\
+\bottomrule
+\end{tabular}
+
+\medskip
+\footnotesize{\textit{Note.} Two-sided $t$-tests with 17 residual degrees of freedom.
+$\dagger p<.10$, $*p<.05$, $**p<.01$.}
+\end{table}
+
+\begin{table}[htbp]
+\centering
+\small
+\caption{Coefficient tests for transfer}
+\label{tab:coef-transfer}
+\begin{tabular}{lrrrr}
+\toprule
+Term & Coefficient & Std.\ error & $t$ & $p$ \\
+\midrule
+Intercept                         & $ 0.1277$ & $0.3188$ & $ 0.4004$ & $0.6938$ \\
+$\mathrm{AS}$                     & $-0.3050$ & $0.1699$ & $-1.7952$ & $0.0904^{\dagger}$ \\
+$\mathrm{AD}$                     & $ 0.5411$ & $0.1699$ & $ 3.1845$ & $0.0054^{**}$ \\
+$\mathrm{MCP}$                    & $ 0.1464$ & $0.1699$ & $ 0.8616$ & $0.4009$ \\
+$\mathrm{SFR}$                    & $ 0.0823$ & $0.1699$ & $ 0.4845$ & $0.6342$ \\
+$\mathrm{AS}\times\mathrm{AD}$    & $-0.3614$ & $0.2067$ & $-1.7485$ & $0.0984^{\dagger}$ \\
+$\mathrm{AS}\times\mathrm{MCP}$   & $-0.0847$ & $0.2067$ & $-0.4100$ & $0.6869$ \\
+$\mathrm{AS}\times\mathrm{SFR}$   & $-0.2196$ & $0.2067$ & $-1.0624$ & $0.3029$ \\
+$\mathrm{AD}\times\mathrm{MCP}$   & $-0.0757$ & $0.2067$ & $-0.3665$ & $0.7185$ \\
+$\mathrm{AD}\times\mathrm{SFR}$   & $ 0.2583$ & $0.2067$ & $ 1.2499$ & $0.2283$ \\
+$\mathrm{MCP}\times\mathrm{SFR}$  & $-0.1179$ & $0.2067$ & $-0.5707$ & $0.5757$ \\
+$\mathrm{AS}^{2}$                 & $ 0.1009$ & $0.1576$ & $ 0.6405$ & $0.5304$ \\
+$\mathrm{AD}^{2}$                 & $-0.0153$ & $0.1576$ & $-0.0968$ & $0.9240$ \\
+$\mathrm{MCP}^{2}$                & $ 0.1009$ & $0.1576$ & $ 0.6405$ & $0.5304$ \\
+$\mathrm{SFR}^{2}$                & $-0.3140$ & $0.1576$ & $-1.9928$ & $0.0626^{\dagger}$ \\
+\bottomrule
+\end{tabular}
+
+\medskip
+\footnotesize{\textit{Note.} Two-sided $t$-tests with 17 residual degrees of freedom.
+$\dagger p<.10$, $*p<.05$, $**p<.01$.}
+\end{table}
+
+\begin{table}[htbp]
+\centering
+\small
+\caption{Coefficient tests for initiation tendency}
+\label{tab:coef-initiation}
+\begin{tabular}{lrrrr}
+\toprule
+Term & Coefficient & Std.\ error & $t$ & $p$ \\
+\midrule
+Intercept                         & $ 0.3778$ & $0.3508$ & $ 1.0769$ & $0.2966$ \\
+$\mathrm{AS}$                     & $-0.0678$ & $0.1869$ & $-0.3627$ & $0.7213$ \\
+$\mathrm{AD}$                     & $ 0.2011$ & $0.1869$ & $ 1.0758$ & $0.2971$ \\
+$\mathrm{MCP}$                    & $ 0.4639$ & $0.1869$ & $ 2.4813$ & $0.0238^{*}$ \\
+$\mathrm{SFR}$                    & $ 0.3348$ & $0.1869$ & $ 1.7907$ & $0.0912^{\dagger}$ \\
+$\mathrm{AS}\times\mathrm{AD}$    & $ 0.2498$ & $0.2274$ & $ 1.0983$ & $0.2874$ \\
+$\mathrm{AS}\times\mathrm{MCP}$   & $ 0.0211$ & $0.2274$ & $ 0.0926$ & $0.9273$ \\
+$\mathrm{AS}\times\mathrm{SFR}$   & $-0.1606$ & $0.2274$ & $-0.7062$ & $0.4896$ \\
+$\mathrm{AD}\times\mathrm{MCP}$   & $-0.0779$ & $0.2274$ & $-0.3425$ & $0.7361$ \\
+$\mathrm{AD}\times\mathrm{SFR}$   & $ 0.2557$ & $0.2274$ & $ 1.1243$ & $0.2765$ \\
+$\mathrm{MCP}\times\mathrm{SFR}$  & $ 0.1983$ & $0.2274$ & $ 0.8720$ & $0.3954$ \\
+$\mathrm{AS}^{2}$                 & $-0.0707$ & $0.1734$ & $-0.4077$ & $0.6886$ \\
+$\mathrm{AD}^{2}$                 & $ 0.0329$ & $0.1734$ & $ 0.1898$ & $0.8517$ \\
+$\mathrm{MCP}^{2}$                & $-0.1961$ & $0.1734$ & $-1.1312$ & $0.2737$ \\
+$\mathrm{SFR}^{2}$                & $-0.1952$ & $0.1734$ & $-1.1257$ & $0.2759$ \\
+\bottomrule
+\end{tabular}
+
+\medskip
+\footnotesize{\textit{Note.} Two-sided $t$-tests with 17 residual degrees of freedom.
+$\dagger p<.10$, $*p<.05$, $**p<.01$.}
+\end{table}
+
+\begin{table}[htbp]
+\centering
+\small
+\caption{Coefficient tests for achievement}
+\label{tab:coef-achievement}
+\begin{tabular}{lrrrr}
+\toprule
+Term & Coefficient & Std.\ error & $t$ & $p$ \\
+\midrule
+Intercept                         & $-0.0419$ & $0.3844$ & $-0.1089$ & $0.9145$ \\
+$\mathrm{AS}$                     & $-0.1406$ & $0.2048$ & $-0.6862$ & $0.5018$ \\
+$\mathrm{AD}$                     & $ 0.1932$ & $0.2048$ & $ 0.9434$ & $0.3587$ \\
+$\mathrm{MCP}$                    & $-0.0193$ & $0.2048$ & $-0.0942$ & $0.9260$ \\
+$\mathrm{SFR}$                    & $ 0.2338$ & $0.2048$ & $ 1.1415$ & $0.2695$ \\
+$\mathrm{AS}\times\mathrm{AD}$    & $-0.3629$ & $0.2492$ & $-1.4565$ & $0.1635$ \\
+$\mathrm{AS}\times\mathrm{MCP}$   & $ 0.3688$ & $0.2492$ & $ 1.4801$ & $0.1571$ \\
+$\mathrm{AS}\times\mathrm{SFR}$   & $-0.3445$ & $0.2492$ & $-1.3827$ & $0.1847$ \\
+$\mathrm{AD}\times\mathrm{MCP}$   & $-0.0712$ & $0.2492$ & $-0.2859$ & $0.7784$ \\
+$\mathrm{AD}\times\mathrm{SFR}$   & $-0.4084$ & $0.2492$ & $-1.6391$ & $0.1196$ \\
+$\mathrm{MCP}\times\mathrm{SFR}$  & $ 0.0500$ & $0.2492$ & $ 0.2008$ & $0.8432$ \\
+$\mathrm{AS}^{2}$                 & $ 0.1196$ & $0.1900$ & $ 0.6294$ & $0.5375$ \\
+$\mathrm{AD}^{2}$                 & $-0.0201$ & $0.1900$ & $-0.1057$ & $0.9171$ \\
+$\mathrm{MCP}^{2}$                & $ 0.1196$ & $0.1900$ & $ 0.6294$ & $0.5375$ \\
+$\mathrm{SFR}^{2}$                & $-0.1597$ & $0.1900$ & $-0.8408$ & $0.4122$ \\
+\bottomrule
+\end{tabular}
+
+\medskip
+\footnotesize{\textit{Note.} Two-sided $t$-tests with 17 residual degrees of freedom.
+$\dagger p<.10$, $*p<.05$, $**p<.01$.}
+\end{table}
+
+\begin{table}[htbp]
+\centering
+\small
+\caption{Coefficient tests for engagement}
+\label{tab:coef-engagement}
+\begin{tabular}{lrrrr}
+\toprule
+Term & Coefficient & Std.\ error & $t$ & $p$ \\
+\midrule
+Intercept                         & $-0.3410$ & $0.4190$ & $-0.8138$ & $0.4270$ \\
+$\mathrm{AS}$                     & $-0.1018$ & $0.2233$ & $-0.4557$ & $0.6544$ \\
+$\mathrm{AD}$                     & $-0.0271$ & $0.2233$ & $-0.1215$ & $0.9047$ \\
+$\mathrm{MCP}$                    & $ 0.4407$ & $0.2233$ & $ 1.9739$ & $0.0649^{\dagger}$ \\
+$\mathrm{SFR}$                    & $-0.0575$ & $0.2233$ & $-0.2577$ & $0.7998$ \\
+$\mathrm{AS}\times\mathrm{AD}$    & $-0.1049$ & $0.2716$ & $-0.3862$ & $0.7042$ \\
+$\mathrm{AS}\times\mathrm{MCP}$   & $-0.0091$ & $0.2716$ & $-0.0334$ & $0.9737$ \\
+$\mathrm{AS}\times\mathrm{SFR}$   & $-0.2602$ & $0.2716$ & $-0.9579$ & $0.3515$ \\
+$\mathrm{AD}\times\mathrm{MCP}$   & $ 0.1721$ & $0.2716$ & $ 0.6338$ & $0.5347$ \\
+$\mathrm{AD}\times\mathrm{SFR}$   & $-0.2350$ & $0.2716$ & $-0.8651$ & $0.3990$ \\
+$\mathrm{MCP}\times\mathrm{SFR}$  & $-0.1598$ & $0.2716$ & $-0.5883$ & $0.5640$ \\
+$\mathrm{AS}^{2}$                 & $-0.0017$ & $0.2071$ & $-0.0084$ & $0.9934$ \\
+$\mathrm{AD}^{2}$                 & $ 0.2000$ & $0.2071$ & $ 0.9656$ & $0.3478$ \\
+$\mathrm{MCP}^{2}$                & $ 0.0487$ & $0.2071$ & $ 0.2353$ & $0.8168$ \\
+$\mathrm{SFR}^{2}$                & $ 0.1956$ & $0.2071$ & $ 0.9445$ & $0.3581$ \\
+\bottomrule
+\end{tabular}
+
+\medskip
+\footnotesize{\textit{Note.} Two-sided $t$-tests with 17 residual degrees of freedom.
+$\dagger p<.10$, $*p<.05$, $**p<.01$.}
+\end{table}
+
+These tests demonstrate whether a certain coefficient is significantly different from $0$. If the $p$ value corresponding to a given $t$ is $<.05$, we can conclude that the coefficient is statistically significant. A larger $|t|$ corresponds to a lower $p$ value. In the tables above, most coefficients have a very high $p$ value, demonstrating that those terms are not statistically distinguishable from $0$.
+
+
+\newpage
 
 \bibliographystyle{unsrt}
 \bibliography{bibli}
