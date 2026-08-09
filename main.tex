@@ -974,8 +974,8 @@ deviations.
         \end{tabular}
     \end{threeparttable}
 \end{table*}
-All facets of IRC and achievement see incredible gains throughout. Most notably, tranfer is predicted to  by over $2$ standard deviations, and achievement sees, on average, a $1$ standard deviation improvement. If these numbers were accurate, they would demonstrate incredible improvement, much higher than any ITS. For concreteness, a $1$ s.d. improvement takes a $50$th percentile scorer to the $83$rd percentile.
-Some other trends are also visibile in the data. Contrary to expectation, initiation tendency roughly increases as we increase $e_{th}$, most likely due to the low weight attached to initiation tendency. A similar trend can be seen with transfer, which initially goes up before coming back down. Contour graphs are shown below to help visualize the effect of the engagement constraint.
+All facets of IRC and achievement see large gains throughout. Most notably, transfer is predicted to improve by over $2$ standard deviations, and achievement sees, on average, a $1$ standard deviation improvement. If these numbers were accurate, they would represent an improvement far larger than that of any ITS. For concreteness, a $1$ s.d. improvement takes a $50$th percentile scorer to the $83$rd percentile.
+Some other trends are also visible in the data. Contrary to expectation, initiation tendency roughly increases as we increase $e_{th}$, most likely due to the low weight attached to it. A similar trend can be seen with transfer, which initially goes up before coming back down. Contour graphs are shown below to help visualize the effect of the engagement constraint.
 \begin{figure}[H]
     \centering
     \includegraphics[width=1\linewidth]{fig_all_contours.png}
@@ -990,54 +990,54 @@ Overall, the study weakly accomplishes the desired goal. For students at various
 
 \subsection{Limitations}
 
-For one, the AI tutoring system was not used as intended by the students. Students often used the system as a mere answer checker, with students inputting the correct answer on the first try $70\%$ of the time. Thus, the parameters didn't have a huge impact on the student's development, as they never came into play.
+For one, the AI tutoring system was not used as intended by the students. They often used the system as a mere answer checker, inputting the correct answer on the first try $70\%$ of the time. Thus, the parameters did not have a substantial impact on the student's development, as they never came into play.
 \\\\
-Another large fault that invalidated most of the metacognitive calibration data was the fact that the amount of metacognitive prompts rarely varied per student. With students inputting an answer immediately, the system rarely had the opportunity to prompt the user. On top of that, students did not answer the prompt very often\footnote{The AI system was designed to not move forward unless the student had answer the prompt or felt uncomfortable, and as a result, students who refused to answer the prompt after multiple follow-ups were often believed by the system to be ``uncomfortable" with answer the prompt.}, and thus the prompting seldom changed the metacognitive calibration of the student.
+Another large fault that invalidated most of the metacognitive calibration data was that the number of metacognitive prompts rarely varied per student. With students inputting an answer immediately, the system rarely had the opportunity to prompt the user. On top of that, students did not answer the prompt very often\footnote{The AI system was designed not to move forward unless the student had answered the prompt or felt uncomfortable; as a result, students who refused to answer after multiple follow-ups were often taken by the system to be ``uncomfortable'' with answering the prompt.}, and thus the prompting seldom changed the metacognitive calibration of the student.
 \\\\
-Also, something similar could be observed on the answer specificity side. When such percents became close to $5-10\%$ of the solution, the AI was unable to give just this much away; the solutions often only consisted of 3-4 main steps. This was a result of faulty design; in future works, answer specificity will be altered to be the number of hints provided per problem, rather than the percent of the solutions given away.
+Also, something similar could be observed on the answer specificity side. When such percentages fell close to $5$--$10\%$ of the solution, the AI was unable to give away just that much; the solutions often consisted of only $3$--$4$ main steps. This was a result of faulty design; in future work, answer specificity will be redefined as the number of hints provided per problem, rather than the percentage of the solution given away.
 \\\\
-There were also a few issues with the experiment. Out of the $100$ desired participants, only $32$ actually completed $\ge 2$ assessments, making our model prone to overfitting. Furthermore, the participants interacted with the system for vastly different amounts of time, ranging from $5$ hours to $11$ hours. Also, the choice only to analyze students who completed $\ge 2$ assessments may have introduced selection bias, as those students were more motivated. This could result in offset engagement percentiles.
+There were also a few issues with the experiment. Out of the $100$ desired participants, only $32$ actually completed $\ge 2$ assessments, making our model prone to overfitting. Furthermore, the participants interacted with the system for vastly different amounts of time, ranging from $5$ hours to $11$ hours. Also, the choice to analyze only students who completed $\ge 2$ assessments may have introduced selection bias, as those students were more motivated. This could skew the engagement percentiles.
 
 \subsection{Implications}
 
-Recall that the lack of fit test demonstrated that the CCD model is likely to fit the data well. Even though the data was messed up due to a lot of noise, the ability to fit the CCD model through the data could indicate that a CCD model would adequately fit robust data as well. Thus, future work that yields strong data could utilize a similar response surface methodology approach for optimization.
+Recall that the lack-of-fit test demonstrated that the CCD model is likely to fit the data well. Even though the data was heavily affected by noise, the ability to fit the CCD model through it could indicate that a CCD model would adequately fit robust data as well. Thus, future work that yields strong data could utilize a similar response surface methodology approach for optimization.
 \\\\
-Moreover, the results in Table $\ref{tab:optimal-components}$ demonstrates that optimal parameters can have a tremendous predicted impact on achievement. These parameters would also enhance each of the components of IRC, no matter the bar for $e_{th}$. For these reasons, a teacher could theoretically implement a tutoring system with these parameters and see learning gains even in the weakest student. However, it is not recommended to do so off the current data; we recommend that a more robust study is conducted before making changes in instructional practices.
+Moreover, the results in Table $\ref{tab:optimal-components}$ demonstrate that optimal parameters can have a tremendous predicted impact on achievement. These parameters would also enhance each of the components of IRC, no matter the bar for $e_{th}$. For these reasons, a teacher could theoretically implement a tutoring system with these parameters and see learning gains even in the weakest student. However, we do not recommend doing so on the basis of the current data; a more robust study should be conducted before making changes to instructional practice.
 
 \subsection{Cost Benefit Analysis}
 
 Here, we establish that personalized learning is a valuable investment given our results. First, consider the status quo. From $1978$ to $2025$, 9-year-old NAEP mathematics scores have improved by $.51$ standard deviations \cite{naep2025math9}, if we assume a normal distribution. Assuming a spend of $10$ billion USD yearly, this implies that nearly \textbf{half a trillion} dollars have been invested for a $.51$ standard deviation growth.
 \\\\
-Now if 1:1 tutoring was possible, a minimum of a $.709\sigma$ growth would be visible after at most a year; in Bloom's study, a $2\sigma$ increase only took $3$ weeks \cite{bloom1984sigma}. Assuming a token spend of $\$1$ per hour, and the tool was used $365$ hours a year, this would mean a spend of $365$ per student. Over the $50$ million students living in the States, this comes out around $18$ billion dollars, which is significantly less than the $\$500$ billion necessary for natural growth. Moreover, 1:1 tutoring is significantly faster, and allows students to reach a higher level with their education.
+Now if 1:1 tutoring were possible, a minimum of $.709\sigma$ growth would be visible after at most a year; in Bloom's study, a $2\sigma$ increase took only $3$ weeks \cite{bloom1984sigma}. Assuming a token spend of $\$1$ per hour, and that the tool is used $365$ hours a year, this would mean a spend of $\$365$ per student. Over the $50$ million students in the United States, this comes out to around $\$18$ billion, which is significantly less than the $\$500$ billion spent on natural growth. Moreover, 1:1 tutoring is significantly faster, and allows students to reach a higher level in their education.
 
 \subsection{Future Work}
-We believe that the research here establishes a strong proof of concept but the outcomes and data contain too much noise to be implemented directly. Thus, we recommend that this study be completed again, but with the following changes:
+We believe that the research here establishes a strong proof of concept, but the outcomes and data contain too much noise to be implemented directly. Thus, we recommend that this study be completed again, with the following changes:
 
 \begin{itemize}
     \item The tutoring system should be implemented inside a school environment, in which the teacher could supervise the students and ensure that they are using it as intended. Moreover, the AI tutoring system should provide teacher-curated problems, rather than have the student provide those of their own.
-    \item The AI tutor should be fine-tuned rather than given a system prompt for robustness. This also ensure that responses follow the desired framework well.
-    \item More participants be included in the study.
-    \item Different parameters ranges be chosen. For this, check the limitation sections to see which ones are not suitable as is.
+    \item The AI tutor should be fine-tuned rather than given a system prompt, for robustness. This would also ensure that responses follow the desired framework more closely.
+    \item More participants should be included in the study.
+    \item Different parameter ranges should be chosen. For this, check the limitations section to see which ones are not suitable as is.
 \end{itemize}
 
 A future study that generates strong data could provide accurate predictions for optimized outcomes, and could then follow the initially proposed theory of change for maximum impact.
 
 \subsection{Conclusion}
 
-This study investigated whether certain parameters of an AI tutoring system; specifically, answer specificity, access delay, metacognitive prompting, and scaffolding fade, could be adjusted to support learning and independent reasoning without sacrificing student engagement. The analysis produced promising parameter combinations and illustrated the tradeoff between deep learning and keeping students engaged. Notably, the data analysis demonstrated that there is potential for a $.7\sigma$ improvement, even for the students who require the most engagement. However, the small sample size of data and minimal differences in the parameters students actually received prevent the study from identifying a true optimal configuration. The findings should therefore be viewed as a proof of concept for improving AI tutor design rather than final recommendations for classroom use.
+This study investigated whether certain parameters of an AI tutoring system --- specifically answer specificity, access delay, metacognitive prompting, and scaffolding fade --- could be adjusted to support learning and independent reasoning without sacrificing student engagement. The analysis produced promising parameter combinations and illustrated the tradeoff between deep learning and keeping students engaged. Notably, the data analysis demonstrated that there is potential for a $.7\sigma$ improvement, even for the students who require the most engagement. However, the small sample size and the minimal differences in the parameters students actually received prevent the study from identifying a true optimal configuration. The findings should therefore be viewed as a proof of concept for improving AI tutor design rather than final recommendations for classroom use.
 \\\\
-Future research should repeat the study with a larger sample, more consistent usage times across students, teacher-curated problems, and a tutoring system that implements each parameter more reliably. For all its limitations, this study does establish one key fact: that tradeoffs must be made between engagement and cognitive support. This establishes a strong proof of concept that a middle-ground exists, and thus should be looked for. Although we highly recommend against using data from this paper to influence the design of AI tutoring systems, we believe that future renditions of this study could provide parameters that perfectly achieve the desired goal.
+Future research should repeat the study with a larger sample, more consistent usage times across students, teacher-curated problems, and a tutoring system that implements each parameter more reliably. For all its limitations, this study does establish one key fact: that tradeoffs must be made between engagement and cognitive support. It is a strong proof of concept that a middle ground exists, and thus that one should be looked for. Although we highly recommend against using data from this paper to influence the design of AI tutoring systems, we believe that future renditions of this study could provide parameters that perfectly achieve the desired goal.
 
 \newpage
 
 \paragraph{AI Disclosure}
 
-AI was used to help polish text in this paper. Moreover, it was used to clarify and bounce ideas off of when working through my project. In this case, it was used simply as a thought buddy (or socratic duck!). All ideas presented in the paper are my own work, though they may have been refined with the help of an LLM tool. Also, LLMs were used to explain topics that I did not entirely understand. For instance, I had learned about the lack-of-fit test, but Claude explained to me how it is calculated and more theory behind it.
+AI was used to help polish text in this paper. Moreover, it was used to clarify and bounce ideas off when working through my project. In this case, it was used simply as a thought buddy (or Socratic duck!). All ideas presented in the paper are my own work, though they may have been refined with the help of an LLM tool. Also, LLMs were used to explain topics that I did not entirely understand. For instance, I had learned about the lack-of-fit test, but Claude explained to me how it is calculated and more theory behind it.
 Claude was also used to generate diagrams for this paper. However, all data was supplied entirely by me, and the graph design was also provided by me. Claude had no role other than to generate the diagrams asked for. Claude was also sometimes used to convert a CSV into a LaTeX table, but in these cases, all the data was provided to Claude and Claude merely reshaped the data.
 
 \section{Appendix A: Code and System Prompt}
 
-All the code used to run the experiment can be found here: \href{https://github.com/shivTHEmath/study-chat-app}{GitHub Link.} I worked on this project from my parent's computer as well (as that is where I had to deploy), so you may see commits from different accounts. Notably, the system prompt can be found at: \texttt{main/src/lib/tutor/systemPrompt.js}.
+All the code used to run the experiment can be found here: \href{https://github.com/shivTHEmath/study-chat-app}{GitHub link}. I worked on this project from my parent's computer as well (as that is where I had to deploy), so you may see commits from different accounts. Notably, the system prompt can be found at: \texttt{main/src/lib/tutor/systemPrompt.js}.
 
 \newpage
 
@@ -1393,7 +1393,7 @@ $\mathrm{SFR}^{2}$                & $ 0.1956$ & $0.2071$ & $ 0.9445$ & $0.3581$ 
 $\dagger p<.10$, $*p<.05$, $**p<.01$.}
 \end{table}
 
-These tests demonstrate when a certain coefficient is significantly different from $0$. If the corresponding $p$ value to a certain $t$ is $<.05$, we can conclude that that coefficient is statistically significant. A larger $t$ corresponds with a lower $p$ value. In the above tables, we see most coefficients having a very high $p$ value, demonstrating that those terms are not statistically different from $0$.
+These tests demonstrate whether a certain coefficient is significantly different from $0$. If the $p$ value corresponding to a given $t$ is $<.05$, we can conclude that the coefficient is statistically significant. A larger $|t|$ corresponds to a lower $p$ value. In the tables above, most coefficients have a very high $p$ value, demonstrating that those terms are not statistically distinguishable from $0$.
 
 
 \newpage
