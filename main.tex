@@ -98,7 +98,7 @@
 \setlength{\parindent}{0.4in}
 
 \begin{document}
-\title{YOUR TITLE HERE}
+\title{Optimizing AI Tutoring Design for Learning and Engagement: A Response Surface Methodology Study}
 \author{Shivsai Sharda}
 \date{\today}
 \maketitle
@@ -199,12 +199,12 @@ In no way do we claim that this division of IRC is exhaustive. However, these co
 \\\\
 As a result, it is imperative that we alter standard LLMs in order to preserve both knowledge and IRC. The parameters we change here come from Vendrell and Johnston's 2026 framework on the $8$ principles to preserve critical thinking in the presence of AI \cite{Vendrell2026Scaffolding}. More specifically, we choose to alter:
 \begin{itemize}
-\item \textbf{Hint Specificity:} How much of the solution do successive hints give away?
+\item \textbf{Answer Specificity:} How much of the solution do successive hints give away?
 \item \textbf{Access Delay:} How long is the forced wait before the AI responds, during which students must reason independently?
 \item \textbf{Metacognitive Prompting Rate:} How frequently does the student receive a metacognitive prompt, that is, a prompt that forces them to think about their own work (for example, ``How confident are you in this step?'')?
 \item \textbf{Scaffolding Fade Rate:} At what rate does AI assistance decline as a student improves?
 \end{itemize}
-We now bring in another key factor: engagement. Notice that our prior goal had been to maximize IRC and knowledge, and thus we chose the above parameters. But trivially maximizing each of the parameters maximizes IRC at the cost of terrible engagement. To see why empirically, we study Khanmigo.\footnote{Khan Academy's AI Tutor} Khanmigo was developed as a Socratic tutor, which means that it only questioned the learner to advance their knowledge \cite{khan2023harnessing}. This implies that Khanmigo did not give hints, thus sitting at a maximum for both hint specificity and access delay. As a result, only $15\%$ of students with access to Khanmigo used it beyond the weekly recommended amount --- a mere 30 minutes \cite{khanacademy2026learninginopen}. Yet, as expected, Khanmigo produced excellent achievement results in the schools that did use it actively \cite{oreopoulos2026khanacademy}.
+We now bring in another key factor: engagement. Notice that our prior goal had been to maximize IRC and knowledge, and thus we chose the above parameters. But trivially maximizing each of the parameters maximizes IRC at the cost of terrible engagement. To see why empirically, we study Khanmigo.\footnote{Khan Academy's AI Tutor} Khanmigo was developed as a Socratic tutor, which means that it only questioned the learner to advance their knowledge \cite{khan2023harnessing}. This implies that Khanmigo did not give hints, thus sitting at a maximum for both answer specificity and access delay. As a result, only $15\%$ of students with access to Khanmigo used it beyond the weekly recommended amount --- a mere 30 minutes \cite{khanacademy2026learninginopen}. Yet, as expected, Khanmigo produced excellent achievement results in the schools that did use it actively \cite{oreopoulos2026khanacademy}.
 \\\\
 To the best of our knowledge, every existing AI tutoring system either maximizes the parameters described above or leaves them unchanged; no system has attempted an intermediate setting. This presents a significant gap in the literature: if maximization hurts engagement and leaving the parameters unchanged is detrimental to IRC, then a middle ground is crucial.
 
@@ -213,7 +213,7 @@ To the best of our knowledge, every existing AI tutoring system either maximizes
 The research question explored in this paper is:
 
 \begin{quote}
-    At what combination of the parameters \textit{Hint Specificity, Access Delay, Metacognitive Prompting Rate}, \textit{Scaffolding Fade Rate} does an AI tutoring system provide sufficient support and engagement for the learner and improve performance, while enhancing their independent reasoning skills?
+    At what combination of the parameters \textit{Answer Specificity, Access Delay, Metacognitive Prompting Rate}, \textit{Scaffolding Fade Rate} does an AI tutoring system provide sufficient support and engagement for the learner and improve performance, while enhancing their independent reasoning skills?
 \end{quote}
 
 \noindent Here, independent reasoning is measured by the metrics above. This question addresses the gap left by other tutoring systems, which fail to account for learner engagement. Engagement is crucial: without it, the tool cannot enhance a student's IRC, because the student will not use the tool at all. An AI analytics study by UPenn Wharton finds that engagement, rather than content, is often the factor that drives the most improvement \cite{wharton}. By creating this tool, we design the foundation for a system that students will actually use for learning. This will lead to increases in performance, as desired by the U.S. Department of Education \cite{usdoe2015essa}, and will also foster greater independent reasoning --- a highly employable trait \cite{wef2025futureofjobs}.
@@ -375,7 +375,7 @@ In the following flowchart, we expect the first three stages (up to Enhancement 
 
 \section{Methodology}
 
-\textit{High-Level Summary.} Say we compress the input variables (hint specificity, access delay, etc.) into a column vector $\mathbf{x}$. Using a response surface methodology (RSM) approach, we develop one function per outcome (Table \ref{oink}) that maps the input parameters to five learning outcomes. We collect data for these functions through an experiment in which each student is assigned a design point and tutored by a system configured to that point. The composite learning outcome is modeled as a weighted sum
+\textit{High-Level Summary.} Say we compress the input variables (answer specificity, access delay, etc.) into a column vector $\mathbf{x}$. Using a response surface methodology (RSM) approach, we develop one function per outcome (Table \ref{oink}) that maps the input parameters to five learning outcomes. We collect data for these functions through an experiment in which each student is assigned a design point and tutored by a system configured to that point. The composite learning outcome is modeled as a weighted sum
 \[
 c(\mathbf{x})=0.3 f(\mathbf{x})+0.2 g(\mathbf{x})+0.1 h(\mathbf{x}) + 0.4 p(\mathbf{x})
 \]
@@ -432,14 +432,14 @@ A major part of developing the application upon which the experiment was conduct
 
 \subsection{Parametrization of the Input}
 
-We established that the input parameters are hint specificity, access delay, metacognitive prompting rate, and scaffolding fade rate. We now elaborate on the settings of these parameters used for our CCD model and experiment. Because the coded variable is always $x_i \in \{-2, -1, 0, 1, 2\}$, we use $\xi _i$ to represent what the variable means in reality.
+We established that the input parameters are answer specificity, access delay, metacognitive prompting rate, and scaffolding fade rate. We now elaborate on the settings of these parameters used for our CCD model and experiment. Because the coded variable is always $x_i \in \{-2, -1, 0, 1, 2\}$, we use $\xi _i$ to represent what the variable means in reality.
 \begin{table}[h]
     \centering
     \begin{tabular}{c|c|c}
     \toprule
         \text{Name}  & \text{Coded} & \text{Reality}  \\
     \midrule
-        \text{Hint Specificity}   & $x_1$ & $\xi_1$ \\
+        \text{Answer Specificity}   & $x_1$ & $\xi_1$ \\
     \midrule
         \text{Access Delay}   & $x_2$ & $\xi_2$ \\
     \midrule
@@ -452,8 +452,8 @@ We established that the input parameters are hint specificity, access delay, met
     \label{tab:placeholder}
 \end{table}
 \\\\
-\textbf{Hint Specificity.}  
-Hint specificity refers to the rough percentage of the solution given away when the student is stuck or asks for a hint. Hint specificity is additive: if the previous hint gave away $p\%$ of the solution, the subsequent hint will give away $(p + \xi_1)\%$. Moreover, the answer to a problem is never given away, even if a hint is meant to give away $\ge 100\%$ of the solution; this ensures that at least minimal cognitive effort is applied. To convert from coded units to actual (so-called ``natural'') units, we use the formula
+\textbf{Answer Specificity.}  
+Answer specificity refers to the rough percentage of the solution given away when the student is stuck or asks for a hint. Answer specificity is additive: if the previous hint gave away $p\%$ of the solution, the subsequent hint will give away $(p + \xi_1)\%$. Moreover, the answer to a problem is never given away, even if a hint is meant to give away $\ge 100\%$ of the solution; this ensures that at least minimal cognitive effort is applied. To convert from coded units to actual (so-called ``natural'') units, we use the formula
 \[\xi_1 = 12x_1 +30.\] Given that the coded units are points where $x_1 \in \{-2, -1, 0, 1, 2\}$, the natural values are $\xi_1 \in \{6, 18, 30, 42, 54\}$. These specific values were chosen with the assumption that practice problems take roughly $3$ steps, which is why $x_1=0 \implies \xi_1 = 30$. One key limitation of this structuring is that the latter $3$ values in the set, specifically $30, 42,$ and $54$, correspond to $2$--$4$ hints, whereas $\xi_1 = 6$ corresponds to $16$ hints. However, this is bound to happen with any choice of mapping from $x_1$ to $\xi_1$, because the number of hints is $100/\xi_1$, which grows rapidly. In order to enforce these parameters, the AI system was given a prompt isomorphic to
 \begin{enumerate}
     \item Write out the solution to the problem. Break up the solution into the smallest chunks possible that still require cognitive effort and are not simple computations.
@@ -468,7 +468,8 @@ This reveals another limitation, specifically that the exact $\xi_1$ cannot be f
 \[\text{initial access delay} = \xi_2 \cdot  3^{(d-1)/4}\]
 \[\text{mid-problem access delay} = \frac {\xi_2}{2} \cdot 3^{(d-1)/8}.\]
 These numbers seem arbitrary, but were chosen with the idea that harder problems take nearly exponentially more time, since working through unfamiliar ideas is slow. Moreover, the maximum delay over all $\xi_2$ is capped at $6$ minutes, a figure determined by communicating with the target students. For clarity, the delays for $d=3$ are shown below.
-\begin{table}[htbp]
+
+\begin{table}[H]
 \centering
 \begin{tabular}{@{}lrrrrr@{}}
 \toprule
@@ -486,15 +487,15 @@ Mid-problem delay & $27$ & $35$ & $46$  & $61$  & $80$  \\
 \caption{Access delays in seconds for $d=3$ across all coded levels of $x_2$.}
 \label{tab:access-delay}
 \end{table}
-
+\\\\
 \noindent \textbf{Metacognitive Prompting Rate.} Metacognitive prompts force the student to evaluate their thinking and justify their steps. These are designed to occur more frequently on problems where students guessed repeatedly, used AI assistance for a majority of the problem, or had just learned an unfamiliar topic. The prompting rate refers to the number of times a student receives a metacognitive prompt per problem. The conversion here is simple:
 \[\xi_3 = 2^{x_3}.\] Here, ratios represent \# of prompts / \# of problems. For example, if $x_3=-1$, then $\xi_3 = 1/2$, corresponding to 1 prompt every other problem. Similarly, if $x_3=1$, then $\xi_3 = 2$ and we provide two metacognitive prompts every problem. The reason for a geometric spacing is that an arithmetic spacing cannot span a useful range. The center point should remain $1$, as $1$ is a comfortable number of metacognitive prompts per problem. If an arithmetic spacing were chosen, the highest prompting rate we could include would be $2$; otherwise, we would have a non-positive prompting rate at the other end. However, there is a real possibility that the optimum is greater than $2$, so the design region must be able to reach it.
 \\\\
 \textbf{Scaffolding Fade Rate.} As time goes on and the student becomes more familiar with the material, we wish to decrease the specificity of hints given and increase the access delay. This is the role of the scaffolding fade rate parameter. The conversion between coded and natural units is given by
 \[\xi_4 = .08 \cdot 2^{x_4/2}.\] Here, we use a geometric spacing because this parameter represents a rate and therefore compounds geometrically over time. We now know that
-\[\xi_4 \in \{.04, .057, .08, .113, .16\}.\] For the desired effect on hint specificity and access delay, we define the multiplier function
-\[m(h) = (1-\xi_4)^{\left \lfloor h \right \rfloor} < 1.\] We use the floor function here because we do not want the access delay period and hint specificity to change constantly; we want the user to get comfortable with the current settings before we make them more challenging. Then the hint specificity after $h$ hours is given by
-\[(\text{original hint spec.}) \times m(h), \] and similarly the access delay after $h$ hours is 
+\[\xi_4 \in \{.04, .057, .08, .113, .16\}.\] For the desired effect on answer specificity and access delay, we define the multiplier function
+\[m(h) = (1-\xi_4)^{\left \lfloor h \right \rfloor} < 1.\] We use the floor function here because we do not want the access delay period and answer specificity to change constantly; we want the user to get comfortable with the current settings before we make them more challenging. Then the answer specificity after $h$ hours is given by
+\[(\text{original answer spec.}) \times m(h), \] and similarly the access delay after $h$ hours is 
 \[\frac{\text{original access delay}}{m(h)}.\] With these definitions, we can see why the values of $\xi_4$ were chosen as they were.
 \begin{figure}[htbp]
     \centering
@@ -508,7 +509,7 @@ Mid-problem delay & $27$ & $35$ & $46$  & $61$  & $80$  \\
     \begin{subfigure}[b]{0.48\textwidth}
         \centering
         \includegraphics[width=\linewidth]{sfr-hint.png}
-        \caption{Hint Specificity Decreases (Initial = $30\%$)}
+        \caption{Answer Specificity Decreases (Initial = $30\%$)}
         \label{fig:sfr-hint}
     \end{subfigure}
     \caption{How scaffolding fade rate affects other parameters}
