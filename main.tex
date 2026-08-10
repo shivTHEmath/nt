@@ -977,11 +977,11 @@ However, due to the large amount of noise present in the data, these outcomes ar
 
 \section{Discussion}
 
-Overall, the study weakly accomplishes the desired goal. For students at various levels, we are able to find an optimal value for performance and IRC, while making the system engaging for that student. However, the issues with noise in the data nearly invalidate the findings here. We now elaborate on the limitations that led to such noise.
+The study delivers the machinery it set out to build, but not a trustworthy answer. The design, the outcome measures, and the constrained optimization work end to end: given an engagement floor, the procedure returns a parameter setting. What it does not deliver is a setting anyone should act on, because the data feeding the procedure is too noisy to separate the fitted surfaces from a constant. We now elaborate on the limitations that produced that noise, since they are the most transferable thing this study has to report.
 
 \subsection{Limitations}
 
-For one, the AI tutoring system was not used as intended by the students. They often used the system as a mere answer checker, inputting the correct answer on the first try $70\%$ of the time. Thus, the parameters did not have a substantial impact on the student's development, as they never came into play.
+For one, the AI tutoring system was not used as intended by the students. They often used the system as a mere answer checker, inputting the correct answer on the first try $70\%$ of the time. Thus, the parameters did not have a substantial impact on the student's development, as they never came into play. This has a second consequence that compounds the first: per Section \ref{sec3}, problems answered correctly on the first reply are excluded from the initiation tendency calculation, so that outcome is computed from roughly the remaining $30\%$ of problems. Its effective sample is therefore much smaller than the participant count suggests, which is one plausible source of the noise in that response.
 \\\\
 Another large fault that invalidated most of the metacognitive calibration data was that the number of metacognitive prompts rarely varied per student. With students inputting an answer immediately, the system rarely had the opportunity to prompt the user. On top of that, students did not answer the prompt very often\footnote{The AI system was designed not to move forward unless the student had answered the prompt or felt uncomfortable; as a result, students who refused to answer after multiple follow-ups were often taken by the system to be ``uncomfortable'' with answering the prompt.}, and thus the prompting seldom changed the metacognitive calibration of the student.
 \\\\
@@ -991,9 +991,9 @@ There were also a few issues with the experiment. Out of the $100$ desired parti
 
 \subsection{Implications}
 
-Recall that the lack-of-fit test demonstrated that the CCD model is likely to fit the data well. Even though the data was heavily affected by noise, the ability to fit the CCD model through it could indicate that a CCD model would adequately fit robust data as well. Thus, future work that yields strong data could utilize a similar response surface methodology approach for optimization.
+The lack-of-fit test did not detect systematic misfit in the CCD model, though as noted in Section \ref{sec:model-adequacy} that test had little power here, so it is weak evidence at best. What can be said more confidently is that the design itself held up: the variance inflation factors were near $1$, the factors were cleanly separated, and the machinery ran from raw chat logs through to a constrained optimum without any step proving infeasible. Future work that yields less noisy data could therefore reuse this response surface approach, and would not have to relitigate the design.
 \\\\
-Moreover, the results in Table $\ref{tab:optimal-components}$ demonstrate that optimal parameters can have a tremendous predicted impact on achievement. These parameters would also enhance each of the components of IRC, no matter the bar for $e_{th}$. For these reasons, a teacher could theoretically implement a tutoring system with these parameters and see learning gains even in the weakest student. However, we do not recommend doing so on the basis of the current data; a more robust study should be conducted before making changes to instructional practice.
+Table \ref{tab:optimal-components} predicts a large impact on achievement and on every component of IRC, at every value of $e_{th}$. We would like to say that a teacher could adopt these settings and see gains even in the weakest student, but the models behind that table generalize worse than the sample mean, so the honest position is that the table shows what the method would tell us if the data supported it. It does not yet. A more robust study should be conducted before anyone changes instructional practice on this basis.
 
 \subsection{Cost Benefit Analysis}
 
