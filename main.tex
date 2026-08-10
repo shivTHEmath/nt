@@ -107,7 +107,7 @@
 
 \section{Introduction}
 \subsection{Key Terms}
-The following terms are often used synonymously, but the distinction between them matters for this section.
+The following terms are important to this paper.
 \begin{itemize}
     \item \textbf{Testing Performance/Achievement:} The ability to perform on standardized testing. This is often a measure of a student's ability to retain and acquire information related to the topic being tested, but may be slightly influenced by factors such as test-taking ability, assessment design, and inherent motivation.
     \item \textbf{Independent Reasoning Capacity (IRC):} The ability to independently evaluate information, generate defensible conclusions, and assess one's own learning. This is an aggregate of several different metrics, which are presented in Table $\ref{tab:zimmerman_mapping}$.
@@ -115,7 +115,7 @@ The following terms are often used synonymously, but the distinction between the
 \subsection{Problem \& Consequences}
 Benjamin Bloom's 1984 paper introduced the 2 Sigma Problem \cite{bloom1984sigma} --- the finding that 1-on-1 tutoring could propel a student's testing performance nearly two standard deviations\footnote{This number is heavily debated in the education community, in large part due to the study referred to in Bloom's paper engaging participants with concepts they had never encountered before, leading to the large positive effect from 1:1 tutoring. However, experts maintain that 1:1 tutoring indeed has a moderate-significant positive effect in comparison to classroom instruction.} higher, but that 1:1 tutoring was not scalable. Ever since, personalized tutoring has been referred to as the gold standard; Mark Zuckerberg, for instance, has invested \$45 billion USD through the Chan Zuckerberg Initiative \cite{kim2016zuckerberg}. Microsoft, Google, and other corporations have made similar multimillion-dollar investments in personalized learning \cite{beatty2024khanmicrosoft, googlecloud_learnlm}.
 \\\\
-While the issue of non-scalability stands, students remain at an academic level lower than what is theoretically achievable. Standardized assessments persist as key metrics for measuring academic achievement in the U.S., and under the Every Student Succeeds Act (ESSA), states are required to develop accountability systems to promote year-to-year academic improvement \cite{usdoe2015essa}. Moreover, tens of billions of dollars of federal funding are being invested yearly into improving student results in standardized testing \cite{ed2021budgethistorytable}. Yet despite the funding being funneled into this sector, average NAEP\footnote{National Assessment of Educational Progress, often referred to as the Nation's Report Card.} scores decreased from $243$ in 2012 to $241$ in 2020 (Figure \ref{fig1}) \cite{naep2025math9}. Had personalized learning been possible in 2012, a $2 \sigma$ increase in performance would instead have placed the average student well over the 90th percentile, with average scores over $286$. An improvement of this caliber can only be the result of personalized learning; current attempts are not effective and consume budget rapidly.
+While the issue of non-scalability stands, students remain at an academic level lower than what is theoretically achievable. Standardized assessments persist as key metrics for measuring academic achievement. Tens of billions of dollars of federal funding are being invested yearly into improving student results in standardized testing \cite{ed2021budgethistorytable}. Yet despite the funding being funneled into this sector, average NAEP\footnote{National Assessment of Educational Progress, often referred to as the Nation's Report Card.} scores decreased from $243$ in 2012 to $241$ in 2020 (Figure \ref{fig1}) \cite{naep2025math9}. Had personalized learning been possible in 2012, a $2 \sigma$ increase in performance would instead have placed the average student well over the 90th percentile, with average scores over $286$. These statistics suggest that personalized learning is a promising approach to better test scores.
 \begin{figure}[!ht]
     \centering
     \includegraphics[width=1\linewidth]{naep.png}
@@ -123,14 +123,14 @@ While the issue of non-scalability stands, students remain at an academic level 
     \label{fig1}
 \end{figure}
 \\\\
-The effects of stunted academic performance will become apparent on the individual and community level as well. Arguably, the most detrimental consequence will be the ease to spread misinformation. A study run by Shaw and Nave demonstrated that participants trusted faulty AI responses $79.8\%$ of the time, with $11.7 \%$ more confidence than other participants answering the same questions without AI access \cite{shaw2026thinking}. Especially with only $70\%$ of 12th graders demonstrating grade-level competency ($\ge$ NAEP Basic) on the NAEP Reading portion \cite{naep2023reading12}, this leaves $30 \%$ of the population especially vulnerable to misinformation because they lack much of the knowledge necessary to fact-check it. Misinformation will only become more prevalent, with the rise of political deepfakes \cite{dale2026talarico} and hyper-targeted advertisements designed specifically to match the viewer's identity, thoughts, and beliefs. The inability to identify this, a result of limited media literacy, could have consequences in elections and law, which depend on a verified set of facts.
+The effects of stunted academic performance will become apparent on the individual and community level as well. One severe detrimental consequence will be the ease to spread misinformation. A study run by Shaw and Nave demonstrated that participants trusted faulty AI responses $79.8\%$ of the time, with $11.7 \%$ more confidence than other participants answering the same questions without AI access \cite{shaw2026thinking}. Especially with only $70\%$ of 12th graders demonstrating grade-level competency ($\ge$ NAEP Basic) on the NAEP Reading portion \cite{naep2023reading12}, this leaves $30 \%$ of the population especially vulnerable to misinformation because they lack much of the knowledge necessary to fact-check it. Misinformation will only become more prevalent, with the rise of political deepfakes \cite{dale2026talarico} and hyper-targeted advertisements designed specifically to match the viewer's identity, thoughts, and beliefs. The inability to identify this, a result of limited media literacy, could have consequences in elections and law and related fields. 
 
 
 \subsubsection{Non-AI (Traditional) Approaches}\label{fail}
 
-First off, it is infeasible for school districts to scale tutoring in the traditional way. Because one human tutor would be required per student, the cost of hiring teachers grows linearly with the number of students; clearly, it is absurd to pay nearly \$75,000 USD per student.
+It is infeasible for school districts to scale tutoring in the traditional way. Because one human tutor would be required per student, the cost of hiring teachers grows linearly with the number of students, and spending nearly $75,000$ USD per student is infeasible.
 \\\\
-Moreover, designing a deterministic intelligent tutoring system (ITS) fails to provide the $2\sigma$ improvement from Bloom's paper \cite{bloom1984sigma}. There are several reasons for this:
+Moreover, designing a deterministic intelligent tutoring system (ITS) fails to provide the $2\sigma$ improvement from Bloom's paper \cite{bloom1984sigma}. An ITS is a pedagogically-designed computer application to scaffold learning. There are several reasons for this:
 \begin{itemize}
     \item An ITS cannot respond to natural language prompts, since its interactions are limited to pre-scripted messages.
     \item A student cannot ask questions of the ITS, so it fails to clear up confusion.
@@ -141,7 +141,7 @@ To make it concrete, the leading ITS --- \emph{Carnegie Learning's Cognitive Tut
 \subsection{Literature Review}
 From Section $\ref{fail}$, we can conclude that a tool that supports both NLP and has a reasonable cost is necessary. LLMs satisfy both constraints --- they are designed to handle natural language, and can work at negligible costs relative to human tutors.
 \\\\
-However, using LLMs to drive scalability comes with a hidden cost. Pedagogy has demonstrated the somewhat paradoxical nature of learning: the more seamless the learning process is, the less knowledge retained by the student \cite{bjork2011making}. Not only does it prevent long-term knowledge retention, but it also hinders the growth of one's independent reasoning, as will be demonstrated later on. However, with common LLMs such as ChatGPT or Claude, the process is so fluid that students are able to offload the entirety of their cognitive effort to the AI system.\footnote{This is in fact a design choice. LLMs aim to enhance productivity and efficiency, as that is desirable in the \textbf{workplace}. But this efficiency comes with a cognitive cost; one that is acceptable in the workplace, but detrimental in education. For the purposes of an analogy, consider a 2nd grader learning arithmetic. Access to a calculator would allow them to circumvent the process of learning fundamental skills, such as adding two digit numbers. However, for a high schooler, using a calculator is fair game and is even encouraged.} An MIT Media Lab study demonstrated that using an LLM when completing a task causes a significant drop in brain connectivity, providing another reason behind limited recall \cite{kosmyna2025brainchatgptaccumulationcognitive}.
+However, using LLMs to drive scalability comes with a hidden cost. Pedagogy has demonstrated the somewhat paradoxical nature of learning: the more seamless the learning process is, the less knowledge retained by the student \cite{bjork2011making}. Not only does it prevent long-term knowledge retention, but it also hinders the growth of one's independent reasoning. However, with common LLMs such as ChatGPT or Claude, the process is so fluid that students are able to offload the entirety of their cognitive effort to the AI system.\footnote{This is in fact a design choice. LLMs aim to enhance productivity and efficiency, as that is desirable in the \textbf{workplace}. But this efficiency comes with a cognitive cost; one that is acceptable in the workplace, but detrimental in education. For the purposes of an analogy, consider a 2nd grader learning arithmetic. Access to a calculator would allow them to circumvent the process of learning fundamental skills, such as adding two digit numbers. However, for a high schooler, using a calculator is fair game and is even encouraged.} An MIT Media Lab study demonstrated that using an LLM when completing a task causes a significant drop in brain connectivity, providing another reason behind limited recall \cite{kosmyna2025brainchatgptaccumulationcognitive}.
 
 \begin{figure}[h]
 \begin{minipage}{0.5\textwidth}
@@ -163,7 +163,7 @@ However, using LLMs to drive scalability comes with a hidden cost. Pedagogy has 
 \end{minipage}
 \end{figure}
 
- Bastani et al.'s RCT demonstrated this effect empirically --- unrestricted AI access in high school students caused a $17\%$ decline in exam performance relative to students without access\footnote{The tutoring system in the paper uses the GPT 4 API Key; the paper establishes that the model provides the wrong answer $51\%$ of the time. This could definitely inflate the decline amount; however, a large inflation in the decline amount would demonstrate that students did not critically think about AI responses.}, whereas safeguarded AI produced no change in exam performance \cite{doi:10.1073/pnas.2422633122}. Up to this point, then, it should be clear that plain LLM usage provides \emph{no non-trivial advantage} over standard 1-to-many instruction when measured by academic performance.
+ Bastani et al.'s RCT demonstrated this effect empirically --- unrestricted AI access in high school students caused a $17\%$ decline in exam performance relative to students without access\footnote{The tutoring system in the paper uses the GPT 4 API Key; the paper establishes that the model provides the wrong answer $51\%$ of the time. This could definitely inflate the decline amount; however, a large inflation in the decline amount would demonstrate that students did not critically think about AI responses.}, whereas safeguarded AI produced no change in exam performance \cite{doi:10.1073/pnas.2422633122}. These findings demonstrate that plain LLM usage provides \emph{no non-trivial advantage} over standard 1-to-many instruction when measured by academic performance.
  \\\\
  To see the effect of LLMs on independent reasoning capacity (IRC), we divide IRC into three measurable components:
  \begin{itemize}
@@ -195,7 +195,7 @@ Transfer Performance &
 \end{tabular}
 \end{table}
 
-In no way do we claim that this division of IRC is exhaustive. However, these components were chosen because of their measurability via standard tools. The key point is that, just as standard LLMs hurt long-term knowledge retention, they negatively affect IRC as well. In Bastani's RCT, students with access to LLMs during practice sessions reported feeling more confident in their knowledge of the material compared to their peers, but performed worse or at par with them on assessments \cite{doi:10.1073/pnas.2422633122}, demonstrating a drop in metacognitive calibration. Moreover, the same study shows that students using GPT Base, the standard GPT-4 API, began to ask for answers on the first message more frequently over the sessions, with $29\%$ of first messages asking for the answer in Session 1 and $36\%$ of first messages asking for the answer in Session 4. Although the shift is faint, it indicates that LLMs downgrade a student's initiation tendency \cite{doi:10.1073/pnas.2422633122}. Finally, depth and nuance are critical for developing transferable knowledge, and AI eliminates both in order to simplify its prose \cite{Vendrell2026Scaffolding}.
+Although this division of IRC may not be exhaustive, these components were chosen due to their measurability. The key point is that, just as standard LLMs hurt long-term knowledge retention, they negatively affect IRC as well. In Bastani's RCT, students with access to LLMs during practice sessions reported feeling more confident in their knowledge of the material compared to their peers, but performed worse or at par with them on assessments \cite{doi:10.1073/pnas.2422633122}, demonstrating a drop in metacognitive calibration. Moreover, the same study shows that students using GPT Base, the standard GPT-4 API, began to ask for answers on the first message more frequently over the sessions, with $29\%$ of first messages asking for the answer in Session 1 and $36\%$ of first messages asking for the answer in Session 4. Although the shift is faint, it indicates that LLMs downgrade a student's initiation tendency \cite{doi:10.1073/pnas.2422633122}. Finally, depth and nuance are critical for developing transferable knowledge, and AI eliminates both in order to simplify its prose \cite{Vendrell2026Scaffolding}.
 \\\\
 As a result, it is imperative that we alter standard LLMs in order to preserve both knowledge and IRC. The parameters we change here come from Vendrell and Johnston's 2026 framework on the $8$ principles to preserve critical thinking in the presence of AI \cite{Vendrell2026Scaffolding}. More specifically, we choose to alter:
 \begin{itemize}
@@ -204,28 +204,27 @@ As a result, it is imperative that we alter standard LLMs in order to preserve b
 \item \textbf{Metacognitive Prompting Rate:} How frequently does the student receive a metacognitive prompt, that is, a prompt that forces them to think about their own work (for example, ``How confident are you in this step?'')?
 \item \textbf{Scaffolding Fade Rate:} At what rate does AI assistance decline as a student improves?
 \end{itemize}
-We now bring in another key factor: engagement. Notice that our prior goal had been to maximize IRC and knowledge, and thus we chose the above parameters. But trivially maximizing each of the parameters maximizes IRC at the cost of terrible engagement. To see why empirically, we study Khanmigo.\footnote{Khan Academy's AI Tutor} Khanmigo was developed as a Socratic tutor, which means that it only questioned the learner to advance their knowledge \cite{khan2023harnessing}. This implies that Khanmigo did not give hints, thus sitting at a maximum for both answer specificity and access delay. As a result, only $15\%$ of students with access to Khanmigo used it beyond the weekly recommended amount --- a mere 30 minutes \cite{khanacademy2026learninginopen}. Yet, as expected, Khanmigo produced excellent achievement results in the schools that did use it actively \cite{oreopoulos2026khanacademy}.
+We now bring in another key factor: engagement. Notice that our prior goal had been to maximize IRC and knowledge, and thus we chose the above parameters. But trivially maximizing each of the parameters maximizes IRC at the cost of suboptimal engagement. To see why empirically, we study Khanmigo.\footnote{Khan Academy's AI Tutor} Khanmigo was developed as a Socratic tutor, which means that it only questioned the learner to advance their knowledge \cite{khan2023harnessing}. This implies that Khanmigo did not give hints, thus sitting at a maximum for both answer specificity and access delay. As a result, only $15\%$ of students with access to Khanmigo used it beyond the weekly recommended amount --- a mere 30 minutes \cite{khanacademy2026learninginopen}. Yet, as expected, Khanmigo produced excellent achievement results in the schools that did use it actively \cite{oreopoulos2026khanacademy}.
 \\\\
-To the best of our knowledge, every existing AI tutoring system either maximizes the parameters described above or leaves them unchanged; no system has attempted an intermediate setting. This presents a significant gap in the literature: if maximization hurts engagement and leaving the parameters unchanged is detrimental to IRC, then a middle ground is crucial.
-
+Existing AI tutoring systems, to our knowledge, sit at one of two extremes on these parameters: either the parameters are applied at full strength or they are absent entirely, as in a standard conversational assistant. We are not aware of a system that has been deployed at an intermediate setting, nor of work characterizing what should happen in between. This is the gap the present study addresses.
 \subsection{Research Approach}
 
 The research question explored in this paper is:
 
 \begin{quote}
-    At what combination of the parameters \textit{Answer Specificity, Access Delay, Metacognitive Prompting Rate}, \textit{Scaffolding Fade Rate} does an AI tutoring system provide sufficient support and engagement for the learner and improve performance, while enhancing their independent reasoning skills?
+    At what combination of the aforementioned parameters does an AI tutoring system provide sufficient support and engagement for the learner and improve performance, while enhancing their independent reasoning skills?
 \end{quote}
 
-\noindent Here, independent reasoning is measured by the metrics above. This question addresses the gap left by other tutoring systems, which fail to account for learner engagement. Engagement is crucial: without it, the tool cannot enhance a student's IRC, because the student will not use the tool at all. An AI analytics study by UPenn Wharton finds that engagement, rather than content, is often the factor that drives the most improvement \cite{wharton}. By creating this tool, we design the foundation for a system that students will actually use for learning. This will lead to increases in performance, as desired by the U.S. Department of Education \cite{usdoe2015essa}, and will also foster greater independent reasoning --- a highly employable trait \cite{wef2025futureofjobs}.
+\noindent Here, independent reasoning is measured by the metrics above. This question addresses the gap left by other tutoring systems, which fail to account for learner engagement. Engagement is crucial: without it, the tool cannot enhance a student's IRC, because the student will not use the tool at all. An AI analytics study by UPenn Wharton finds that engagement, rather than content, is often the factor that drives the most improvement \cite{wharton}. By creating this tool, we design the foundation for a system that students will actually use for learning. This will lead to increases in performance, as desired by the U.S. Department of Education \cite{usdoe2015essa}, but will also increase independent reasoning, a highly valuable trait \cite{wef2025futureofjobs}.
 
 \subsubsection{Theory of Change}
 
-By finding the optimal set of parameters, we develop the foundations behind a good system, but do not develop the system itself. To elaborate, using solely the parameters to guide an AI tutoring system will lead to comparatively better engagement than alternatives (say, Khanmigo), but the engagement will not be strong enough for students to use it regularly without additional layers. One such layer consists of several cosmetic changes to make it more accessible and student-friendly, but the most important layer is one that makes the AI tool \emph{proactive}, rather than reactive \cite{wharton}.
+This work establishes the foundation for a good tutoring system, not the system itself: parameters alone would produce better engagement than existing tools, but insufficient for students to return to it without additional layers of design. One such layer consists of several cosmetic changes to make it more accessible and student-friendly, but the most important layer is one that makes the AI tool \emph{proactive}, rather than reactive \cite{wharton}.
 \\\\
 With these modifications complete, the tutoring system should function as intended and prove effective in the desired areas. The last bottleneck is deploying it into classrooms nationally. To accomplish this, it would be best to partner with a popular, renowned edtech company (e.g., Khan Academy, Instructure) to facilitate distribution. We recognize that this will be a difficult process, but it is worth attempting. Home use would also be valuable, but the theory of change there is more complicated, since students have far more agency outside the classroom. At home they already have access to the most engaging general-purpose LLMs, such as Claude and ChatGPT, which makes switching them to a pedagogical tutor significantly more difficult. This study therefore prioritizes classroom deployment as teachers have more direct influence there, and students tend to carry classroom practices home once those practices have paid off for them. We elaborate more on the theory of change in the flowchart on the next page.
 
 \paragraph{Failure Modes / Assumptions}
-In the following flowchart, we expect the first three stages (up to Enhancement \#2) to proceed smoothly. Most of the design work behind the enhancements has already been done, and it is just a matter of integrating it well. The primary difficulty arises from partnering with edtech companies, as the product will not have ``real-world testing'' beyond this paper. Direct-to-school outreach is also difficult, as districts prefer to collaborate with edtech companies instead. Another point of difficulty will be motivating students to use the system at home. However, once the system has been released for a while and its benefits are known, this should resolve itself.
+In the following flowchart, we expect the first three stages (up to Enhancement \#2) to proceed smoothly. Most of the design work behind the enhancements has already been done, and it is just a matter of integrating it well. The primary difficulty arises from partnering with edtech companies, as the product will not have ``real-world testing'' beyond this paper. Direct-to-school outreach is also difficult, as districts prefer to collaborate with edtech companies instead. However, more research and testing can make such partnerships possible. Another point of difficulty will be motivating students to use the system at home. However, once the system has been released for a while and its benefits are known, this should resolve itself.
 
 
 \begin{figure}[p]
@@ -373,6 +372,8 @@ In the following flowchart, we expect the first three stages (up to Enhancement 
 \label{fig:theory_of_change}
 \end{figure}
 
+\newpage
+
 \section{Methodology}
 
 \textit{High-Level Summary.} Say we compress the input variables (answer specificity, access delay, etc.) into a column vector $\mathbf{x}$. Using a response surface methodology (RSM) approach, we develop one function per outcome (Table \ref{oink}) that maps the input parameters to five learning outcomes. We collect data for these functions through an experiment in which each student is assigned a design point and tutored by a system configured to that point. The composite learning outcome is modeled as a weighted sum
@@ -405,21 +406,10 @@ outcome.}
 
 \paragraph{RSM Background}
 
-This study employs a quadratic (second-order) response surface methodology (RSM) approach to develop functions that map the input variables to the corresponding output variables. RSM is useful when it is not feasible to experimentally evaluate all possible combinations of input parameters. By experimenting over a set of carefully selected points, we fit quadratic surface models that approximate the outputs as functions of the inputs within the design region. These fitted models can then be used to predict responses and to optimize the function across the entire design region, rather than only over the specific input combinations that were directly tested. For completeness, for four factors the second-order model is
-\begin{equation}
-    y \;=\; \beta_0 \;+\; \sum_{i=1}^{4}\beta_i x_i \;+\; \sum_{i=1}^{4}\beta_{ii}x_i^2 \;+\; \sum_{i<j}\beta_{ij}x_ix_j \;+\; \varepsilon,
-    \label{eq:second_order}
-\end{equation}
-More specifically, we use a circumscribed central composite design (circumscribed CCD) as the type of model. We use a CCD as it helps with optimization and prediction \cite{jmp_ccd}. Moreover, we use the axial distance $\alpha = 2$ as it provides the desired conditions of being spherical and rotatable, thus making optimization even easier. To develop the CCD with $k=4$ variables, we need $25$ points, distributed as follows:
-\begin{itemize}
-    \item \textbf{Center Point:} One center point $(0,0,0,0)$ that allows us to determine curvature and increase precision.
-    \item \textbf{Factorial Points:} $16 = 2^4$ points with each parameter coded as $\pm 1$, yielding points of the form $(\pm 1, \pm1 , \pm 1, \pm 1)$. These help determine interactions between variables, which matters whenever the effect of one parameter depends on another (that is, in practice, almost always).
-    \item \textbf{Axial Points:} $8 = 2\cdot 4$ points where one variable takes the value $\pm 2$ and the other variables are $0$. These help determine quadratic terms.
-\end{itemize}
-
+This section is primarily deferred to the appendix due to a high technical bar. At a high-level, we use a second-order RSM approach to develop the function $f, g, h, p, e$. This allows us to take into account scenarios in which the input parameters interact with each other (e.g., the effect of one depends on another). Moreover, we use a central composite design (CCD), which requires $25$ unique data points, namely axial, factorial, and the center point.
 \subsection{Study Design and Experimental Procedure}
 
-To gather the necessary data for RSM, we conducted an experiment to understand how each set of parameters correlates with each of the outputs. We collaborated with a primary school in an Indian suburb, which provided a strong baseline control\footnote{Though this did come with several downsides: students did not understand what the tool was at the beginning and spent a considerable amount of time simply testing it out.} as students had minimal prior exposure to AI tools. Approximately $N=100$ students were assigned a random \texttt{condition\_slot} that corresponds to a data point needed for the RSM model, and were asked to use the system for $10$ hours.
+To gather the necessary data for RSM, we conducted an experiment to understand how each set of parameters correlates with each of the outputs. We collaborated with a primary school in an Indian suburb, which provided a strong baseline control\footnote{Though this did come with several downsides: students did not understand what the tool was at the beginning and spent a considerable amount of time simply testing it out.} as students had minimal prior exposure to AI tools. Approximately $N=100$ students were assigned a random \texttt{condition\_slot} that corresponds to a data point needed for the RSM model, and were asked to use the system for $10$ hours. However, only $32$ used it.
 \\\\
 During the experiment, students interacted with an AI tutoring system specifically designed to follow the input parameters. At the beginning, they also responded to a survey to help understand their prior mathematical ability and level of engagement with mathematics. Students were aware that there were constraints placed on the tutor, but did not know the exact parameters assigned to their model beyond the access delay. Students did, however, know when they were in a delay period and whether they could ask for a hint.
 \\\\
@@ -439,13 +429,13 @@ We established that the input parameters are answer specificity, access delay, m
     \toprule
         \text{Name}  & \text{Coded} & \text{Reality}  \\
     \midrule
-        \text{Answer Specificity}   & $x_1$ & $\xi_1$ \\
+        \text{Answer Specificity} (AS)   & $x_1$ & $\xi_1$ \\
     \midrule
-        \text{Access Delay}   & $x_2$ & $\xi_2$ \\
+        \text{Access Delay}  (AD)  & $x_2$ & $\xi_2$ \\
     \midrule
-        \text{Metacognitive Prompting Rate}   & $x_3$ & $\xi_3$ \\
+        \text{Metacognitive Prompting Rate}  (MCP)  & $x_3$ & $\xi_3$ \\
     \midrule
-        \text{Scaffolding Fade Rate}   & $x_4$ & $\xi_4$ \\
+        \text{Scaffolding Fade Rate} (SFR)  & $x_4$ & $\xi_4$ \\
     \bottomrule
     \end{tabular}
     \caption{Code vs Reality}
@@ -1040,9 +1030,23 @@ Claude was also used to generate diagrams for this paper. However, all data was 
 
 All the code used to run the experiment can be found here: \href{https://github.com/shivTHEmath/study-chat-app}{GitHub link}. I worked on this project from my parent's computer as well (as that is where I had to deploy), so you may see commits from different accounts. Notably, the system prompt can be found at: \texttt{main/src/lib/tutor/systemPrompt.js}.
 
-\newpage
+\section{Appendix B: RSM Background, Expanded}
 
-\section{Appendix B: $z$-scoring}
+
+This study employs a quadratic (second-order) response surface methodology (RSM) approach to develop functions that map the input variables to the corresponding output variables. RSM is useful when it is not feasible to experimentally evaluate all possible combinations of input parameters. By experimenting over a set of carefully selected points, we fit quadratic surface models that approximate the outputs as functions of the inputs within the design region. These fitted models can then be used to predict responses and to optimize the function across the entire design region, rather than only over the specific input combinations that were directly tested. For completeness, for four factors the second-order model is
+\begin{equation}
+    y \;=\; \beta_0 \;+\; \sum_{i=1}^{4}\beta_i x_i \;+\; \sum_{i=1}^{4}\beta_{ii}x_i^2 \;+\; \sum_{i<j}\beta_{ij}x_ix_j \;+\; \varepsilon,
+    \label{eq:second_order}
+\end{equation}
+More specifically, we use a circumscribed central composite design (circumscribed CCD) as the type of model. We use a CCD as it helps with optimization and prediction \cite{jmp_ccd}. Moreover, we use the axial distance $\alpha = 2$ as it provides the desired conditions of being spherical and rotatable, thus making optimization even easier. To develop the CCD with $k=4$ variables, we need $25$ points, distributed as follows:
+\begin{itemize}
+    \item \textbf{Center Point:} One center point $(0,0,0,0)$ that allows us to determine curvature and increase precision.
+    \item \textbf{Factorial Points:} $16 = 2^4$ points with each parameter coded as $\pm 1$, yielding points of the form $(\pm 1, \pm1 , \pm 1, \pm 1)$. These help determine interactions between variables, which matters whenever the effect of one parameter depends on another (that is, in practice, almost always).
+    \item \textbf{Axial Points:} $8 = 2\cdot 4$ points where one variable takes the value $\pm 2$ and the other variables are $0$. These help determine quadratic terms.
+\end{itemize}
+
+
+\section{Appendix C: $z$-scoring}
 
 $z$-scoring is a statistical method used in the study to normalize all the data. It is effective here because it sets the mean of the sample to $0$ and the standard deviation to $1$, without changing the overall shape of the data. To $z$-score a sample of data, we use the formula
 \[z = \frac{x-\mu}{\sigma},\] where $\mu$ and $\sigma$ denote the mean and standard deviation of the sample. To make it concrete, consider the following data:
@@ -1072,7 +1076,7 @@ To check, we can verify that the mean of this data is
 \[\frac{(-.20) + (-.99) + (-.20) + (1.39)}{4} = 0,\] and the standard deviation is
 \[\sqrt{\frac{(-.20)^2 + (-.99)^2 + (-.20)^2 + (1.39)^2}{3}} = \sqrt{\frac{2.99}{3}} \approx 1.\]
 \newpage
-\section{Appendix C: Ordinary Least Squares \& Engagement Calculation}\label{appc}
+\section{Appendix D: Ordinary Least Squares \& Engagement Calculation}\label{appc}
 
 We first $z$-score both the baseline and the final engagement columns. Afterward, we are left with the following data:
 \[
@@ -1149,7 +1153,7 @@ Thus, minimizing the squared error becomes equivalent to minimizing
 
 \newpage
 
-\section{Appendix D: Data}\label{d}
+\section{Appendix E: Data}\label{d}
 \begin{table}[H]
 \centering
 \begin{threeparttable}
@@ -1229,7 +1233,7 @@ Condition & {AS} & {AD} & {MPR} & {SFR} & {MC.\tnote{a}} & {Transfer} & {Perf.} 
 
 \newpage
 
-\section{Appendix E: Coefficient Tables}
+\section{Appendix F: Coefficient Tables}
 
 % Significance notation used in all tables:
 % \dagger p < .10, * p < .05, ** p < .01
