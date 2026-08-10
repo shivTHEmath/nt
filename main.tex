@@ -999,11 +999,11 @@ Moreover, the results in Table $\ref{tab:optimal-components}$ demonstrate that o
 
 Here, we establish that personalized learning is a valuable investment given our results. First, consider the status quo. From $1978$ to $2025$, 9-year-old NAEP mathematics scores have improved by $.51$ standard deviations \cite{naep2025math9}, if we assume a normal distribution. Assuming a spend of $10$ billion USD yearly across those $47$ years, this implies that nearly \textbf{half a trillion} dollars ($\$470$ billion) have been invested for a $.51$ standard deviation gain.
 \\\\
-Now suppose 1:1 tutoring were possible. Assuming a token spend of $\$1$ per hour, and that the tool is used $365$ hours a year, this would mean $\$365$ per student per year. Over the $50$ million students in the United States, that is roughly $\$18$ billion \emph{annually}. We take $.709\sigma$ as the gain, which is the achievement figure our model predicts at the $90$th percentile engagement threshold, that is, for the students hardest to keep engaged; Bloom reports a $2\sigma$ increase in $3$ weeks \cite{bloom1984sigma}, so this is a conservative choice within our own results.
+Now suppose 1:1 tutoring were possible. Assuming a token spend of $\$1$ per hour, and that the tool is used $365$ hours a year, this would mean $\$365$ per student per year. Over the $50$ million students in the United States, that is roughly $\$18$ billion \emph{annually}. We take $.709\sigma$ as the gain, which is the achievement figure our model predicts at the $90$th percentile engagement threshold, that is, for the students hardest to keep engaged. We predict that gains of $.709\sigma$ are achievable in just one year; Bloom reports a $2\sigma$ increase in $3$ weeks \cite{bloom1984sigma}, so this is a conservative choice within our own results.
 \\\\
-The two figures must be compared on the same footing. Annually, tutoring is the more expensive option: $\$18$ billion a year against $\$10$ billion. What changes the picture is the rate at which each buys improvement. The status quo spent $\$470$ billion to move $.51\sigma$, or roughly $\$920$ billion per standard deviation. Tutoring would spend $\$18$ billion to move $.709\sigma$ within a year, or roughly $\$26$ billion per standard deviation --- on the order of $35$ times more efficient per unit of gain, and delivered in one year rather than in forty-seven. The case for personalized learning is not that it is cheaper per year, because it is not. It is that the status quo is buying almost nothing with what it already spends.
+We compare the two figures now on the same scale. For a $1$ standard deviation growth in performance through traditional means, we expect to require $\frac{1}{.51} \cdot 470\cdot 10^9 = 921\cdot 10^9$ in funding to reach such gains. However, with 1:1 tutoring taking $18\cdot 10^9$ annually, a $1$ standard deviation improvement will require $\frac{1}{.709}\cdot 18\cdot 10^9 = 25 \cdot 10^9$ dollars in funding. This is $37$ times less costly than the traditional route, making 1:1 tutoring both a time and cost efficient route.
 \\\\
-We note that this comparison rests on our own predicted $.709\sigma$, which Section \ref{sec:optimization} argues should not be trusted at face value. The order-of-magnitude conclusion is robust to that figure being substantially wrong: tutoring would remain more efficient per standard deviation even at a tenth of the assumed gain. The precise multiple should not be quoted.
+We note that this comparison rests on our own predicted $.709\sigma$, which Section \ref{sec:optimization} describes as imperfect and noisy. However, the order of magnitude remains true, and using LLMs to scale 1:1 tutoring is definitely a viable and strong approach.
 
 \subsection{Future Work}
 We believe that the research here establishes a strong proof of concept, but the outcomes and data contain too much noise to be implemented directly. Thus, we recommend that this study be completed again, with the following changes:
@@ -1242,6 +1242,10 @@ Condition & {AS} & {AD} & {MPR} & {SFR} & {MC.\tnote{a}} & {Transfer} & {Perf.} 
 % Significance notation used in all tables:
 % \dagger p < .10, * p < .05, ** p < .01
 
+These tests demonstrate whether a certain coefficient is significantly different from $0$. If the $p$ value corresponding to a given $t$ is $<.05$, we can conclude that the coefficient is statistically significant. A larger $|t|$ corresponds to a lower $p$ value. In the tables above, most coefficients have a very high $p$ value, demonstrating that those terms are not statistically distinguishable from $0$.
+
+
+
 \begin{table}[htbp]
 \centering
 \small
@@ -1270,8 +1274,7 @@ $\mathrm{SFR}^{2}$                & $ 0.1432$ & $0.1989$ & $ 0.7199$ & $0.4814$ 
 \end{tabular}
 
 \medskip
-\footnotesize{\textit{Note.} Two-sided $t$-tests with 17 residual degrees of freedom.
-$\dagger p<.10$, $*p<.05$, $**p<.01$.}
+
 \end{table}
 
 \begin{table}[htbp]
@@ -1302,8 +1305,7 @@ $\mathrm{SFR}^{2}$                & $-0.3140$ & $0.1576$ & $-1.9928$ & $0.0626^{
 \end{tabular}
 
 \medskip
-\footnotesize{\textit{Note.} Two-sided $t$-tests with 17 residual degrees of freedom.
-$\dagger p<.10$, $*p<.05$, $**p<.01$.}
+
 \end{table}
 
 \begin{table}[htbp]
@@ -1331,11 +1333,8 @@ $\mathrm{AD}^{2}$                 & $ 0.0329$ & $0.1734$ & $ 0.1898$ & $0.8517$ 
 $\mathrm{MCP}^{2}$                & $-0.1961$ & $0.1734$ & $-1.1312$ & $0.2737$ \\
 $\mathrm{SFR}^{2}$                & $-0.1952$ & $0.1734$ & $-1.1257$ & $0.2759$ \\
 \bottomrule
-\end{tabular}
 
-\medskip
-\footnotesize{\textit{Note.} Two-sided $t$-tests with 17 residual degrees of freedom.
-$\dagger p<.10$, $*p<.05$, $**p<.01$.}
+\end{tabular}
 \end{table}
 
 \begin{table}[htbp]
@@ -1366,8 +1365,7 @@ $\mathrm{SFR}^{2}$                & $-0.1597$ & $0.1900$ & $-0.8408$ & $0.4122$ 
 \end{tabular}
 
 \medskip
-\footnotesize{\textit{Note.} Two-sided $t$-tests with 17 residual degrees of freedom.
-$\dagger p<.10$, $*p<.05$, $**p<.01$.}
+
 \end{table}
 
 \begin{table}[htbp]
@@ -1398,11 +1396,8 @@ $\mathrm{SFR}^{2}$                & $ 0.1956$ & $0.2071$ & $ 0.9445$ & $0.3581$ 
 \end{tabular}
 
 \medskip
-\footnotesize{\textit{Note.} Two-sided $t$-tests with 17 residual degrees of freedom.
-$\dagger p<.10$, $*p<.05$, $**p<.01$.}
-\end{table}
 
-These tests demonstrate whether a certain coefficient is significantly different from $0$. If the $p$ value corresponding to a given $t$ is $<.05$, we can conclude that the coefficient is statistically significant. A larger $|t|$ corresponds to a lower $p$ value. In the tables above, most coefficients have a very high $p$ value, demonstrating that those terms are not statistically distinguishable from $0$.
+\end{table}
 
 
 \newpage
