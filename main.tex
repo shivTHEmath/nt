@@ -98,9 +98,9 @@
 \setlength{\parindent}{0.4in}
 
 \begin{document}
-\title{Optimizing AI Tutoring Design for Learning and Engagement: A Response Surface Methodology Study}
+\title{Optimizing AI Tutoring Design for Learning and Engagement}
 \author{Shivsai Sharda}
-\date{\today}
+\date{August 9, 2026}
 \maketitle
 \tableofcontents
 \newpage
@@ -123,7 +123,7 @@ While the issue of non-scalability stands, students remain at an academic level 
     \label{fig1}
 \end{figure}
 \\\\
-The effects of stunted academic performance will become apparent on the individual and community level as well. One severe detrimental consequence will be the ease to spread misinformation. A study run by Shaw and Nave demonstrated that participants trusted faulty AI responses $79.8\%$ of the time, with $11.7 \%$ more confidence than other participants answering the same questions without AI access \cite{shaw2026thinking}. Especially with only $70\%$ of 12th graders demonstrating grade-level competency ($\ge$ NAEP Basic) on the NAEP Reading portion \cite{naep2023reading12}, this leaves $30 \%$ of the population especially vulnerable to misinformation because they lack much of the knowledge necessary to fact-check it. Misinformation will only become more prevalent, with the rise of political deepfakes \cite{dale2026talarico} and hyper-targeted advertisements designed specifically to match the viewer's identity, thoughts, and beliefs. The inability to identify this, a result of limited media literacy, could have consequences in elections and law and related fields. 
+The effects of stunted academic performance will become apparent on the individual and community level as well. One severe detrimental consequence will be the ease with which misinformation can spread. A study run by Shaw and Nave demonstrated that participants trusted faulty AI responses $79.8\%$ of the time, with $11.7 \%$ more confidence than other participants answering the same questions without AI access \cite{shaw2026thinking}. Especially with only $70\%$ of 12th graders demonstrating grade-level competency ($\ge$ NAEP Basic) on the NAEP Reading portion \cite{naep2023reading12}, this leaves $30 \%$ of the population especially vulnerable to misinformation because they lack much of the knowledge necessary to fact-check it. Misinformation will only become more prevalent, with the rise of political deepfakes \cite{dale2026talarico} and hyper-targeted advertisements designed specifically to match the viewer's identity, thoughts, and beliefs. The inability to identify this, a result of limited media literacy, could have consequences in elections and law and related fields. 
 
 
 \subsubsection{Non-AI (Traditional) Approaches}\label{fail}
@@ -139,7 +139,7 @@ Moreover, designing a deterministic intelligent tutoring system (ITS) fails to p
 To make it concrete, the leading ITS --- \emph{Carnegie Learning's Cognitive Tutor} --- resulted in $.29 \sigma \ll 2 \sigma$ growth in performance in an RCT \cite{jaciw2007cognitivetutor}.
 
 \subsection{Literature Review}
-From Section $\ref{fail}$, we can conclude that a tool that supports both NLP and has a reasonable cost is necessary. LLMs satisfy both constraints --- they are designed to handle natural language, and can work at negligible costs relative to human tutors.
+From Section $\ref{fail}$, we can conclude that a tool that both supports NLP and has a reasonable cost is necessary. LLMs satisfy both constraints --- they are designed to handle natural language, and can work at negligible costs relative to human tutors.
 \\\\
 However, using LLMs to drive scalability comes with a hidden cost. Pedagogy has demonstrated the somewhat paradoxical nature of learning: the more seamless the learning process is, the less knowledge retained by the student \cite{bjork2011making}. Not only does it prevent long-term knowledge retention, but it also hinders the growth of one's independent reasoning. However, with common LLMs such as ChatGPT or Claude, the process is so fluid that students are able to offload the entirety of their cognitive effort to the AI system.\footnote{This is in fact a design choice. LLMs aim to enhance productivity and efficiency, as that is desirable in the \textbf{workplace}. But this efficiency comes with a cognitive cost; one that is acceptable in the workplace, but detrimental in education. For the purposes of an analogy, consider a 2nd grader learning arithmetic. Access to a calculator would allow them to circumvent the process of learning fundamental skills, such as adding two digit numbers. However, for a high schooler, using a calculator is fair game and is even encouraged.} An MIT Media Lab study demonstrated that using an LLM when completing a task causes a significant drop in brain connectivity, providing another reason behind limited recall \cite{kosmyna2025brainchatgptaccumulationcognitive}.
 
@@ -163,7 +163,7 @@ However, using LLMs to drive scalability comes with a hidden cost. Pedagogy has 
 \end{minipage}
 \end{figure}
 
- Bastani et al.'s RCT demonstrated this effect empirically --- unrestricted AI access in high school students caused a $17\%$ decline in exam performance relative to students without access\footnote{The tutoring system in the paper uses the GPT 4 API Key; the paper establishes that the model provides the wrong answer $51\%$ of the time. This could definitely inflate the decline amount; however, a large inflation in the decline amount would demonstrate that students did not critically think about AI responses.}, whereas safeguarded AI produced no change in exam performance \cite{doi:10.1073/pnas.2422633122}. These findings demonstrate that plain LLM usage provides \emph{no non-trivial advantage} over standard 1-to-many instruction when measured by academic performance.
+ Bastani et al.'s RCT demonstrated this effect empirically --- giving high school students unrestricted AI access caused caused a $17\%$ decline in exam performance relative to students without access\footnote{The tutoring system in the paper uses the GPT 4 API Key; the paper establishes that the model provides the wrong answer $51\%$ of the time. This could definitely inflate the decline amount; however, a large inflation in the decline amount would demonstrate that students did not critically think about AI responses.}, whereas safeguarded AI produced no change in exam performance \cite{doi:10.1073/pnas.2422633122}. These findings demonstrate that plain LLM usage provides \emph{no non-trivial advantage} over standard 1-to-many instruction when measured by academic performance.
  \\\\
  To see the effect of LLMs on independent reasoning capacity (IRC), we divide IRC into three measurable components:
  \begin{itemize}
@@ -195,7 +195,7 @@ Transfer Performance &
 \end{tabular}
 \end{table}
 
-Although this division of IRC may not be exhaustive, these components were chosen due to their measurability. The key point is that, just as standard LLMs hurt long-term knowledge retention, they negatively affect IRC as well. In Bastani's RCT, students with access to LLMs during practice sessions reported feeling more confident in their knowledge of the material compared to their peers, but performed worse or at par with them on assessments \cite{doi:10.1073/pnas.2422633122}, demonstrating a drop in metacognitive calibration. Moreover, the same study shows that students using GPT Base, the standard GPT-4 API, began to ask for answers on the first message more frequently over the sessions, with $29\%$ of first messages asking for the answer in Session 1 and $36\%$ of first messages asking for the answer in Session 4. Although the shift is faint, it indicates that LLMs downgrade a student's initiation tendency \cite{doi:10.1073/pnas.2422633122}. Finally, depth and nuance are critical for developing transferable knowledge, and AI eliminates both in order to simplify its prose \cite{Vendrell2026Scaffolding}.
+Although this division of IRC may not be exhaustive, these components were chosen due to their measurability. The key point is that, just as standard LLMs hurt long-term knowledge retention, they negatively affect IRC as well. In Bastani's RCT, students with access to LLMs during practice sessions reported feeling more confident in their knowledge of the material compared to their peers, but performed worse than or at par with them on assessments \cite{doi:10.1073/pnas.2422633122}, demonstrating a drop in metacognitive calibration. Moreover, the same study shows that students using GPT Base, the standard GPT-4 API, began to ask for answers on the first message more frequently over the sessions, with $29\%$ of first messages asking for the answer in Session 1 and $36\%$ of first messages asking for the answer in Session 4. Although the shift is faint, it indicates that LLMs downgrade a student's initiation tendency \cite{doi:10.1073/pnas.2422633122}. Finally, depth and nuance are critical for developing transferable knowledge, and AI eliminates both in order to simplify its prose \cite{Vendrell2026Scaffolding}.
 \\\\
 As a result, it is imperative that we alter standard LLMs in order to preserve both knowledge and IRC. The parameters we change here come from Vendrell and Johnston's 2026 framework on the $8$ principles to preserve critical thinking in the presence of AI \cite{Vendrell2026Scaffolding}. More specifically, we choose to alter:
 \begin{itemize}
@@ -219,7 +219,7 @@ The research question explored in this paper is:
 
 \subsubsection{Theory of Change}
 
-This work establishes the foundation for a good tutoring system, not the system itself: parameters alone would produce better engagement than existing tools, but insufficient for students to return to it without additional layers of design. One such layer consists of several cosmetic changes to make it more accessible and student-friendly, but the most important layer is one that makes the AI tool \emph{proactive}, rather than reactive \cite{wharton}.
+This work establishes the foundation for a good tutoring system, not the system itself: parameters alone would produce better engagement than existing tools, but would be insufficient for students to return to it without additional layers of design. One such layer consists of several cosmetic changes to make it more accessible and student-friendly, but the most important layer is one that makes the AI tool \emph{proactive}, rather than reactive \cite{wharton}.
 \\\\
 With these modifications complete, the tutoring system should function as intended and prove effective in the desired areas. The last bottleneck is deploying it into classrooms nationally. To accomplish this, it would be best to partner with a popular, renowned edtech company (e.g., Khan Academy, Instructure) to facilitate distribution. We recognize that this will be a difficult process, but it is worth attempting. Home use would also be valuable, but the theory of change there is more complicated, since students have far more agency outside the classroom. At home they already have access to the most engaging general-purpose LLMs, such as Claude and ChatGPT, which makes switching them to a pedagogical tutor significantly more difficult. This study therefore prioritizes classroom deployment as teachers have more direct influence there, and students tend to carry classroom practices home once those practices have paid off for them. We elaborate more on the theory of change in the flowchart on the next page.
 
@@ -406,7 +406,7 @@ outcome.}
 
 \paragraph{RSM Background}
 
-This section is primarily deferred to the appendix due to a high technical bar. At a high-level, we use a second-order RSM approach to develop the function $f, g, h, p, e$. This allows us to take into account scenarios in which the input parameters interact with each other (e.g., the effect of one depends on another). Moreover, we use a central composite design (CCD), which requires $25$ unique data points, namely axial, factorial, and the center point.
+This section is primarily deferred to the appendix due to a high technical bar. At a high-level, we use a second-order RSM approach to develop the functions $f, g, h, p, e$. This allows us to take into account scenarios in which the input parameters interact with each other (e.g., the effect of one depends on another). Moreover, we use a central composite design (CCD), which requires $25$ unique data points, namely axial, factorial, and the center point.
 \subsection{Study Design and Experimental Procedure}
 
 To gather the necessary data for RSM, we conducted an experiment to understand how each set of parameters correlates with each of the outputs. We collaborated with a primary school in an Indian suburb, which provided a strong baseline control\footnote{Though this did come with several downsides: students did not understand what the tool was at the beginning and spent a considerable amount of time simply testing it out.} as students had minimal prior exposure to AI tools. Approximately $N=100$ students were assigned a random \texttt{condition\_slot} that corresponds to a data point needed for the RSM model, and were asked to use the system for $10$ hours. However, only $32$ used it.
@@ -510,7 +510,7 @@ Mid-problem delay & $27$ & $35$ & $46$  & $61$  & $80$  \\
 
 \subsection{Measurement of the Output Variables}\label{sec3}
 
-We make a significant decision in this section: to encapsulate performance and IRC together under a single composite learning metric. This is not exactly ideal, but it is necessary. We want students who can reason by themselves, and we want them to perform well on benchmarks; neither takes precedence over the other. Making both components of one composite outcome lets us maximize them simultaneously without giving preference to either.
+We make a significant decision in this section: to encapsulate performance and IRC together under a single composite learning metric. This is not exactly ideal, but it is necessary. We want students who can reason by themselves, and we want them to perform well on benchmarks; neither takes precedence over the other. Making both components of one composite outcome lets us maximize them simultaneously without giving significant preference to either. This does not contradict the $.6$ and $.4$ weighting as transfer performance is also related to achievement.
 \\\\
 \textbf{Metacognitive Calibration}. Recall that after a student completed an assessment, they would be asked to predict their score on it. Let us denote their score prediction on assessment $n$ by $S_{n,P}$, expressed as a decimal, and let $S_{n,A}$ denote their actual score on assessment $n$. Then their initial calibration is given by the difference
 $MC_{\text{init}} = |S_{1,P} - S_{1,A}|$. Students completed different numbers of assessments, as we could not enforce completion of all $5$. We therefore include only students who completed $\ge 2$, which gives us sufficient, if less than optimal, data. For students who completed 2 assessments, the final calibration is given by:
@@ -534,7 +534,7 @@ Note that in all cases, the weights sum up to $1$. We choose to weight later ass
 \midrule
 Showed thorough reasoning or work & $0.75$--$1$ \\
 Asked about a specific step & $0.7$ \\
-Enters an incorrect answer & $0.3$ or $0.8$ \\
+Entered an incorrect answer & $0.3$ or $0.8$ \\
 Asked for a generic hint & $0.3$ \\
 Asked for the answer outright / any form of cheating & $0$ \\
 Gave up on the problem & $0$ \\
@@ -809,7 +809,7 @@ We then conducted a lack-of-fit test to understand how well the response surface
 
 \end{table}
 
-Because all the $p$ values are $\gg .05$, we cannot reject the null hypothesis, and thus conclude that the model adequately fits the data. Moreover, this implies that the models' errors were not
+Because all the $p$ values are $\gg .05$, we cannot reject the null hypothesis, and thus conclude the test did not detect lack of fit. Moreover, this implies that the models' errors were not
 larger than the variation between participants who received identical
 parameters. 
 
@@ -818,7 +818,7 @@ parameters.
 From the above sections, we can conclude the following about the model fit:
 \begin{itemize}
     \item Using the RSM model is generally worse than taking the mean of the data. This suggests that the input parameters correlate very little with the outcomes, which we discuss further in the limitations.
-    \item However, the RSM model fits the data adequately, failing to reject the null hypothesis in the lack-of-fit test.
+    \item However, no test detected that the RSM model did not fit the data, failing to reject the null hypothesis in the lack-of-fit test.
     \item The RSM model does not generalize to new data well, and overfits significantly to the training data.
 \end{itemize}
 
@@ -1021,7 +1021,7 @@ A future study that generates less noisy data could produce predictions worth ac
 
 This study investigated whether certain parameters of an AI tutoring system --- specifically answer specificity, access delay, metacognitive prompting, and scaffolding fade --- could be adjusted to support learning and independent reasoning without sacrificing student engagement. The analysis produced promising parameter combinations and illustrated the tradeoff between deep learning and keeping students engaged. At the strictest engagement floor we tested, the fitted model predicts a $.7\sigma$ achievement gain, that is, a gain even for the students hardest to keep engaged. However, the small sample size and the minimal differences in the parameters students actually received prevent the study from identifying a true optimal configuration. The findings should therefore be viewed as a proof of concept for improving AI tutor design rather than final recommendations for classroom use.
 \\\\
-Future research should repeat the study with a larger sample, more consistent usage times across students, teacher-curated problems, and a tutoring system that implements each parameter more reliably. For all its limitations, this study does establish one key fact: that tradeoffs must be made between engagement and cognitive support. It is a strong proof of concept that a middle ground exists, and thus that one should be looked for. Although we highly recommend against using data from this paper to influence the design of AI tutoring systems, we believe that future renditions of this study could provide parameters that perfectly achieve the desired goal.
+Future research should repeat the study with a larger sample, more consistent usage times across students, teacher-curated problems, and a tutoring system that implements each parameter more reliably. For all its limitations, this study does establish one key fact: that tradeoffs must be made between engagement and cognitive support. It is adequate proof of concept that a middle ground exists, for we were able to graph the surface, and thus that one should be looked for. Although we highly recommend against using data from this paper to influence the design of AI tutoring systems, we believe that future renditions of this study could provide parameters that perfectly achieve the desired goal.
 
 \newpage
 
@@ -1398,6 +1398,12 @@ $\mathrm{SFR}^{2}$                & $ 0.1956$ & $0.2071$ & $ 0.9445$ & $0.3581$ 
 \medskip
 
 \end{table}
+
+\newpage
+
+\section{Appendix G: Ethics Review}
+
+An ethics review was conducted to ensure that the study complied with local and national laws in India. It also ensured that participants of the study received no harm, and that data was deleted according to schedule.
 
 
 \newpage
