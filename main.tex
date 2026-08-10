@@ -422,7 +422,7 @@ A major part of developing the application upon which the experiment was conduct
 
 \subsection{Parametrization of the Input}
 
-We established that the input parameters are answer specificity, access delay, metacognitive prompting rate, and scaffolding fade rate. We now elaborate on the settings of these parameters used for our CCD model and experiment. Because the coded variable is always $x_i \in \{-2, -1, 0, 1, 2\}$, we use $\xi _i$ to represent what the variable means in reality.
+We now elaborate on the settings of the four input parameters used for our CCD model and experiment. Because the coded variable is always $x_i \in \{-2, -1, 0, 1, 2\}$, we use $\xi _i$ to represent what the variable means in reality.
 \begin{table}[h]
     \centering
     \begin{tabular}{c|c|c}
@@ -443,18 +443,18 @@ We established that the input parameters are answer specificity, access delay, m
 \end{table}
 \\\\
 \textbf{Answer Specificity.}  
-Answer specificity refers to the rough percentage of the solution given away when the student is stuck or asks for a hint. Answer specificity is additive: if the previous hint gave away $p\%$ of the solution, the subsequent hint will give away $(p + \xi_1)\%$. Moreover, the answer to a problem is never given away, even if a hint is meant to give away $\ge 100\%$ of the solution; this ensures that at least minimal cognitive effort is applied. To convert from coded units to actual (so-called ``natural'') units, we use the formula
-\[\xi_1 = 12x_1 +30.\] Given that the coded units are points where $x_1 \in \{-2, -1, 0, 1, 2\}$, the natural values are $\xi_1 \in \{6, 18, 30, 42, 54\}$. These specific values were chosen with the assumption that practice problems take roughly $3$ steps, which is why $x_1=0 \implies \xi_1 = 30$. One key limitation of this structuring is that the latter $3$ values in the set, specifically $30, 42,$ and $54$, correspond to $2$--$4$ hints, whereas $\xi_1 = 6$ corresponds to $16$ hints. However, this is bound to happen with any choice of mapping from $x_1$ to $\xi_1$, because the number of hints is $100/\xi_1$, which grows rapidly. In order to enforce these parameters, the AI system was given a prompt isomorphic to
+Answer specificity is the rough percentage of the solution given away when the student is stuck or asks for a hint. It is additive: if the previous hint gave away $p\%$ of the solution, the subsequent hint will give away $(p + \xi_1)\%$. Moreover, the answer to a problem is never given away, even if a hint is meant to give away $\ge 100\%$ of the solution; this ensures that at least minimal cognitive effort is applied. To convert from coded units to actual (so-called ``natural'') units, we use the formula
+\[\xi_1 = 12x_1 +30.\] Given that the coded units are points where $x_1 \in \{-2, -1, 0, 1, 2\}$, the natural values are $\xi_1 \in \{6, 18, 30, 42, 54\}$. These specific values were chosen with the assumption that practice problems take roughly $3$ steps, which is why $x_1=0 \implies \xi_1 = 30$. One key limitation is that $30, 42,$ and $54$ correspond to $2$--$4$ hints, whereas $\xi_1 = 6$ corresponds to $16$. This is unavoidable under any mapping, since the number of hints is $100/\xi_1$, which grows rapidly. In order to enforce these parameters, the AI system was given a prompt isomorphic to
 \begin{enumerate}
     \item Write out the solution to the problem. Break up the solution into the smallest chunks possible that still require cognitive effort and are not simple computations.
     \item Assign a percentage to each step from above describing how much of the solution it gives away. These percentages must sum to 100.
     \item The hint should consist of the next $n$ steps (adding on to the previous hint and the student's work) such that the sum of the percentages associated with those steps is as close as possible to $\xi_1$.
 \end{enumerate}
-This reveals another limitation, specifically that the exact $\xi_1$ cannot be followed most of the time. However, we make the best effort to follow $\xi_1$ without having to give useless hints.
+This reveals another limitation: the exact $\xi_1$ cannot be met most of the time, though we approximate it as closely as we can without giving useless hints.
 \\\\
 \textbf{Access Delay.} Access delay refers to the forced time in which the user attempts the problem without AI assistance. This occurs both at the beginning of the problem and between hints. In accordance with Kapur's productive failure framework, the period of access delay is significantly longer at the beginning of the problem than during it. Here, we use the formula
 \[\xi_2 = 70 \cdot 3^{x_2/4}.\] This provides the conversion
-\[\{-2, -1, 0, 1, 2\} \longrightarrow \{40, 53, 70, 92, 121\},\] where the values in the second set have been rounded to the nearest integer. We still need to take into account the difficulty of the problem. Clearly, an easier problem for the learner should not receive the same access delay as one that is extremely hard for the learner. Letting the difficulty of the problem be a variable $d \in \{1,\dots, 5\}$, the delays are given by
+\[\{-2, -1, 0, 1, 2\} \longrightarrow \{40, 53, 70, 92, 121\},\] where the values in the second set have been rounded to the nearest integer. We must also account for difficulty, since an easy problem should not receive the same access delay as a hard one. Letting difficulty be a variable $d \in \{1,\dots, 5\}$, the delays are given by
 \[\text{initial access delay} = \xi_2 \cdot  3^{(d-1)/4}\]
 \[\text{mid-problem access delay} = \frac {\xi_2}{2} \cdot 3^{(d-1)/8}.\]
 These numbers seem arbitrary, but were chosen with the idea that harder problems take nearly exponentially more time, since working through unfamiliar ideas is slow. Moreover, the maximum delay over all $\xi_2$ is capped at $6$ minutes, a figure determined by communicating with the target students. For clarity, the delays for $d=3$ are shown below.
